@@ -21,6 +21,7 @@ function Hero() {
   return (
     <header className="mt-5 bg-white p-8">
     <div className="w-w-full container mx-auto pt-12 pb-24 text-center">
+      {/* @ts-ignore */} 
       <Typography
         color="blue-gray"
         className="mx-auto w-full text-[30px] lg:text-[48px] font-bold leading-[45px] lg:leading-[60px] lg:max-w-2xl"
@@ -28,6 +29,7 @@ function Hero() {
         Let us craft your content
         if you are looking for professional:
       </Typography>
+      {/* @ts-ignore */} 
       <Typography
         variant="lead"
         className="mx-auto mt-8 mb-4 w-full text-[20px] lg:text-[30px] px-8 !text-gray-700 lg:w-10/12 lg:px-12 xl:w-8/12 xl:px-20"
@@ -46,11 +48,13 @@ function Hero() {
             {/* @ts-ignore */}
             <Input label="name@creative-tim.com" />
           </div>
+          {/* @ts-ignore */} 
           <Button size="md" className="lg:w-max shrink-0" fullWidth color="gray">
             get started
           </Button>
         </div>
         <div className="flex items-center gap-1">
+          {/* @ts-ignore */} 
           <Typography variant="small" className="font-normal text-gray-700">
             See our{" "}
             <a

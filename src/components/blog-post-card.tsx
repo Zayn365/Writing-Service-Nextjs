@@ -27,7 +27,9 @@ export function BlogPostCard({
   date,
 }: BlogPostCardProps) {
   return (
+    // {/* @ts-ignore */}
     <Card shadow={true}>
+      {/* @ts-ignore */}
       <CardHeader>
         <Image
           width={768}
@@ -37,10 +39,13 @@ export function BlogPostCard({
           className="h-full w-full scale-110 object-cover"
         />
       </CardHeader>
+      {/* @ts-ignore */}
       <CardBody className="p-6">
+        {/* @ts-ignore */}
         <Typography variant="small" color="blue" className="mb-2 !font-medium">
           {tag}
         </Typography>
+        {/* @ts-ignore */}
         <Typography
           as="a"
           href="#"
@@ -50,10 +55,12 @@ export function BlogPostCard({
         >
           {title}
         </Typography>
+        {/* @ts-ignore */}
         <Typography className="mb-6 font-normal !text-gray-500">
           {desc}
         </Typography>
         <div className="flex items-center gap-4">
+          {/* @ts-ignore */}
           <Avatar
             size="sm"
             variant="circular"
@@ -61,6 +68,7 @@ export function BlogPostCard({
             alt={author.name}
           />
           <div>
+            {/* @ts-ignore */}
             <Typography
               variant="small"
               color="blue-gray"
@@ -68,6 +76,7 @@ export function BlogPostCard({
             >
               {author.name}
             </Typography>
+            {/* @ts-ignore */}
             <Typography
               variant="small"
               color="gray"

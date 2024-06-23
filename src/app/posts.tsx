@@ -98,12 +98,15 @@ export function Posts() {
           </TabsHeader> */}
         </div>
       </Tabs>
+      {/* @ts-ignore */} 
       <Typography variant="h6" className="mb-2">
         Latest Blog Posts
       </Typography>
+      {/* @ts-ignore */} 
       <Typography variant="h1" className="mb-2">
         Trends News
       </Typography>
+      {/* @ts-ignore */} 
       <Typography
         variant="lead"
         color="gray"
@@ -129,6 +132,7 @@ export function Posts() {
           />
         ))}
       </div>
+      {/* @ts-ignore */} 
       <Button
         variant="text"
         size="lg"

@@ -1,9 +1,14 @@
 import React from "react";
 import {
+// @ts-ignore
   Navbar as MTNavbar,
+  // @ts-ignore
   Collapse,
+  // @ts-ignore
   Button,
+  // @ts-ignore
   IconButton,
+  // @ts-ignore
   Typography,
 } from "@material-tailwind/react";
 import {
@@ -36,8 +41,10 @@ interface NavItemProps {
 }
 
 function NavItem({ children, href }: NavItemProps) {
+ 
   return (
-    <li>
+ <li>
+  {/* @ts-ignore */}
       <Typography
         as="a"
         href={href || "#"}
@@ -65,8 +72,10 @@ export function Navbar() {
   }, []);
 
   return (
+    // @ts-ignore
     <MTNavbar shadow={false} fullWidth className="border-0 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between">
+        {/* @ts-ignore */}
         <Typography
           as="a"
           href="/"
@@ -85,11 +94,14 @@ export function Navbar() {
           ))}
         </ul>
         <div className="hidden items-center gap-2 lg:flex">
+        {/* @ts-ignore */}
           <Button variant="text">Sign In</Button>
           <a href="#" target="_blank">
+            {/* @ts-ignore */}
             <Button color="gray">Sign Up</Button>
           </a>
         </div>
+        {/* @ts-ignore */}
         <IconButton
           variant="text"
           color="gray"
@@ -114,8 +126,10 @@ export function Navbar() {
             ))}
           </ul>
           <div className="mt-6 mb-4 flex items-center gap-2">
+            {/* @ts-ignore */}
             <Button variant="text">Sign In</Button>
             <a href="#" target="_blank">
+            {/* @ts-ignore */}
               <Button color="gray">Sign Up</Button>
             </a>
           </div>
