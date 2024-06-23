@@ -27,7 +27,7 @@ export function BlogPostCard({
   date,
 }: BlogPostCardProps) {
   return (
-    // {/* @ts-ignore */}
+    // @ts-ignore 
     <Card shadow={true}>
       {/* @ts-ignore */}
       <CardHeader>
