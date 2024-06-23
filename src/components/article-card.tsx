@@ -14,7 +14,7 @@ interface ArticleCardProps {
   
   export function ArticleCard({ img, title, desc }: ArticleCardProps) {
     return (
-      // {/* @ts-ignore */}
+      // @ts-ignore 
       <Card
         className="relative grid min-h-[30rem] items-end overflow-hidden rounded-xl"
         color="transparent"
