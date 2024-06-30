@@ -1,7 +1,7 @@
-"use client";
 import Image from "next/image";
 import React from "react";
 import bg from "../../../public/image/about/image.png";
+import team from "../../../public/image/about/team.jpg";
 import whatWedo from "../../../public/image/about/what-we-do.png";
 import joinUs from "../../../public/image/about/join-us.png";
 import ourValue from "../../../public/image/about/value.png";
@@ -30,7 +30,7 @@ const About = () => {
           </p>
         </div>
         <div className="w-full md:w-1/2">
-          <Image src={bg} alt="about" className="rounded-lg" />
+          <Image src={team} alt="about" className="rounded-lg" />
         </div>
       </div>
       <div className="container flex flex-col justify-center items-center gap-y-3 mx-auto my-14">
