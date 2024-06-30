@@ -12,7 +12,7 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: "Write Article",
   description:
-    "Download Tailwind Blog Post Page, a free webpage template developed by Creative Tim. Based on Tailwind CSS and Material Tailwind, see the live demo on our site and elevate your blogging experience!",
+    "Write Article is a streamlined tool that simplifies the article-writing process. It features real-time collaboration, grammar and style suggestions, and a distraction-free interface, helping writers produce polished, professional content with ease.",
 };
 
 export default function RootLayout({
