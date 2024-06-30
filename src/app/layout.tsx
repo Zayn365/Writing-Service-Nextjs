@@ -1,7 +1,8 @@
+"use client";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import { Layout, FixedPlugin, Navbar, Footer } from "@/components";
+import { Layout, Navbar, Footer } from "@/components";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -34,9 +35,8 @@ export default function RootLayout({
       </head>
       <body className={roboto.className}>
         <Layout>
-        <Navbar />
+          <Navbar />
           {children}
-          {/* <FixedPlugin /> */}
           <Footer />
         </Layout>
       </body>

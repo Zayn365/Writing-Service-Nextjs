@@ -1,6 +1,6 @@
 import React from "react";
 import {
-// @ts-ignore
+  // @ts-ignore
   Navbar as MTNavbar,
   // @ts-ignore
   Collapse,
@@ -17,12 +17,16 @@ import {
   CommandLineIcon,
   XMarkIcon,
   Bars3Icon,
+  ChatBubbleLeftIcon,
+  UserGroupIcon,
 } from "@heroicons/react/24/solid";
+import Link from "next/link";
 
 const NAV_MENU = [
   {
     name: "Page",
     icon: RectangleStackIcon,
+    href: "/",
   },
   {
     name: "Account",
@@ -31,7 +35,17 @@ const NAV_MENU = [
   {
     name: "About",
     icon: CommandLineIcon,
-    href: "/",
+    href: "/about",
+  },
+  {
+    name: "Contact",
+    icon: ChatBubbleLeftIcon,
+    href: "/contact",
+  },
+  {
+    name: "Service",
+    icon: UserGroupIcon,
+    href: "/service",
   },
 ];
 
@@ -41,18 +55,16 @@ interface NavItemProps {
 }
 
 function NavItem({ children, href }: NavItemProps) {
- 
   return (
- <li>
-  {/* @ts-ignore */}
+    <li>
+      {/* @ts-ignore */}
       <Typography
         as="a"
         href={href || "#"}
-        target={href ? "_blank" : "_self"}
+        target={href ? "_self" : "_self"}
         variant="paragraph"
         color="gray"
-        className="flex items-center gap-2 font-medium text-gray-900"
-      >
+        className="flex items-center gap-2 font-medium text-gray-900">
         {children}
       </Typography>
     </li>
@@ -81,33 +93,38 @@ export function Navbar() {
           href="/"
           target="_blank"
           color="blue-gray"
-          className="text-lg font-bold"
-        >
+          className="text-lg font-bold">
           <img src="image/logo.png" alt="logo" />
         </Typography>
         <ul className="ml-10 hidden items-center gap-8 lg:flex">
           {NAV_MENU.map(({ name, icon: Icon, href }) => (
             <NavItem key={name} href={href}>
+              {/* @ts-ignore */}
               <Icon className="h-5 w-5" />
               {name}
             </NavItem>
           ))}
         </ul>
         <div className="hidden items-center gap-2 lg:flex">
-        {/* @ts-ignore */}
-          <Button variant="text">Sign In</Button>
-          <a href="#" target="_blank">
+          <Link href="/signin" target="_self">
             {/* @ts-ignore */}
-            <Button color="gray">Sign Up</Button>
-          </a>
+            <Button href="/signin" color="gray">
+              Sign In
+            </Button>
+          </Link>
+          <Link href="/signup" target="_self">
+            {/* @ts-ignore */}
+            <Button href="/signup" color="gray">
+              Sign Up
+            </Button>
+          </Link>
         </div>
         {/* @ts-ignore */}
         <IconButton
           variant="text"
           color="gray"
           onClick={handleOpen}
-          className="ml-auto inline-block lg:hidden"
-        >
+          className="ml-auto inline-block lg:hidden">
           {open ? (
             <XMarkIcon strokeWidth={2} className="h-6 w-6" />
           ) : (
@@ -118,20 +135,28 @@ export function Navbar() {
       <Collapse open={open}>
         <div className="container mx-auto mt-3 border-t border-gray-200 px-2 pt-4">
           <ul className="flex flex-col gap-4">
-            {NAV_MENU.map(({ name, icon: Icon }) => (
-              <NavItem key={name}>
+            {NAV_MENU.map(({ name, icon: Icon, href }) => (
+              <NavItem key={name} href={href}>
+                {/* @ts-ignore */}
                 <Icon className="h-5 w-5" />
                 {name}
               </NavItem>
             ))}
           </ul>
           <div className="mt-6 mb-4 flex items-center gap-2">
-            {/* @ts-ignore */}
-            <Button variant="text">Sign In</Button>
-            <a href="#" target="_blank">
-            {/* @ts-ignore */}
-              <Button color="gray">Sign Up</Button>
-            </a>
+            <Link href="/signin">
+              {/* @ts-ignore */}
+              <Button href="/signin" color="gray">
+                Sign In
+              </Button>
+              Sign In
+            </Link>
+            <Link href="/signup" target="_self">
+              {/* @ts-ignore */}
+              <Button href="/signup" color="gray">
+                Sign Up
+              </Button>
+            </Link>
           </div>
         </div>
       </Collapse>
