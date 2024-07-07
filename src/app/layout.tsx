@@ -1,7 +1,10 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
-import { Layout, FixedPlugin, Navbar, Footer } from "@/components";
+import { Layout, Navbar, Footer } from "@/components";
+import AppContextLoader from "@/context/AppContext";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -12,7 +15,7 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: "Write Article",
   description:
-    "Download Tailwind Blog Post Page, a free webpage template developed by Creative Tim. Based on Tailwind CSS and Material Tailwind, see the live demo on our site and elevate your blogging experience!",
+    "Write Article is a streamlined tool that simplifies the article-writing process. It features real-time collaboration, grammar and style suggestions, and a distraction-free interface, helping writers produce polished, professional content with ease.",
 };
 
 export default function RootLayout({
@@ -33,12 +36,14 @@ export default function RootLayout({
         <link rel="shortcut icon" href="image/logo.png" type="image/png" />
       </head>
       <body className={roboto.className}>
+       <AppContextLoader>
         <Layout>
-        <Navbar />
+          <Navbar />
           {children}
-          {/* <FixedPlugin /> */}
+          <ToastContainer/>
           <Footer />
         </Layout>
+        </AppContextLoader>
       </body>
     </html>
   );

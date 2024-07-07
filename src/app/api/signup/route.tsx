@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { NextApiRequest, NextApiResponse } from "next";
 import { signup, login, update, deleteUser } from "../../../../models/Users";
-import nc from 'next-connect';
+import NextCors from 'nextjs-cors';
 
 // Notice the function definition:
 export async function GET(req: NextRequest) {
@@ -16,6 +16,12 @@ export async function GET(req: NextRequest) {
 // Notice the function definition:
 export async function POST(req: Request, res: NextApiResponse) {
   try {
+  //   await NextCors(req as any, res, {
+  //     // Options
+  //     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  //     origin: '*',
+  //     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  //  });
     const data = await req.json();
     // return NextResponse.json(data);
     const user = await signup(data);

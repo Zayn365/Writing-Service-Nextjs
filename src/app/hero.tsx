@@ -19,8 +19,6 @@ const services = [
 import axios from "axios";
 
 function Hero() {
-  const hat = axios.get("http://localhost:3000/api/user");
-  console.log(hat);
   return (
     <header className="mt-5 bg-white p-8">
     <div className="w-w-full container mx-auto pt-12 pb-24 text-center">
