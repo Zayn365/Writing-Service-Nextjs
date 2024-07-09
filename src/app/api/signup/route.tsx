@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { NextApiRequest, NextApiResponse } from "next";
 import { signup, login, update, deleteUser } from "../../../../models/Users";
-import NextCors from 'nextjs-cors';
+// import NextCors from 'nextjs-cors';
 
 // Notice the function definition:
 export async function GET(req: NextRequest) {
