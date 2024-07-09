@@ -5,6 +5,7 @@ import signIn from "../../../public/image/signin.jpg";
 import { Button, Typography } from "@material-tailwind/react";
 import { UserHooks } from "@/hooks/UserHooks";
 import { useAppContext } from "@/context/AppContext";
+import { ToastContainer } from "react-toastify";
 
 const Signin = () => {
   const [form, setForm] = useState({
@@ -19,6 +20,8 @@ const Signin = () => {
     }
   }, []);
   return (
+    <>
+    <ToastContainer />
     <div className=" py-16 md:py-22 flex items-center justify-center bg-white">
       <div className="flex flex-col lg:flex-row w-11/12 lg:w-3/4 bg-[#F97E1A] rounded-lg overflow-hidden shadow-lg">
         <div className="w-full lg:w-1/2 p-6 flex items-center justify-center relative">
@@ -81,6 +84,7 @@ const Signin = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
