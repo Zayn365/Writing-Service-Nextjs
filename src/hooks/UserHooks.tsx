@@ -35,18 +35,16 @@ async function handleSignup(data:any){
             profileImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
             rating: 4.2,
             status: "active",
-            userType: "user",
+            userType: "admin",
             writerSampleFile: "https://example.com/johndoe-sample.docx"
          }).then((res:any) => {
-             if(res.user){
                toast.success("User Created Successfully!");
-             }else {
-              toast.error("User Faild To Created");          
-             }
+               setTimeout(() => {
+                router.push("/signin");
+            }, 6000);
+         }).catch((e:any) => {
+          toast.error(`User Faild To Created Cause ${e.message}`);          
          });
-        setTimeout(() => {
-            router.push("/signin");
-        }, 6000);
     } catch(e:any) {
     toast.error("User Faild To Created");
       console.log(e.message);
@@ -65,9 +63,9 @@ async function handleSignup(data:any){
       const stringer = JSON.stringify(res.data.user);
       Cookies.set("user" , stringer);
       toast.success("User Logged In SuccessFully");
-      // setTimeout(() => {
-      //   router.push("/");
-      // } , 2000)
+      setTimeout(() => {
+        router.push("/");
+      } , 2000)
     })
    } catch (error:any) {
     toast.success("Login Failed");

@@ -51,14 +51,14 @@ const NAV_MENU = [
     href: "/service",
   },
   {
-    name: "ComingSoon",
+    name: "Menu",
     icon: CubeIcon,
     subItems: [
-      { name: "Users", href: "/comingSoon/users" },
-      { name: "Profile", href: "/comingSoon/profile" },
-      { name: "Orders", href: "/comingSoon/orders" },
-      { name: "Transcations History", href: "/comingSoon/transcations" },
-      { name: "Settings ", href: "/comingSoon/settings" },
+      { name: "Users", href: "/menu/users", type: "admin" },
+      { name: "Profile", href: "/menu/profile" },
+      { name: "Orders", href: "/menu/orders" , type: "admin" },
+      { name: "Transcations History", href: "/menu/transcations" , type: "admin" },
+      { name: "Settings ", href: "/menu/settings" },
     ],
   },
 ];
@@ -88,7 +88,7 @@ function NavItem({ children, href }: NavItemProps) {
 }
 function Dropdown({ name, icon: Icon, subItems }: any) {
   const [open, setOpen] = useState(false);
-
+  const {user} = useAppContext();
   return (
     <li className="relative">
       <button
@@ -99,11 +99,16 @@ function Dropdown({ name, icon: Icon, subItems }: any) {
       </button>
       {open && (
         <ul className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 px-2">
-          {subItems.map((subItem: any) => (
+          {user && user.userType === "admin" ? subItems.map((subItem: any) => (
             <NavItem key={subItem.name} href={subItem.href}>
               {subItem.name}
             </NavItem>
-          ))}
+          )) : subItems.map((subItem: any) => {
+            if(!subItem?.type)
+          return <NavItem key={subItem.name} href={subItem.href}>
+              {subItem.name}
+            </NavItem>
+})}
         </ul>
       )}
     </li>
@@ -221,7 +226,7 @@ export function Navbar() {
       <Collapse open={open}>
         <div className="container mx-auto mt-3 border-t border-gray-200 px-2 pt-4">
           <ul className="flex flex-col gap-4">
-            {NAV_MENU.map(({ name, icon: Icon, href, subItems }: any) =>
+            {user && NAV_MENU.map(({ name, icon: Icon, href, subItems }: any) =>
               subItems ? (
                 <Dropdown
                   key={name}
