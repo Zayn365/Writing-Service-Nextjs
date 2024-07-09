@@ -35,7 +35,7 @@ async function handleSignup(data:any){
             profileImage: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
             rating: 4.2,
             status: "active",
-            userType: "admin",
+            userType: "user",
             writerSampleFile: "https://example.com/johndoe-sample.docx"
          }).then((res:any) => {
                toast.success("User Created Successfully!");
