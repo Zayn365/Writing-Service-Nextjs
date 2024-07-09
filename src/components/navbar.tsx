@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   // @ts-ignore
   Navbar as MTNavbar,
@@ -10,6 +10,7 @@ import {
   IconButton,
   // @ts-ignore
   Typography,
+  Avatar,
 } from "@material-tailwind/react";
 import {
   RectangleStackIcon,
@@ -19,8 +20,10 @@ import {
   Bars3Icon,
   ChatBubbleLeftIcon,
   UserGroupIcon,
+  CubeIcon,
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import { useAppContext } from "@/context/AppContext";
 
 const NAV_MENU = [
   {
@@ -47,13 +50,26 @@ const NAV_MENU = [
     icon: UserGroupIcon,
     href: "/service",
   },
+  {
+    name: "ComingSoon",
+    icon: CubeIcon,
+    subItems: [
+      { name: "Users", href: "/comingSoon/users" },
+      { name: "Profile", href: "/comingSoon/profile" },
+      { name: "Orders", href: "/comingSoon/orders" },
+      { name: "Transcations History", href: "/comingSoon/transcations" },
+      { name: "Settings ", href: "/comingSoon/settings" },
+    ],
+  },
 ];
 
 interface NavItemProps {
   children: React.ReactNode;
   href?: string;
 }
-
+import profile from "../../public/image/profile.jpg";
+import Image from "next/image";
+import Cookies from "js-cookie";
 function NavItem({ children, href }: NavItemProps) {
   return (
     <li>
@@ -64,16 +80,39 @@ function NavItem({ children, href }: NavItemProps) {
         target={href ? "_self" : "_self"}
         variant="paragraph"
         color="gray"
-        className="flex items-center gap-2 font-medium text-gray-900">
+        className="flex items-center gap-2 font-medium my-1 text-gray-900">
         {children}
       </Typography>
+    </li>
+  );
+}
+function Dropdown({ name, icon: Icon, subItems }: any) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <li className="relative">
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center gap-2 font-medium text-gray-900">
+        {Icon && <Icon className="h-5 w-5" />}
+        {name}
+      </button>
+      {open && (
+        <ul className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 px-2">
+          {subItems.map((subItem: any) => (
+            <NavItem key={subItem.name} href={subItem.href}>
+              {subItem.name}
+            </NavItem>
+          ))}
+        </ul>
+      )}
     </li>
   );
 }
 
 export function Navbar() {
   const [open, setOpen] = React.useState(false);
-
+  const [profile, setProfile] = useState();
   const handleOpen = () => setOpen((cur) => !cur);
 
   React.useEffect(() => {
@@ -82,6 +121,17 @@ export function Navbar() {
       () => window.innerWidth >= 960 && setOpen(false)
     );
   }, []);
+  const { user } = useAppContext();
+  useEffect(() => {
+    if (user) {
+      setProfile(user);
+    }
+  }, [user]);
+
+  const handleLogout = () => {
+    Cookies.remove("user");
+    window.location.href = "/";
+  };
 
   return (
     // @ts-ignore
@@ -97,27 +147,63 @@ export function Navbar() {
           <img src="image/logo.png" alt="logo" />
         </Typography>
         <ul className="ml-10 hidden items-center gap-8 lg:flex">
-          {NAV_MENU.map(({ name, icon: Icon, href }) => (
-            <NavItem key={name} href={href}>
-              {/* @ts-ignore */}
-              <Icon className="h-5 w-5" />
-              {name}
-            </NavItem>
-          ))}
+          {NAV_MENU.map(({ name, icon: Icon, href, subItems }: any) =>
+            subItems ? (
+              <Dropdown
+                key={name}
+                name={name}
+                icon={Icon}
+                subItems={subItems}
+              />
+            ) : (
+              <NavItem key={name} href={href}>
+                {Icon && <Icon className="h-5 w-5" />}
+                {name}
+              </NavItem>
+            )
+          )}
         </ul>
         <div className="hidden items-center gap-2 lg:flex">
-          <Link href="/signin" target="_self">
-            {/* @ts-ignore */}
-            <Button href="/signin" color="gray">
-              Sign In
-            </Button>
-          </Link>
-          <Link href="/signup" target="_self">
-            {/* @ts-ignore */}
-            <Button href="/signup" color="gray">
-              Sign Up
-            </Button>
-          </Link>
+          {user ? (
+            <Link href="/" color="gray" className=" ">
+              {/* @ts-ignore */}
+              <Button
+                /* @ts-ignore */
+                href="/"
+                color="white"
+                className="flex justify-center items-center py-2 gap-x-5 rounded-lg px-2">
+                {/* @ts-ignore */}
+                <UserCircleIcon color="grey" width={25} />
+                {/* @ts-ignore */}
+                <Typography href="/" color="grey">
+                  {/* @ts-ignore */}
+                  {profile?.name}
+                </Typography>
+              </Button>
+            </Link>
+          ) : (
+            <Link href="/signin" target="_self">
+              {/* @ts-ignore */}
+              <Button href="/signin" color="gray">
+                Sign In
+              </Button>
+            </Link>
+          )}
+          {user ? (
+            <>
+              {/* @ts-ignore */}
+              <Button color="gray" onClick={handleLogout}>
+                log out
+              </Button>
+            </>
+          ) : (
+            <Link href="/signup" target="_self">
+              {/* @ts-ignore */}
+              <Button href="/signup" color="gray">
+                Sign Up
+              </Button>
+            </Link>
+          )}
         </div>
         {/* @ts-ignore */}
         <IconButton
@@ -135,28 +221,65 @@ export function Navbar() {
       <Collapse open={open}>
         <div className="container mx-auto mt-3 border-t border-gray-200 px-2 pt-4">
           <ul className="flex flex-col gap-4">
-            {NAV_MENU.map(({ name, icon: Icon, href }) => (
-              <NavItem key={name} href={href}>
-                {/* @ts-ignore */}
-                <Icon className="h-5 w-5" />
-                {name}
-              </NavItem>
-            ))}
+            {NAV_MENU.map(({ name, icon: Icon, href, subItems }: any) =>
+              subItems ? (
+                <Dropdown
+                  key={name}
+                  name={name}
+                  icon={Icon}
+                  subItems={subItems}
+                />
+              ) : (
+                <NavItem key={name} href={href}>
+                  {Icon && <Icon className="h-5 w-5" />}
+                  {name}
+                </NavItem>
+              )
+            )}
           </ul>
           <div className="mt-6 mb-4 flex items-center gap-2">
-            <Link href="/signin">
-              {/* @ts-ignore */}
-              <Button href="/signin" color="gray">
-                Sign In
-              </Button>
-              Sign In
-            </Link>
-            <Link href="/signup" target="_self">
-              {/* @ts-ignore */}
-              <Button href="/signup" color="gray">
-                Sign Up
-              </Button>
-            </Link>
+            {user ? (
+              <Link href="/">
+                <Link href="/" color="gray" className=" ">
+                  {/* @ts-ignore */}
+                  <Button
+                    /* @ts-ignore */
+                    href="/"
+                    color="white"
+                    className="flex justify-center items-center py-2 gap-x-5 rounded-lg px-2">
+                    {/* @ts-ignore */}
+                    <UserCircleIcon color="grey" width={25} />
+                    {/* @ts-ignore */}
+                    <Typography href="/" color="grey">
+                      {/* @ts-ignore */}
+                      {profile?.name}
+                    </Typography>
+                  </Button>
+                </Link>
+              </Link>
+            ) : (
+              <Link href="/signin">
+                {/* @ts-ignore */}
+                <Button href="/signin" color="gray">
+                  Sign In
+                </Button>
+              </Link>
+            )}
+            {user ? (
+              <>
+                {/* @ts-ignore */}
+                <Button color="gray" onClick={handleLogout}>
+                  log out
+                </Button>
+              </>
+            ) : (
+              <Link href="/signup" target="_self">
+                {/* @ts-ignore */}
+                <Button href="/signup" color="gray">
+                  Sign Up
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </Collapse>

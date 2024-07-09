@@ -3,22 +3,22 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import signUP from "../../../public/image/signup.jpg";
 import { Button, Typography } from "@material-tailwind/react";
-import {UserHooks} from "../../hooks/UserHooks";
+import { UserHooks } from "../../hooks/UserHooks";
 import { ToastContainer } from "react-toastify";
 import { useAppContext } from "@/context/AppContext";
 const Signup = () => {
-  const [form , setForm] = useState({
+  const [form, setForm] = useState({
     name: "",
     email: "",
-    password: "" 
+    password: "",
   });
-  const {user} = useAppContext();
+  const { user } = useAppContext();
   useEffect(() => {
-    if(user){
-   window.location.href = "/"
+    if (user) {
+      window.location.href = "/";
     }
-  },[])
-  const {handleSignup} = UserHooks();
+  }, []);
+  const { handleSignup } = UserHooks();
 
   return (
     <div className="py-16 md:py-22   flex items-center justify-center bg-white">
@@ -45,17 +45,20 @@ const Signup = () => {
             </Button>
           </div>
 
-          <form onSubmit={(e:any) => {
-            e.preventDefault();
-            handleSignup(form);}} className="mt-8">
+          <form
+            onSubmit={(e: any) => {
+              e.preventDefault();
+              handleSignup(form);
+            }}
+            className="mt-8">
             <div className="mb-4">
               <label className="block mb-1">Fullname</label>
               <input
                 type="text"
                 onChange={(e) => {
                   setForm((prev) => {
-                    return { ...prev, name: e.target.value }
-                  })
+                    return { ...prev, name: e.target.value };
+                  });
                 }}
                 className="w-full p-2 rounded outline-none bg-gray-600 text-white"
                 placeholder="Name"
@@ -64,11 +67,11 @@ const Signup = () => {
             <div className="mb-4">
               <label className="block mb-1">Email</label>
               <input
-              onChange={(e) => {
-                setForm((prev) => {
-                  return { ...prev, email: e.target.value }
-                })
-              }}
+                onChange={(e) => {
+                  setForm((prev) => {
+                    return { ...prev, email: e.target.value };
+                  });
+                }}
                 type="email"
                 className="w-full p-2 outline-none rounded bg-gray-600 text-white"
                 placeholder="Email"
@@ -77,11 +80,11 @@ const Signup = () => {
             <div className="mb-4">
               <label className="block mb-1">Password</label>
               <input
-              onChange={(e) => {
-                setForm((prev) => {
-                  return { ...prev, password: e.target.value }
-                })
-              }}
+                onChange={(e) => {
+                  setForm((prev) => {
+                    return { ...prev, password: e.target.value };
+                  });
+                }}
                 type="password"
                 className="w-full p-2 rounded outline-none bg-gray-600 text-white"
                 placeholder="Password"

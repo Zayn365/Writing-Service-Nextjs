@@ -7,17 +7,18 @@ import { UserHooks } from "@/hooks/UserHooks";
 import { useAppContext } from "@/context/AppContext";
 
 const Signin = () => {
-  const [form , setForm] = useState({
+  const [form, setForm] = useState({
     email: "",
-    password: "" 
-  })
-  const {handleSignIn} = UserHooks();
-  const {user} = useAppContext();
+    password: "",
+  });
+  const { handleSignIn } = UserHooks();
+  const { user } = useAppContext();
   useEffect(() => {
-    if(user){
-      window.location.href = "/"    }
-  },[])
-    return (
+    if (user) {
+      window.location.href = "/";
+    }
+  }, []);
+  return (
     <div className=" py-16 md:py-22 flex items-center justify-center bg-white">
       <div className="flex flex-col lg:flex-row w-11/12 lg:w-3/4 bg-[#F97E1A] rounded-lg overflow-hidden shadow-lg">
         <div className="w-full lg:w-1/2 p-6 flex items-center justify-center relative">
@@ -39,10 +40,11 @@ const Signin = () => {
               </svg>
             </button>
           </div>
-          <form onSubmit={(e:any) => {
-            e.preventDefault();
-            handleSignIn(form);
-          }}>
+          <form
+            onSubmit={(e: any) => {
+              e.preventDefault();
+              handleSignIn(form);
+            }}>
             <div className="mb-4">
               <label className="block mb-1">Email</label>
               <input
@@ -51,8 +53,8 @@ const Signin = () => {
                 placeholder="Email"
                 onChange={(e) => {
                   setForm((prev) => {
-                    return { ...prev, email: e.target.value }
-                  })
+                    return { ...prev, email: e.target.value };
+                  });
                 }}
               />
             </div>
@@ -64,8 +66,8 @@ const Signin = () => {
                 placeholder="Password"
                 onChange={(e) => {
                   setForm((prev) => {
-                    return { ...prev, password: e.target.value }
-                  })
+                    return { ...prev, password: e.target.value };
+                  });
                 }}
               />
             </div>

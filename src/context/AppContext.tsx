@@ -1,24 +1,21 @@
-"use client"
+"use client";
 import Cookies from "js-cookie";
-import { createContext,useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 const AppContext = createContext(null); // Create a context
 
 const AppContextLoader = ({ children }) => {
   const getUserData = Cookies.get("user");
-  const jsonData = JSON.parse(getUserData);
+  // const jsonData = JSON.parse(getUserData);
+  const jsonData = getUserData ? JSON.parse(getUserData) : null;
   const [user, setUser] = useState(jsonData); // Initialize user state
 
   const value = {
     user,
-    setUser
+    setUser,
   };
 
-  return (
-    <AppContext.Provider value={value}>
-      {children}
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 // @ts-ignore
 const useAppContext = () => useContext(AppContext); // Create a hook to consume the context
