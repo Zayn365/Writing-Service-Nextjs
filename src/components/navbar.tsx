@@ -154,12 +154,14 @@ export function Navbar() {
         <ul className="ml-10 hidden items-center gap-8 lg:flex">
           {NAV_MENU.map(({ name, icon: Icon, href, subItems }: any) =>
             subItems ? (
+              <div key={name} className={`${user ? "" : "hidden"}`}>
               <Dropdown
                 key={name}
                 name={name}
                 icon={Icon}
                 subItems={subItems}
               />
+              </div>
             ) : (
               <NavItem key={name} href={href}>
                 {Icon && <Icon className="h-5 w-5" />}
