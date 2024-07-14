@@ -15,9 +15,56 @@ type UsersAddress {
   zip        String
 }
 
+model clients {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  address           String
+  affiliateId       String
+  city              String
+  completedArticles Int
+  country           String
+  createdAt         DateTime @db.Date
+  email             String
+  ipAddress         String
+  isDeleted         Boolean
+  modifiedAt        DateTime @db.Date
+  name              String
+  password          String
+  paypalId          String
+  phone             String
+  profileImage      String
+  refererId         Int
+  referringPoints   Int
+  roleId            Int
+  status            Int
+  streetName        String
+  token             String
+  username          String
+  zip               String
+}
+
+model orders {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  affiliateAmount     String
+  affiliateAmountPaid Int
+  affiliateId         String
+  date                DateTime @db.Date
+  orderNo             String
+  originalAmount      String
+  paymentType         String
+  status              Int
+  totalAmount         String
+  userId              Int
+}
+
+model testimonials {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  text  String
+  title String
+}
+
 model users {
   id               String       @id @default(auto()) @map("_id") @db.ObjectId
-  v                Int          @map("__v")
+  /// Multiple data types found: Int: 8.3%, BigInt: 91.7% out of 12 sampled entries
   address          UsersAddress
   categories       String[]
   date             DateTime     @db.Date

@@ -63,18 +63,7 @@ export async function update(id: string, data: any) {
       where: {
         id: id,
       },
-      data: {
-        ...data,
-        address: {
-          update: {
-            address: data.address,
-            city: data.city,
-            country: data.country,
-            streetName: data.streetName,
-            zip: data.zip,
-          },
-        },
-      },
+      data: data
     });
     return user;
   } catch (error) {

@@ -13,7 +13,6 @@ const date =new Date;
 async function handleSignup(data:any){
     try{
         Axios.post('/api/signup' , {
-            v: 0,
             address: {
               address: "123 Main St",
               city: "New York",
