@@ -16,70 +16,105 @@ type UsersAddress {
 }
 
 model clients {
-  id                String   @id @default(auto()) @map("_id") @db.ObjectId
-  address           String
-  affiliateId       String
-  city              String
-  completedArticles Int
-  country           String
-  createdAt         DateTime @db.Date
-  email             String
-  ipAddress         String
-  isDeleted         Boolean
-  modifiedAt        DateTime @db.Date
-  name              String
-  password          String
-  paypalId          String
-  phone             String
-  profileImage      String
-  refererId         Int
-  referringPoints   Int
-  roleId            Int
-  status            Int
-  streetName        String
-  token             String
-  username          String
-  zip               String
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  address            String?
+  /// Multiple data types found: String: 99.9%, Int: 0.1% out of 977 sampled entries
+  city               Json?
+  completed_articles Int?
+  /// Multiple data types found: String: 99.9%, Int: 0.1% out of 982 sampled entries
+  country            Json?
+  created            String?
+  email              String?
+  id_                Int     @map("id")
+  is_deleted         Int?
+  modified           String?
+  name               String?
+  /// Multiple data types found: String: 98.5%, Binary: 1.5% out of 1000 sampled entries
+  password           Json?
+  paypal_id          String?
+  /// Multiple data types found: String: 45.5%, BigInt: 54.5% out of 22 sampled entries
+  phone              Json?
+  profile_image      String?
+  referer_id         Int?
+  referring_points   Int?
+  role_id            Int?
+  status             Int?
+  /// Multiple data types found: String: 99.4%, Int: 0.6% out of 973 sampled entries
+  streetname         Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  token              Json?
+  username           String?
+  /// Multiple data types found: String: 24.5%, Int: 75.5% out of 973 sampled entries
+  zip                Json?
 }
 
 model orders {
-  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
-  affiliateAmount     String
-  affiliateAmountPaid Int
-  affiliateId         String
-  date                DateTime @db.Date
-  orderNo             String
-  originalAmount      String
-  paymentType         String
-  status              Int
-  totalAmount         String
-  userId              Int
+  id                    String  @id @default(auto()) @map("_id") @db.ObjectId
+  affiliate_amount      Float?
+  affiliate_amount_paid Int
+  affiliate_id          Int?
+  date                  String
+  id_                   Int     @map("id")
+  order_no              String?
+  /// Multiple data types found: String: 10.2%, Float: 78.4%, Int: 11.3% out of 937 sampled entries
+  original_amount       Json?
+  payment_type          String
+  status                Int
+  /// Multiple data types found: String: 10.2%, Float: 65.3%, Int: 24.4% out of 937 sampled entries
+  total_amount          Json?
+  user_id               Int
 }
 
 model testimonials {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
+  v     Int?   @map("__v")
+  id_   Int?   @map("id")
   text  String
   title String
 }
 
 model users {
-  id               String       @id @default(auto()) @map("_id") @db.ObjectId
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
   /// Multiple data types found: Int: 8.3%, BigInt: 91.7% out of 12 sampled entries
-  address          UsersAddress
-  categories       String[]
-  date             DateTime     @db.Date
-  declined         Boolean
-  editorRating     Float
-  email            String       @unique(map: "email_1")
-  isChiefEditor    Boolean
-  isEditor         Boolean
-  name             String
-  password         String
-  paypalId         String
-  phoneNumber      String
-  profileImage     String
-  rating           Float
-  status           String
-  userType         String
-  writerSampleFile String
+  v                  Json?    @map("__v")
+  /// Multiple data types found: String: 88.3%, UsersAddress: 11.7% out of 103 sampled entries
+  address            Json?
+  /// Multiple data types found: Int: 88.2%, Array(String): 11.8% out of 102 sampled entries
+  categories         Json?
+  city               String?
+  country            String?
+  /// Multiple data types found: String: 96.2%, DateTime (Date): 3.8% out of 319 sampled entries
+  date               Json
+  /// Multiple data types found: Boolean: 3.8%, Int: 96.2% out of 319 sampled entries
+  declined           Json
+  editorRating       Float?
+  editor_rating      Int?
+  email              String   @unique(map: "email_1")
+  id_                Int?     @map("id")
+  isChiefEditor      Boolean?
+  isEditor           Boolean?
+  is_chief_editor    Int?
+  is_editor          Int?
+  name               String
+  /// Multiple data types found: String: 96.9%, Binary: 3.1% out of 319 sampled entries
+  password           Json
+  paypalId           String?
+  paypal_id          String?
+  phoneNumber        String?
+  /// Multiple data types found: String: 20.9%, Int: 71.4%, BigInt: 7.6% out of 301 sampled entries
+  phone_number       Json?
+  profileImage       String?
+  profile_image      String?
+  /// Multiple data types found: Float: 3.8%, Int: 96.2% out of 319 sampled entries
+  rating             Json
+  /// Multiple data types found: String: 3.8%, Int: 96.2% out of 319 sampled entries
+  status             Json
+  /// Multiple data types found: String: 98.1%, Int: 1.9% out of 53 sampled entries
+  streetname         Json?
+  userType           String?
+  user_type          String?
+  writerSampleFile   String?
+  writer_sample_file String?
+  /// Multiple data types found: String: 12.8%, Int: 87.2% out of 47 sampled entries
+  zip                Json?
 }
