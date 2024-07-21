@@ -27,7 +27,7 @@ export async function POST(req: Request, res: NextApiResponse) {
   try {
     const data = await req.json();
     const user = await Test.createTestimonials(data);
-    return NextResponse.json({ user }, { status: 201 });
+    return NextResponse.json({ message: "Operation Successfull" ,data: user }, { status: 201 });
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 });
   }
@@ -38,7 +38,7 @@ export async function PUT(req: Request, res: NextApiResponse, Request: NextApiRe
         const {query: id} = Request
       const data = await req.json();
       const user = await Test.update(id as any, data);
-      return NextResponse.json({ user }, { status: 201 });
+      return NextResponse.json({ message: "Operation Successfull" ,data: user }, { status: 201 });
     } catch (e: any) {
       return NextResponse.json({ error: e.message }, { status: 500 });
     }
@@ -50,7 +50,7 @@ export async function DELETE(req: Request, res: NextApiResponse, Request: NextAp
         const {query: id} = Request
       const data = await req.json();
       const user = await Test.deleteTestimonials(id as any);
-      return NextResponse.json({ user }, { status: 201 });
+      return NextResponse.json({ message: "Operation Successfull" ,data: user }, { status: 201 });
     } catch (e: any) {
       return NextResponse.json({ error: e.message }, { status: 500 });
     }
