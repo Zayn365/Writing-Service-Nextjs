@@ -8,26 +8,25 @@ import {
   Avatar,
 } from "@material-tailwind/react";
 
-
 interface BlogPostCardProps {
   img: string;
-  tag: string;
+  // tag: string;
   title: string;
   desc: string;
-  author: { name: string; img: string };
-  date: string;
+  // author: { name: string };
+  // date: string;
 }
 
 export function BlogPostCard({
   img,
-  tag,
+  // tag,
   title,
   desc,
-  author,
-  date,
-}: BlogPostCardProps) {
+}: // author,
+// date,
+BlogPostCardProps) {
   return (
-    // @ts-ignore 
+    // @ts-ignore
     <Card shadow={true}>
       {/* @ts-ignore */}
       <CardHeader>
@@ -42,9 +41,9 @@ export function BlogPostCard({
       {/* @ts-ignore */}
       <CardBody className="p-6">
         {/* @ts-ignore */}
-        <Typography variant="small" color="blue" className="mb-2 !font-medium">
+        {/* <Typography variant="small" color="blue" className="mb-2 !font-medium">
           {tag}
-        </Typography>
+        </Typography> */}
         {/* @ts-ignore */}
         <Typography
           as="a"
@@ -61,35 +60,34 @@ export function BlogPostCard({
         </Typography>
         <div className="flex items-center gap-4">
           {/* @ts-ignore */}
-          <Avatar
+          {/* <Avatar
             size="sm"
             variant="circular"
-            src={author.img}
+            // src={author.img}
             alt={author.name}
-          />
+          /> */}
           <div>
             {/* @ts-ignore */}
-            <Typography
+            {/* <Typography
               variant="small"
               color="blue-gray"
               className="mb-0.5 !font-medium"
             >
               {author.name}
-            </Typography>
+            </Typography> */}
             {/* @ts-ignore */}
-            <Typography
+            {/* <Typography
               variant="small"
               color="gray"
               className="text-xs !text-gray-500 font-normal"
             >
               {date}
-            </Typography>
+            </Typography> */}
           </div>
         </div>
       </CardBody>
     </Card>
   );
 }
-
 
 export default BlogPostCard;

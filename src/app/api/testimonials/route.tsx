@@ -1,28 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 import { NextApiRequest, NextApiResponse } from "next";
-import * as Test from "../../../../models/Testimonials"
-
+import * as Test from "../../../../models/Testimonials";
 
 export async function GET(req: NextRequest) {
-   try{
+  try {
     const data = await Test.GetTestimonials();
     return NextResponse.json(
-        { message: "Operation Successfull" , data: data },
-        {
-          status: 200
-        }
-    )
-   }catch(e:any){
-         return NextResponse.json({
-            message: "Operation Failed" , data: e.message
-         },{
-            status : 400
-         })
-   }
-
+      { message: "Operation Successfull", data: data },
+      {
+        status: 200,
+      }
+    );
+  } catch (e: any) {
+    return NextResponse.json(
+      {
+        message: "Operation Failed",
+        data: e.message,
+      },
+      {
+        status: 400,
+      }
+    );
+  }
 }
-
-
 export async function POST(req: Request, res: NextApiResponse) {
   try {
     const data = await req.json();

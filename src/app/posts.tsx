@@ -1,87 +1,37 @@
 "use client";
 
-import React from "react";
-import {
-  Button,
-  Typography,
-  Tabs,
-  TabsHeader,
-  Tab,
-} from "@material-tailwind/react";
+import React, { useEffect, useState } from "react";
+import { Button, Typography, Tabs } from "@material-tailwind/react";
 import { ArrowSmallDownIcon } from "@heroicons/react/24/solid";
 import BlogPostCard from "@/components/blog-post-card";
 import ServicesSection from "@/components/services";
-
-const POSTS = [
-  {
-    img: `/image/blogs/blog2.svg`,
-    tag: "Enterprise",
-    title: "The key new features and changes in Tailwind CSS",
-    desc: "Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens bed design but the back is too high for the beams and angle of the ceiling I also wanted to point out.",
-    date: "10 September 2022",
-    author: {
-      img: `/image/avatar1.jpg`,
-      name: "Ryan Samuel",
-    },
-  },
-  {
-    img: `/image/blogs/blog6.svg`,
-    tag: "Startups",
-    title: "Lyft launching cross-platform service this week",
-    desc: "Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens bed design but the back is too high for the beams and angle of the ceiling I also wanted to point out.",
-    date: "12 September 2022",
-    author: {
-      img: `/image/blogs/blog2.svg`,
-      name: "Nora Hazel",
-    },
-  },
-  {
-    img: `/image/blogs/blog3.svg`,
-    tag: "Trending",
-    title: "6 insights into the French Fashion landscape",
-    desc: "Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens bed design but the back is too high for the beams and angle of the ceiling I also wanted to point out.",
-    date: "16 September 2022",
-    author: {
-      img: `/image/avatar2.jpg`,
-      name: "Otto Gonzalez",
-    },
-  },
-  {
-    img: `/image/blogs/blog4.svg`,
-    tag: "Lifestyle",
-    title: "Autodesk looks to future of 3D printing with Project",
-    desc: "Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens bed design but the back is too high for the beams and angle of the ceiling I also wanted to point out.",
-    date: "18 September 2022",
-    author: {
-      img: `/image/avatar3.jpg`,
-      name: "Ryan Samuel",
-    },
-  },
-  {
-    img: `/image/blogs/blog5.svg`,
-    tag: "Enterprise",
-    title: "Autodesk looks to future of 3D printing with Project",
-    desc: "Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens bed design but the back is too high for the beams and angle of the ceiling I also wanted to point out.",
-    date: "10 September 2022",
-    author: {
-      img: `/image/avatar3.jpg`,
-      name: "Ryan Samuel",
-    },
-  },
-  {
-    img: `/image/blogs/blog6.svg`,
-    tag: "Startups",
-    title: "Lyft launching cross-platform service this week",
-    desc: "Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens bed design but the back is too high for the beams and angle of the ceiling I also wanted to point out.",
-    date: "12 September 2022",
-    author: {
-      img: `/image/avatar2.jpg`,
-      name: "Nora Hazel",
-    },
-  },
-];
+import useData from "@/utils/useData";
 
 export function Posts() {
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+
+  const handleData = (result: any) => {
+    if (typeof result === "string") {
+      setError(result);
+    } else {
+      setData(result);
+    }
+  };
+
+  const fetchTestimonials = useData("/api/testimonials", handleData);
+
+  useEffect(() => {
+    fetchTestimonials();
+  }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
   return (
     <section className="grid min-h-screen place-items-center p-8">
       <Tabs value="trends" className="mx-auto max-w-7xl w-full mb-16 ">
@@ -109,7 +59,8 @@ export function Posts() {
         {/* @ts-ignore */}
         <Typography
           variant="lead"
-          className=" mb-5 text-center text-2xl my-8 italic">
+          className=" mb-5 text-center text-2xl my-8 italic"
+        >
           Do you have ideas that you wish to turn into a book or a series of
           books but don’t have time, commitment , discipline , or the skill to
           write the book(s) as fast as you want to?
@@ -117,7 +68,8 @@ export function Posts() {
         {/* @ts-ignore */}
         <Typography
           variant="lead"
-          className=" mb-5 text-center text-2xl my-8 italic">
+          className=" mb-5 text-center text-2xl my-8 italic"
+        >
           Or are you simply looking to make money through self-publishing and
           are looking for a reliable service provider that will help you meet
           your self-publishing goals without fail so you can build a stream of
@@ -130,7 +82,8 @@ export function Posts() {
         {/* @ts-ignore */}
         <Typography
           variant="lead"
-          className=" mb-5 text-center text-2xl my-8 underline">
+          className=" mb-5 text-center text-2xl my-8 underline"
+        >
           You’ve Just Discovered The Best Ghostwriting Service Provider To Meet
           Your Goals, Without Spending A Fortune While At It!
         </Typography>
@@ -175,7 +128,7 @@ export function Posts() {
         </Typography>
       </div>
       <div className="container my-auto grid grid-cols-1 gap-x-8 gap-y-16 items-start lg:grid-cols-3">
-        {POSTS.map(({ img, tag, title, desc, date, author }) => (
+        {/* {POSTS.map(({ img, tag, title, desc, date, author }) => (
           <BlogPostCard
             key={title}
             img={img}
@@ -188,17 +141,31 @@ export function Posts() {
               name: author.name,
             }}
           />
+        ))} */}
+        {data.slice(4,7).map((item: any) => (
+          <BlogPostCard
+            key={item?.title}
+            img="https://i.pcmag.com/imagery/articles/05LXP8WPMNAES8LK4rf9IZQ-13.fit_lim.v1633113383.jpg"
+            // tag={"Enterprise"}
+            title={item?.title.slice(0,20)}
+            desc={item?.text}
+            // date={"10 September 2022"}
+            // author={{
+            //   name: "unknown",
+            // }}
+          />
         ))}
       </div>
       {/* @ts-ignore */}
-      <Button
+      {/* <Button
         variant="text"
         size="lg"
         color="gray"
-        className="flex items-center gap-2 mt-24">
+        className="flex items-center gap-2 mt-24"
+      >
         <ArrowSmallDownIcon className="h-5 w-5 font-bold text-gray-900" />
         VIEW MORE
-      </Button>
+      </Button> */}
     </section>
   );
 }

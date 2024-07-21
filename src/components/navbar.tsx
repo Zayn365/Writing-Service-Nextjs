@@ -27,14 +27,14 @@ import { useAppContext } from "@/context/AppContext";
 
 const NAV_MENU = [
   {
-    name: "Page",
+    name: "Home",
     icon: RectangleStackIcon,
     href: "/",
   },
-  {
-    name: "Account",
-    icon: UserCircleIcon,
-  },
+  // {
+  //   name: "Account",
+  //   icon: UserCircleIcon,
+  // },
   {
     name: "About",
     icon: CommandLineIcon,
