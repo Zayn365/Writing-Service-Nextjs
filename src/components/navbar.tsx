@@ -54,7 +54,7 @@ const NAV_MENU = [
     name: "Menu",
     icon: CubeIcon,
     subItems: [
-      { name: "Users", href: "/menu/users", type: "admin" },
+      { name: "Clients", href: "/menu/clients", type: "admin" },
       { name: "Profile", href: "/menu/profile" },
       { name: "Orders", href: "/menu/orders" , type: "admin" },
       { name: "Transcations History", href: "/menu/transcations" , type: "admin" },

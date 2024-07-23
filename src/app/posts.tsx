@@ -142,13 +142,13 @@ export function Posts() {
             }}
           />
         ))} */}
-        {data.slice(4,7).map((item: any) => (
+        {data.slice(2,5).map((item: any) => (
           <BlogPostCard
             key={item?.title}
             img="https://i.pcmag.com/imagery/articles/05LXP8WPMNAES8LK4rf9IZQ-13.fit_lim.v1633113383.jpg"
             // tag={"Enterprise"}
-            title={item?.title.slice(0,20)}
-            desc={item?.text}
+            title={item?.title}
+            desc={item?.text.slice(0,79) + "..."}
             // date={"10 September 2022"}
             // author={{
             //   name: "unknown",
