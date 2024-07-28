@@ -1,7 +1,19 @@
+"use client"
+import { useState } from "react";
 import BottomField from "@/components/order/BottomField";
 import React from "react";
+import { useAppContext } from "@/context/AppContext";
 
 const Order = () => {
+  const {user} = useAppContext();
+  const [form , setForm] = useState({
+    name: user ? user.name : "",
+    email: user ? user.email : "",
+    address: "",
+    city: "",
+    country: "",
+    postalCode: "",
+  })
   return (
     <div className="w-10/12 mx-auto">
       <div className="h-full w-full mx-auto">
@@ -11,33 +23,65 @@ const Order = () => {
         <div className="w-full flex my-5 flex-wrap justify-between items-center gap-5">
           <input
             type="text"
-            placeholder="Xanthus Vega"
+            placeholder="Name"
+            required
+            onChange={(e) => setForm((prev:any) => {
+             return {...prev , name: e.target.value}
+            })}
+            value={form?.name}
+            disabled={user?.name}
             className="outline-none border p-1 w-[30%]"
           />
           <input
             type="email"
-            placeholder="wyfol@gmail.com"
+            placeholder="Email"
             className="outline-none border p-1 w-[30%]"
+            required
+            onChange={(e) => setForm((prev:any) => {
+             return {...prev , email: e.target.value}
+            })}
+            value={form?.email}
+            disabled={user?.email}
           />
           <input
             type="text"
-            placeholder="Tanner Buckley"
+            placeholder="Street Address"
             className="outline-none border p-1 w-[30%]"
+            required
+            onChange={(e) => setForm((prev:any) => {
+             return {...prev , address: e.target.value}
+            })}
+            value={form?.address}
           />
           <input
             type="number"
-            placeholder="41772"
+            placeholder="Zip Code"
             className="outline-none border p-1 w-[30%]"
+            required
+            onChange={(e) => setForm((prev:any) => {
+             return {...prev , postalCode: e.target.value}
+            })}
+            value={form?.postalCode}
           />
           <input
             type="text"
-            placeholder="Earum est solute et"
+            placeholder="City"
             className="outline-none border p-1 w-[30%]"
+            required
+            onChange={(e) => setForm((prev:any) => {
+             return {...prev , city: e.target.value}
+            })}
+            value={form?.city}
           />
           <input
             type="text"
-            placeholder="unde duis et exercit"
+            placeholder="Country"
             className="outline-none border p-1 w-[30%]"
+            required
+            onChange={(e) => setForm((prev:any) => {
+             return {...prev , country: e.target.value}
+            })}
+            value={form?.country}
           />
         </div>
         <hr />
