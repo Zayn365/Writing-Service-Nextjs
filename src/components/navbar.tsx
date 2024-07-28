@@ -56,8 +56,12 @@ const NAV_MENU = [
     subItems: [
       { name: "Clients", href: "/menu/clients", type: "admin" },
       { name: "Profile", href: "/menu/profile" },
-      { name: "Orders", href: "/menu/orders" , type: "admin" },
-      { name: "Transcations History", href: "/menu/transcations" , type: "admin" },
+      { name: "Orders", href: "/menu/orders", type: "admin" },
+      {
+        name: "Transcations History",
+        href: "/menu/transcations",
+        type: "admin",
+      },
       { name: "Settings ", href: "/menu/settings" },
     ],
   },
@@ -88,7 +92,7 @@ function NavItem({ children, href }: NavItemProps) {
 }
 function Dropdown({ name, icon: Icon, subItems }: any) {
   const [open, setOpen] = useState(false);
-  const {user} = useAppContext();
+  const { user } = useAppContext();
   return (
     <li className="relative">
       <button
@@ -99,16 +103,20 @@ function Dropdown({ name, icon: Icon, subItems }: any) {
       </button>
       {open && (
         <ul className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 px-2">
-          {user && user.userType === "admin" ? subItems.map((subItem: any) => (
-            <NavItem key={subItem.name} href={subItem.href}>
-              {subItem.name}
-            </NavItem>
-          )) : subItems.map((subItem: any) => {
-            if(!subItem?.type)
-          return <NavItem key={subItem.name} href={subItem.href}>
-              {subItem.name}
-            </NavItem>
-})}
+          {user && user.userType === "admin"
+            ? subItems.map((subItem: any) => (
+                <NavItem key={subItem.name} href={subItem.href}>
+                  {subItem.name}
+                </NavItem>
+              ))
+            : subItems.map((subItem: any) => {
+                if (!subItem?.type)
+                  return (
+                    <NavItem key={subItem.name} href={subItem.href}>
+                      {subItem.name}
+                    </NavItem>
+                  );
+              })}
         </ul>
       )}
     </li>
@@ -155,12 +163,12 @@ export function Navbar() {
           {NAV_MENU.map(({ name, icon: Icon, href, subItems }: any) =>
             subItems ? (
               <div key={name} className={`${user ? "" : "hidden"}`}>
-              <Dropdown
-                key={name}
-                name={name}
-                icon={Icon}
-                subItems={subItems}
-              />
+                <Dropdown
+                  key={name}
+                  name={name}
+                  icon={Icon}
+                  subItems={subItems}
+                />
               </div>
             ) : (
               <NavItem key={name} href={href}>
@@ -228,21 +236,22 @@ export function Navbar() {
       <Collapse open={open}>
         <div className="container mx-auto mt-3 border-t border-gray-200 px-2 pt-4">
           <ul className="flex flex-col gap-4">
-            {user && NAV_MENU.map(({ name, icon: Icon, href, subItems }: any) =>
-              subItems ? (
-                <Dropdown
-                  key={name}
-                  name={name}
-                  icon={Icon}
-                  subItems={subItems}
-                />
-              ) : (
-                <NavItem key={name} href={href}>
-                  {Icon && <Icon className="h-5 w-5" />}
-                  {name}
-                </NavItem>
-              )
-            )}
+            {user &&
+              NAV_MENU.map(({ name, icon: Icon, href, subItems }: any) =>
+                subItems ? (
+                  <Dropdown
+                    key={name}
+                    name={name}
+                    icon={Icon}
+                    subItems={subItems}
+                  />
+                ) : (
+                  <NavItem key={name} href={href}>
+                    {Icon && <Icon className="h-5 w-5" />}
+                    {name}
+                  </NavItem>
+                )
+              )}
           </ul>
           <div className="mt-6 mb-4 flex items-center gap-2">
             {user ? (
