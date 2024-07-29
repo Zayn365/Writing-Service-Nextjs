@@ -27,7 +27,128 @@ const BottomField = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [amountLabel, setAmountLabel] = useState('100 words');
   const [isCouponVisible, setCouponVisibility] = useState(true);
-
+  const [state, setState] = useState({
+    ebookWritingType: '',
+    projectTitle: '',
+    bookSubtitle: '',
+    specialInstructions: '',
+    file: null,
+    ebookWritingPriceType: '',
+    fppServices: [],
+    bookDescription: '',
+    keywords: '',
+    articleTitle: '',
+    ebookEditingPriceType: '',
+    bookFormattingType: '',
+    coverCreationType: '',
+    penName: '',
+    inspiringCovers: '',
+    keywordResearchType: '',
+    childrenBookType: '',
+    prepaidPackage: '',
+    anyOtherService: '',
+    amountPer100Words: 0,
+    totalAmount: 0,
+    isCouponVisible: false,
+    accept: false,
+    discountCode: '',
+  });
+  console.log(state , "CHECK");
+  const handleEbookWritingTypeChange = (e:any) => {
+    setState({ ...state, ebookWritingType: e.target.value });
+  };
+  
+  const handleProjectTitleChange = (e:any) => {
+    setState({ ...state, projectTitle: e.target.value });
+  };
+  
+  const handleBookSubtitleChange = (e:any) => {
+    setState({ ...state, bookSubtitle: e.target.value });
+  };
+  
+  const handleSpecialInstructionsChange = (e:any) => {
+    setState({ ...state, specialInstructions: e.target.value });
+  };
+  
+  const handleFileChange = (e:any) => {
+    setState({ ...state, file: e.target.files[0] });
+  };
+  
+  const handleEbookWritingPriceTypeChange = (e:any) => {
+    setState({ ...state, ebookWritingPriceType: e.target.value });
+  };
+  
+  const handleFppServicesChange = (e:any) => {
+    setState({ ...state, fppServices: [...state.fppServices, e.target.value] });
+  };
+  
+  const handleBookDescriptionChange = (e:any) => {
+    setState({ ...state, bookDescription: e.target.value });
+  };
+  
+  const handleKeywordsChange = (e:any) => {
+    setState({ ...state, keywords: e.target.value });
+  };
+  
+  const handleArticleTitleChange = (e:any) => {
+    setState({ ...state, articleTitle: e.target.value });
+  };
+  
+  const handleEbookEditingPriceTypeChange = (e:any) => {
+    setState({ ...state, ebookEditingPriceType: e.target.value });
+  };
+  
+  const handleBookFormattingTypeChange = (e:any) => {
+    setState({ ...state, bookFormattingType: e.target.value });
+  };
+  
+  const handleCoverCreationTypeChange = (e:any) => {
+    setState({ ...state, coverCreationType: e.target.value });
+  };
+  
+  const handlePenNameChange = (e:any) => {
+    setState({ ...state, penName: e.target.value });
+  };
+  
+  const handleInspiringCoversChange = (e:any) => {
+    setState({ ...state, inspiringCovers: e.target.value });
+  };
+  
+  const handleKeywordResearchTypeChange = (e:any) => {
+    setState({ ...state, keywordResearchType: e.target.value });
+  };
+  
+  const handleChildrenBookTypeChange = (e:any) => {
+    setState({ ...state, childrenBookType: e.target.value });
+  };
+  
+  const handlePrepaidPackageChange = (e:any) => {
+    setState({ ...state, prepaidPackage: e.target.value });
+  };
+  
+  const handleAnyOtherServiceChange = (e:any) => {
+    setState({ ...state, anyOtherService: e.target.value });
+  };
+  
+  const handleAmountPer100WordsChange = (e:any) => {
+    setState({ ...state, amountPer100Words: e.target.value });
+  };
+  
+  const handleTotalAmountChange = (e:any) => {
+    setState({ ...state, totalAmount: e.target.value });
+  };
+  
+  const handleIsCouponVisibleChange = (e:any) => {
+    setState({ ...state, isCouponVisible: e.target.checked });
+  };
+  
+  const handleAcceptChange = (e:any) => {
+    setState({ ...state, accept: e.target.checked });
+  };
+  
+  const handleDiscountCodeChange = (e:any) => {
+    setState({ ...state, discountCode: e.target.value });
+  };
 
   // Dynamically load TinyMCE to prevent SSR issues
 const showHideFieldsService = (service) => {
@@ -130,7 +251,8 @@ return (
         <div className="w-full border-b-2 flex justify-center items-center py-5">
           <select
             className="border p-2"
-            onChange={(e) => showHideFieldsService(e.target.value)}
+            value={service}
+            onChange={(e:any) => setService(e.target.value)}
           >
             <option value="">Select a service</option>
             {services.map((val) => (
@@ -149,6 +271,8 @@ return (
                   id="Brand new book"
                   name="ebook_writing_type"
                   value="Brand new book"
+                  checked={state.ebookWritingType === 'Brand new book'}
+                  onChange={handleEbookWritingTypeChange}
                 />
                 <label htmlFor="Brand new book">Brand new book</label>
                 <br />
@@ -157,6 +281,8 @@ return (
                   id="Adding words to content"
                   name="ebook_writing_type"
                   value="Adding words to content"
+                  checked={state.ebookWritingType === 'Adding words to content'}
+                  onChange={handleEbookWritingTypeChange}
                 />
                 <label htmlFor="Adding words to content">
                   Adding words to content
@@ -165,11 +291,11 @@ return (
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Project Title</label>
-                <input type="text" className="border p-2" />
+                <input type="text" className="border p-2" value={state.projectTitle} onChange={handleProjectTitleChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Book Subtitle</label>
-                <input type="text" className="border p-2" />
+                <input type="text" className="border p-2" value={state.bookSubtitle} onChange={handleBookSubtitleChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Number of words</label>
@@ -183,11 +309,11 @@ return (
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Special instructions</label>
-                <textarea className="border p-2" />
+                <textarea className="border p-2" value={state.specialInstructions} onChange={handleSpecialInstructionsChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Any further instructions? Attach file:</label>
-                <input type="file" className="p-2 border" />
+                <input type="file" className="p-2 border" onChange={handleFileChange} />
               </div>
               <div className="flex flex-col">
                 <input
@@ -195,7 +321,8 @@ return (
                   id="ebook_writing_editing"
                   name="ebook_writing_price_type"
                   value="Writing and Editing"
-                  checked
+                  checked={state.ebookWritingPriceType === 'Writing and Editing'}
+                  onChange={handleEbookWritingPriceTypeChange}
                 />
                 <label htmlFor="ebook_writing_editing">
                   <strong>
@@ -209,6 +336,8 @@ return (
                   id="ebook_writing_only"
                   name="ebook_writing_price_type"
                   value="Writing Only"
+                  checked={state.ebookWritingPriceType === 'Writing Only'}
+                  onChange={handleEbookWritingPriceTypeChange}
                 />
                 <label htmlFor="ebook_writing_only">
                   <strong>And $1.8/100 words for writing only</strong>
@@ -219,16 +348,16 @@ return (
           {service === 'Full Package Publishing Service' && (
             <>
               <p>
-                If you don't want to order a book, cover and formatting
+                If you don't want to order a book, coverand formatting
                 services separately, this package is for you.
               </p>
               <div className="flex flex-col">
                 <label htmlFor="">Project Title</label>
-                <input type="text" className="border p-2" />
+                <input type="text" className="border p-2" value={state.projectTitle} onChange={handleProjectTitleChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Book Subtitle</label>
-                <input type="text" className="border p-2" />
+                <input type="text" className="border p-2" value={state.bookSubtitle} onChange={handleBookSubtitleChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Number of words</label>
@@ -242,11 +371,11 @@ return (
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Special instructions</label>
-                <textarea className="border p-2" />
+                <textarea className="border p-2" value={state.specialInstructions} onChange={handleSpecialInstructionsChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Any further instructions? Attach file:</label>
-                <input type="file" className="p-2 border" />
+                <input type="file" className="p-2 border" onChange={handleFileChange} />
               </div>
               <div className="flex flex-col">
                 <input
@@ -254,6 +383,8 @@ return (
                   id="fpp_service_1"
                   name="fpp_service[]"
                   value="The Book formatted for Kindle"
+                  checked={state.fppServices.includes('The Book formatted for Kindle')}
+                  onChange={handleFppServicesChange}
                 />
                 <label htmlFor="fpp_service_1">
                   The Book formatted for Kindle ($10)
@@ -264,6 +395,8 @@ return (
                   id="fpp_service_2"
                   name="fpp_service[]"
                   value="The Book formatted for paperback"
+                  checked={state.fppServices.includes('The Book formatted for paperback')}
+                  onChange={handleFppServicesChange}
                 />
                 <label htmlFor="fpp_service_2">
                   The Book formatted for paperback ($10)
@@ -274,6 +407,8 @@ return (
                   id="fpp_service_3"
                   name="fpp_service[]"
                   value="EBook Cover"
+                  checked={state.fppServices.includes('EBook Cover')}
+                  onChange={handleFppServicesChange}
                 />
                 <label htmlFor="fpp_service_3">EBook Cover ($15)</label>
                 <br />
@@ -282,6 +417,8 @@ return (
                   id="fpp_service_4"
                   name="fpp_service[]"
                   value="Paperback Cover"
+                  checked={state.fppServices.includes('Paperback Cover')}
+                  onChange={handleFppServicesChange}
                 />
                 <label htmlFor="fpp_service_4">Paperback Cover ($15)</label>
                 <br />
@@ -290,6 +427,8 @@ return (
                   id="fpp_service_5"
                   name="fpp_service[]"
                   value="Book Description"
+                  checked={state.fppServices.includes('Book Description')}
+                  onChange={handleFppServicesChange}
                 />
                 <label htmlFor="fpp_service_5">Book Description ($10)</label>
                 <br />
@@ -298,6 +437,8 @@ return (
                   id="fpp_service_6"
                   name="fpp_service[]"
                   value="7 Keywords "
+                  checked={state.fppServices.includes('7 Keywords ')}
+                  onChange={handleFppServicesChange}
                 />
                 <label htmlFor="fpp_service_6">7 Keywords ($30)</label>
               </div>
@@ -307,29 +448,28 @@ return (
             <>
               <div className="flex flex-col">
                 <label htmlFor="">Project Title</label>
-                <input type="text" className="border p-2" />
+                <input type="text" className="border p-2" value={state.projectTitle} onChange={handleProjectTitleChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Book Subtitle</label>
-                <input type="text" className="border p-2" />
+                <input type="text" className="border p-2" value={state.bookSubtitle} onChange={handleBookSubtitleChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Preferred number of words</label>
                 <input
                   type="number"
                   className="border p-2"
-                  min="100"
                   value={noWords}
                   onChange={handleWordChange}
                 />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Attachment of file</label>
-                <input type="file" className="p-2 border" />
+                <input type="file" className="p-2 border" onChange={handleFileChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Special instructions</label>
-                <textarea className="border p-2" />
+                <textarea className="border p-2" value={state.specialInstructions} onChange={handleSpecialInstructionsChange} />
               </div>
             </>
           )}
@@ -337,11 +477,11 @@ return (
             <>
               <div className="flex flex-col">
                 <label htmlFor="">Title</label>
-                <input type="text" className="border p-2" />
+                <input type="text" className="border p-2" value={state.articleTitle} onChange={handleArticleTitleChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Keywords/if any</label>
-                <input type="text" className="border p-2" />
+                <input type="text" className="border p-2" value={state.keywords} onChange={handleKeywordsChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Number of words</label>
@@ -355,11 +495,11 @@ return (
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Special instructions</label>
-                <textarea className="border p-2" />
+                <textarea className="border p-2" value={state.specialInstructions} onChange={handleSpecialInstructionsChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Attachment if any</label>
-                <input type="file" className="p-2 border" />
+                <input type="file" className="p-2 border" onChange={handleFileChange} />
               </div>
               <p>
                 <strong>Price is $2.5/100 words</strong>
@@ -380,7 +520,7 @@ return (
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Attach book</label>
-                <input type="file" className="p-2 border" />
+                <input type="file" className="p-2 border" onChange={handleFileChange} />
               </div>
               <div className="flex flex-col">
                 <input
@@ -388,7 +528,8 @@ return (
                   id="ebook_editing_price_type_1"
                   name="ebook_editing_price_type"
                   value="Book well written, just needs proofreading without major rewriting: $1.25/100 words"
-                  checked
+                  checked={state.ebookEditingPriceType === 'Book well written, just needs proofreading without major rewriting: $1.25/100 words'}
+                  onChange={handleEbookEditingPriceTypeChange}
                 />
                 <label htmlFor="ebook_editing_price_type_1">
                   <strong>
@@ -402,6 +543,8 @@ return (
                   id="ebook_editing_price_type_2"
                   name="ebook_editing_price_type"
                   value="Book requires some improvements and may require major rewriting: $2.5/100 words"
+                  checked={state.ebookEditingPriceType === 'Book requires some improvements and may require major rewriting: $2.5/100 words'}
+                  onChange={handleEbookEditingPriceTypeChange}
                 />
                 <label htmlFor="ebook_editing_price_type_2">
                   <strong>
@@ -420,6 +563,8 @@ return (
                   id="book_formating_type"
                   name="book_formating_type"
                   value="For Kindle"
+                  checked={state.bookFormattingType === 'For Kindle'}
+                  onChange={handleBookFormattingTypeChange}
                 />
                 <label htmlFor="book_formating_type">For Kindle</label>
                 <br />
@@ -428,6 +573,8 @@ return (
                   id="bf_for_paperback"
                   name="book_formating_type2"
                   value="For Paperback"
+                  checked={state.bookFormattingType === 'For Paperback'}
+                  onChange={handleBookFormattingTypeChange}
                 />
                 <label htmlFor="bf_for_paperback">For Paperback</label>
               </div>
@@ -443,7 +590,7 @@ return (
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">The draft file (attachment)</label>
-                <input type="file" className="p-2 border" />
+                <input type="file" className="p-2 border" onChange={handleFileChange} />
               </div>
               <p>
                 <strong>$15 for every book</strong>
@@ -464,6 +611,8 @@ return (
                   id="cover_creation_type"
                   name="cover_creation_type"
                   value="For Kindle"
+                  checked={state.coverCreationType === 'For Kindle'}
+                  onChange={handleCoverCreationTypeChange}
                 />
                 <label htmlFor="cover_creation_type">For Kindle</label>
                 <br />
@@ -472,16 +621,18 @@ return (
                   id="cover_creation_type2"
                   name="cover_creation_type2"
                   value="For Paperback"
+                  checked={state.coverCreationType === 'For Paperback'}
+                  onChange={handleCoverCreationTypeChange}
                 />
                 <label htmlFor="cover_creation_type2">For Paperback</label>
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Project Title</label>
-                <input type="text" className="border p-2" />
+                <input type="text" className="border p-2" value={state.projectTitle} onChange={handleProjectTitleChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Book Subtitle</label>
-                <input type="text" className="border p-2" />
+                <input type="text" className="border p-2" value={state.bookSubtitle} onChange={handleBookSubtitleChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Exact number of cover/pages</label>
@@ -495,19 +646,19 @@ return (
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Pen name/author name</label>
-                <input type="text" className="border p-2" />
+                <input type="text" className="border p-2" value={state.penName} onChange={handlePenNameChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Preferred images, if any</label>
-                <input type="file" className="p-2 border" />
+                <input type="file" className="p-2 border" onChange={handleFileChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Inspiring covers that you wouldn't mind modeling</label>
-                <input type="text" className="border p-2" />
+                <input type="text" className="border p-2" value={state.inspiringCovers} onChange={handleInspiringCoversChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Any other instructions</label>
-                <textarea className="border p-2" />
+                <textarea className="border p-2" value={state.specialInstructions} onChange={handleSpecialInstructionsChange} />
               </div>
               <p>
                 <strong>Price for this is $25 per cover</strong>
@@ -522,7 +673,8 @@ return (
                   id="Preferred niche"
                   name="keyword_research_type"
                   value="Preferred niche"
-                  checked
+                  checked={state.keywordResearchType === 'Preferred niche'}
+                  onChange={handleKeywordResearchTypeChange}
                 />
                 <label htmlFor="Preferred niche">Preferred niche</label>
                 <br />
@@ -531,6 +683,8 @@ return (
                   id="No preferred niche"
                   name="keyword_research_type"
                   value="No preferred niche"
+                  checked={state.keywordResearchType === 'No preferred niche'}
+                  onChange={handleKeywordResearchTypeChange}
                 />
                 <label htmlFor="No preferred niche">No preferred niche</label>
               </div>
@@ -546,7 +700,7 @@ return (
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">More details</label>
-                <textarea className="border p-2" />
+                <textarea className="border p-2" value={state.specialInstructions} onChange={handleSpecialInstructionsChange} />
               </div>
               <p id="niche_amound" style={{ display: 'none' }}>
                 <strong>Price is $25</strong>
@@ -561,7 +715,8 @@ return (
                   id="children_book_type_1"
                   name="children_book_type"
                   value="Story development"
-                  checked
+                  checked={state.childrenBookType === 'Story development'}
+                  onChange={handleChildrenBookTypeChange}
                 />
                 <label htmlFor="children_book_type_1">Story development</label>
                 <br />
@@ -570,6 +725,8 @@ return (
                   id="children_book_type_2"
                   name="children_book_type"
                   value="Illustration service"
+                  checked={state.childrenBookType === 'Illustration service'}
+                  onChange={handleChildrenBookTypeChange}
                 />
                 <label htmlFor="children_book_type_2">Illustration service</label>
               </div>
@@ -592,7 +749,7 @@ return (
             <>
               <p>
                 <a href="#" className="buttonField">
-View the books list
+                  View the books list
                 </a>
               </p>
             </>
@@ -631,15 +788,15 @@ View the books list
             <>
               <div className="flex flex-col">
                 <label htmlFor="">Project Title</label>
-                <input type="text" className="border p-2" />
+                <input type="text" className="border p-2" value={state.projectTitle} onChange={handleProjectTitleChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Service description</label>
-                <textarea className="border p-2" />
+                <textarea className="border p-2" value={state.specialInstructions} onChange={handleSpecialInstructionsChange} />
               </div>
               <div className="flex flex-col">
                 <label htmlFor="">Total price given by support:</label>
-                <input type="number" className="border p-2" />
+                <input type="number" className="border p-2" value={state.totalAmount} onChange={handleTotalAmountChange} />
               </div>
               <p>
                 <strong>Choose this option after you've contacted admin</strong>
@@ -647,12 +804,12 @@ View the books list
             </>
           )}
           <span>
-            Amount per {amountLabel}: ${amountPer100Words.toFixed(2)}
+            Amount per {amountLabel}: ${state.amountPer100Words.toFixed(2)}
           </span>
           <p>
-            Total Amount: ${totalAmount.toFixed(2)}
+            Total Amount: ${state.totalAmount.toFixed(2)}
           </p>
-          {isCouponVisible && (
+          {state.isCouponVisible && (
             <p>For every 10,000 words project formatted for Kindle, you get free paperback formatting.</p>
           )}
         </div>
@@ -660,17 +817,17 @@ View the books list
       <div className="w-full md:w-1/2 md:pl-10 md:border-l-2 flex flex-col h-full justify-start items-start gap-y-3">
         <span className="uppercase text-2xl font-bold">Your Order</span>
         <span>
-          Amount per {amountLabel}: $<b>{amountPer100Words.toFixed(2)}</b>{" "}
+          Amount per {amountLabel}: $<b>{state.amountPer100Words.toFixed(2)}</b>{" "}
         </span>
         <span>
-          Amount Total: $<b>{totalAmount.toFixed(2)}</b>{" "}
+          Amount Total: $<b>{state.totalAmount.toFixed(2)}</b>{" "}
         </span>
         <div className="flex justify-center items-center">
           <input type="radio" id="Pay" name="Pay" value="Pay" />
           <label htmlFor="Pay">Pay with PayPal</label>
         </div>
         <div className="flex gap-x-1">
-          <input type="checkbox" name="accept" id="accept" />
+          <input type="checkbox" name="accept" id="accept" checked={state.accept} onChange={handleAcceptChange} />
           <label htmlFor="accept">
             I've read & accept the terms & conditions
           </label>
@@ -680,6 +837,8 @@ View the books list
             type="text"
             placeholder="26-jun-2022"
             className="border p-2"
+            value={state.discountCode}
+            onChange={handleDiscountCodeChange}
           />
           <button className="bg-[#F97E1A] text-white border px-2 py-1 rounded-md">
             Get Discount
