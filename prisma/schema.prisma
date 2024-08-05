@@ -62,7 +62,7 @@ model orders {
   status                Int
   /// Multiple data types found: String: 10.2%, Float: 65.3%, Int: 24.4% out of 937 sampled entries
   total_amount          Json?
-  user_id               Int
+  user_id               Int?
 }
 
 model testimonials {

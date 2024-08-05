@@ -1,19 +1,19 @@
-"use client"
+"use client";
 import { useState } from "react";
 import BottomField from "@/components/order/BottomField";
 import React from "react";
 import { useAppContext } from "@/context/AppContext";
 
 const Order = () => {
-  const {user} = useAppContext();
-  const [form , setForm] = useState({
+  const { user } = useAppContext();
+  const [form, setForm] = useState({
     name: user ? user.name : "",
     email: user ? user.email : "",
     address: "",
     city: "",
     country: "",
     postalCode: "",
-  })
+  });
   return (
     <div className="w-10/12 mx-auto">
       <div className="h-full w-full mx-auto">
@@ -25,9 +25,11 @@ const Order = () => {
             type="text"
             placeholder="Name"
             required
-            onChange={(e) => setForm((prev:any) => {
-             return {...prev , name: e.target.value}
-            })}
+            onChange={(e) =>
+              setForm((prev: any) => {
+                return { ...prev, name: e.target.value };
+              })
+            }
             value={form?.name}
             disabled={user?.name}
             className="outline-none border p-1 w-[30%]"
@@ -37,9 +39,11 @@ const Order = () => {
             placeholder="Email"
             className="outline-none border p-1 w-[30%]"
             required
-            onChange={(e) => setForm((prev:any) => {
-             return {...prev , email: e.target.value}
-            })}
+            onChange={(e) =>
+              setForm((prev: any) => {
+                return { ...prev, email: e.target.value };
+              })
+            }
             value={form?.email}
             disabled={user?.email}
           />
@@ -48,9 +52,11 @@ const Order = () => {
             placeholder="Street Address"
             className="outline-none border p-1 w-[30%]"
             required
-            onChange={(e) => setForm((prev:any) => {
-             return {...prev , address: e.target.value}
-            })}
+            onChange={(e) =>
+              setForm((prev: any) => {
+                return { ...prev, address: e.target.value };
+              })
+            }
             value={form?.address}
           />
           <input
@@ -58,9 +64,11 @@ const Order = () => {
             placeholder="Zip Code"
             className="outline-none border p-1 w-[30%]"
             required
-            onChange={(e) => setForm((prev:any) => {
-             return {...prev , postalCode: e.target.value}
-            })}
+            onChange={(e) =>
+              setForm((prev: any) => {
+                return { ...prev, postalCode: e.target.value };
+              })
+            }
             value={form?.postalCode}
           />
           <input
@@ -68,9 +76,11 @@ const Order = () => {
             placeholder="City"
             className="outline-none border p-1 w-[30%]"
             required
-            onChange={(e) => setForm((prev:any) => {
-             return {...prev , city: e.target.value}
-            })}
+            onChange={(e) =>
+              setForm((prev: any) => {
+                return { ...prev, city: e.target.value };
+              })
+            }
             value={form?.city}
           />
           <input
@@ -78,14 +88,16 @@ const Order = () => {
             placeholder="Country"
             className="outline-none border p-1 w-[30%]"
             required
-            onChange={(e) => setForm((prev:any) => {
-             return {...prev , country: e.target.value}
-            })}
+            onChange={(e) =>
+              setForm((prev: any) => {
+                return { ...prev, country: e.target.value };
+              })
+            }
             value={form?.country}
           />
         </div>
         <hr />
-        <BottomField />
+        <BottomField firstData={form} />
       </div>
     </div>
   );
