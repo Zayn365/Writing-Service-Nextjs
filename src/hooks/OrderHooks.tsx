@@ -10,6 +10,24 @@ export function useOrder() {
     console.log(firstData, secondData, "CHECK DATA");
 
     const date = new Date().toISOString;
+    await axios
+      .post("api/createPayment", {
+        amount: amounts.totalAmount,
+      })
+      .then((response: any) => {
+        const url = response.data.data;
+
+        const newWindow = window.open(
+          url,
+          "PaymentWindow",
+          "width=600,height=600"
+        );
+
+        if (!newWindow) {
+          alert("Please allow popups for this site.");
+        }
+      });
+
     await axios.post("api/orders", {
       id_: 0,
       payment_type: "PayPal",

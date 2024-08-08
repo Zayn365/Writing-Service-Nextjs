@@ -27,9 +27,6 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
       }
     );
 
-    // Payment was successful, you can now call your placeOrder function or save the payment details to your database.
-    // You might need to adapt this to your specific use case
-
     res.status(200).json({ success: true });
   } catch (error) {
     console.error("Error executing PayPal payment:", error);

@@ -8,7 +8,7 @@ import axios from "axios";
 const PAYPAL_CLIENT_ID = process.env.PAYPAL_CLIENT_ID as string;
 const PAYPAL_SECRET = process.env.PAYPAL_SECRET as string;
 
-const PAYPAL_API = "https://api-m.sandbox.paypal.com";
+const PAYPAL_API = "https://api-m.paypal.com";
 
 const auth = Buffer.from(`${PAYPAL_CLIENT_ID}:${PAYPAL_SECRET}`).toString(
   "base64"
