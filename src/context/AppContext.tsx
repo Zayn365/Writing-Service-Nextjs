@@ -8,7 +8,7 @@ const AppContextLoader = ({ children }) => {
   const getUserData = Cookies.get("user");
   // const jsonData = JSON.parse(getUserData);
   const jsonData = getUserData ? JSON.parse(getUserData) : null;
-  const [user, setUser] = useState(jsonData); // Initialize user state
+  const [user, setUser] = useState<any | undefined | null>(jsonData); // Initialize user state
 
   const value = {
     user,

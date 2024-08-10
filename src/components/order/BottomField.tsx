@@ -32,7 +32,7 @@ const BottomField = (props: any) => {
   const { placeOrder } = useOrder();
   const [service, setService] = useState("");
   const [noWords, setNoWords] = useState(0);
-  const [amountPer100Words, setAmountPer100Words] = useState(0);
+  const [amountPer100Words, setAmountPer100Words] = useState(2.5);
   const [totalAmount, setTotalAmount] = useState(0);
   const [amountLabel, setAmountLabel] = useState("100 words");
   const [isCouponVisible, setCouponVisibility] = useState(true);
@@ -1014,13 +1014,13 @@ const BottomField = (props: any) => {
               Get Discount
             </button>
           </div>
-          <div className="w-full justify-start items-center gap-x-2 flex">
+          <div className="w-full cursor-pointer justify-start items-center gap-x-2 flex">
             <div className="bg-[#F97E1A] border px-2 p-1 rounded-md text-white ">
               Add to cart
             </div>
             <span>OR</span>
             <div
-              className="bg-[#F97E1A] text-white border px-2 p-1 rounded-md "
+              className="bg-[#F97E1A] cursor-pointer text-white border px-2 p-1 rounded-md "
               onClick={() => placeOrder(props.firstData, state, amounts)}
             >
               Checkout

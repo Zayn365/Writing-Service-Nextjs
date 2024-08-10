@@ -5,6 +5,7 @@ import { Layout, Navbar, Footer } from "@/components";
 import AppContextLoader from "@/context/AppContext";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import ToastProvider from "@/utils/Toast";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -40,8 +41,9 @@ export default function RootLayout({
         <Layout>
           <Navbar />
           {children}
-          <ToastContainer/>
+          
           <Footer />
+          <ToastProvider />
         </Layout>
         </AppContextLoader>
       </body>

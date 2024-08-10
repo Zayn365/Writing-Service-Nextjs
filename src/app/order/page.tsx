@@ -7,8 +7,8 @@ import { useAppContext } from "@/context/AppContext";
 const Order = () => {
   const { user } = useAppContext();
   const [form, setForm] = useState({
-    name: user ? user.name : "",
-    email: user ? user.email : "",
+    name: user ? user?.name : "",
+    email: user ? user?.email : "",
     address: "",
     city: "",
     country: "",
