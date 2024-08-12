@@ -3,6 +3,7 @@ import { useState } from "react";
 import BottomField from "@/components/order/BottomField";
 import React from "react";
 import { useAppContext } from "@/context/AppContext";
+import ToastProvider from "@/utils/Toast";
 
 const Order = () => {
   const { user } = useAppContext();
@@ -99,6 +100,7 @@ const Order = () => {
         <hr />
         <BottomField firstData={form} />
       </div>
+      <ToastProvider />
     </div>
   );
 };

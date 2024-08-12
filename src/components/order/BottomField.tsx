@@ -1015,10 +1015,10 @@ const BottomField = (props: any) => {
             </button>
           </div>
           <div className="w-full cursor-pointer justify-start items-center gap-x-2 flex">
-            <div className="bg-[#F97E1A] border px-2 p-1 rounded-md text-white ">
+            {/* <div className="bg-[#F97E1A] border px-2 p-1 rounded-md text-white ">
               Add to cart
             </div>
-            <span>OR</span>
+            <span>OR</span> */}
             <div
               className="bg-[#F97E1A] cursor-pointer text-white border px-2 p-1 rounded-md "
               onClick={() => placeOrder(props.firstData, state, amounts)}

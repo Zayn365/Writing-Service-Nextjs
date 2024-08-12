@@ -24,7 +24,11 @@ export function useOrder() {
         toast.error("Please allow popups for this site.");
         return;
       }
-
+// File Upload
+const form = new FormData;
+form.set('file' , secondData?.file);
+console.log(secondData?.file , "Watch");
+     const {data} = await axios.post("api/upload", form);
       // Place Order
       await axios.post("api/orders", {
         id_: 0,
@@ -56,6 +60,7 @@ export function useOrder() {
         profile_image: "",
         referer_id: 0,
         streetname: {
+          file : data && data?.filePath,
           address: firstData.address,
           city: firstData.city,
           postalCode: firstData?.postalCode,
@@ -74,7 +79,7 @@ export function useOrder() {
       toast.success("Order placed successfully!");
 
       // Optional: Redirect or perform any additional actions
-      // router.push('/some-page');
+      router.push('/');
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         toast.error(`Error: ${error.response.data.message || 'An unexpected error occurred.'}`);
