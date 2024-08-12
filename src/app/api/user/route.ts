@@ -24,25 +24,25 @@ const routes = {
   },
 };
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const { method, url } = req;
-  const route = routes[url];
+// export default async function handler(
+//   req: NextApiRequest,
+//   res: NextApiResponse
+// ) {
+//   const { method, url } = req;
+//   const route = routes[url];
 
-  if (!route) {
-    return res.status(404).json({ error: "Not found" });
-  }
+//   if (!route) {
+//     return res.status(404).json({ error: "Not found" });
+//   }
 
-  if (!route[method.toLowerCase()]) {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
+//   if (!route[method.toLowerCase()]) {
+//     return res.status(405).json({ error: "Method not allowed" });
+//   }
 
-  try {
-    await route[method.toLowerCase()](req, res);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-}
+//   try {
+//     await route[method.toLowerCase()](req, res);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// }
