@@ -17,8 +17,9 @@ const services = [
   "Prewritten Books"
 ];
 import axios from "axios";
-
+import { useRouter } from "next/navigation";
 function Hero() {
+const router = useRouter();
   return (
     <header className="mt-5 bg-white p-8">
     <div className="w-w-full container mx-auto pt-12 pb-24 text-center">
@@ -45,18 +46,18 @@ function Hero() {
       </Typography>
       <div className="grid place-items-start justify-center gap-2">
         <div className="mt-8 flex flex-col items-center justify-center gap-4 md:flex-row">
-          <div className="w-80">
-            {/* @ts-ignore */}
-            <Input label="name@creative-tim.com" />
-          </div>
+          
           {/* @ts-ignore */} 
-          <Button size="md" className="lg:w-max shrink-0" fullWidth color="gray">
-            get started
+          
+          <Button onClick={() => {
+            router.push('/order');
+          }} size="md" className="lg:w-max shrink-0" fullWidth color="gray">
+            Place Order
           </Button>
         </div>
-        <div className="flex items-center gap-1">
+        {/* <div className="flex items-center gap-1"> */}
           {/* @ts-ignore */} 
-          <Typography variant="small" className="font-normal text-gray-700">
+          {/* <Typography variant="small" className="font-normal text-gray-700">
             See our{" "}
             <a
               href="#"
@@ -64,8 +65,8 @@ function Hero() {
             >
               Terms and Conditions
             </a>
-          </Typography>
-        </div>
+          </Typography> */}
+        {/* </div> */}
       </div>
     </div>
     <div className="w-full lg:container lg:mx-auto">
