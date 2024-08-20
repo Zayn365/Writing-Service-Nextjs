@@ -38,12 +38,13 @@ export async function POST(req: Request, res: NextApiResponse) {
 }
 
 export async function PUT(
-  req: Request,
+  req: any,
   res: NextApiResponse,
-  Request: NextApiRequest
 ) {
   try {
-    const { query: id } = Request;
+    const url = new URL(req.url);
+      const searchParam = new URLSearchParams(url.searchParams);
+      const id = searchParam.get('id');
     const data = await req.json();
     const user = await Order.update(id as any, data);
     return NextResponse.json(
@@ -56,12 +57,14 @@ export async function PUT(
 }
 
 export async function DELETE(
-  req: Request,
+  req: any,
   res: NextApiResponse,
-  Request: NextApiRequest
+  
 ) {
   try {
-    const { query: id } = Request;
+    const url = new URL(req.url);
+      const searchParam = new URLSearchParams(url.searchParams);
+      const id = searchParam.get('id');
     const data = await req.json();
     const user = await Order.deleteOrders(id as any);
     return NextResponse.json(
