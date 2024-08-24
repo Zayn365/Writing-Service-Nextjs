@@ -66,207 +66,210 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName }) => {
                 <Sort setSortNumber={setSortNumber} />
                 <SearchBar setSearch={setSearch} />
             </div>
-            <table className='w-full my-1 border-collapse'>
-                <thead className='bg-orange-700'>
-                    <tr className='bg-orange-700 w-full'>
+            <div className='w-full overflow-x-auto'>
+                <table className='w-full my-1 border-collapse'>
+                    <thead className='bg-orange-700'>
+                        <tr className='bg-orange-700 w-full'>
+                            {
+                                headTable?.map((item, index) => (
+                                    <th
+                                        key={index}
+                                        className='text-white  font-normal text-start px-1 py-1 capitalize'>
+                                        <div className='flex items-center gap-x-1 cursor-pointer'>
+                                            {item}
+                                            <ArrowUpIcon
+                                                onClick={() => handleAsc(item)}
+                                                fontSize='small'
+                                                className='text-white h-[12px] w-[12px]'
+                                            />
+                                            <ArrowDownIcon
+                                                onClick={() => handleDes(item)}
+                                                fontSize='small'
+                                                className='text-white h-[12px] w-[12px]'
+                                            />
+                                        </div>
+                                    </th>
+                                ))
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
-                            headTable?.map((item, index) => (
-                                <th
-                                    key={index}
-                                    className='text-white  font-normal text-start px-1 py-1 capitalize'>
-                                    <div className='flex items-center gap-x-1 cursor-pointer'>
-                                        {item}
-                                        <ArrowUpIcon
-                                            onClick={() => handleAsc(item)}
-                                            fontSize='small'
-                                            className='text-white h-[12px] w-[12px]'
-                                        />
-                                        <ArrowDownIcon
-                                            onClick={() => handleDes(item)}
-                                            fontSize='small'
-                                            className='text-white h-[12px] w-[12px]'
-                                        />
-                                    </div>
-                                </th>
-                            ))
-                        }
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        getPaginatedData()?.map((item: any, index: any) => (
-                            <tr key={index} className='border hover:bg-gray-100'>
-                                {
-                                    dataName === "user" &&
-                                    <>
-                                        <td className='text-start px-2 py-1'>{item?.no}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.name}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.email}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.type}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.id}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.date}</td>
-                                        <td className='text-start px-2 py-1'>
-                                            {typeof item?.status === 'object' ? (
-                                                <select name="" id="" className='border'>
-                                                    <>
-                                                        <option value="active" className='capitalize'>{item?.status.active}</option>
-                                                        <option value="deactive" className='capitalize'>{item?.status.unactive}</option>
-                                                    </>
-                                                </select>
-                                            ) : null}
-                                        </td>
-                                    </>
-                                }
-                                {
-                                    dataName === "onGoing" &&
-                                    <>
-
-                                        <td className='text-start px-2 py-1 '>{item?.year}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.order}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.service}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.name}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.email}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.word}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.date}</td>
-                                    </>
-                                }
-                                {
-                                    (dataName === "pending" || dataName === 'completed') &&
-                                    <>
-                                        <td className='text-start px-2 py-1 '>{item?.year}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.order}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.service}</td>
-                                        <td className='text-start px-2 py-1 underline'>
-                                            <Link href="#">
-                                                {item?.name}
-                                            </Link>
-                                        </td>
-                                        <td className='text-start px-2 py-1 '>{item?.email}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.word}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.date}</td>
-
-                                    </>
-                                }
-
-                                {
-                                    dataName === "prewrittenBooks" &&
-                                    <>
-                                        <td className='text-start px-2 py-1'>{item?.no}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.category}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.title}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.subTitle}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.word}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.amount}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.purchased}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.status}</td>
-                                        <td className='px-2 py-1 '>
-                                            <Button text={item?.view.edit} />  <Button text={item?.view.delete} />
-                                        </td>
-                                    </>
-                                }
-                                {
-                                    dataName === "prewritten" &&
-                                    <>
-                                        <td className='text-start px-2 py-1'>{item?.no}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.title}</td>
-                                        <td className='px-2 py-1 '>
-                                            <Button text={item?.view.edit} />  <Button text={item?.view.delete} />
-                                        </td>
-                                    </>
-                                }
-                                {
-                                    dataName === "affilate" &&
-                                    <>
-                                        <td className='text-start px-2 py-1'>{item?.no}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.name}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.email}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.date}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.status}</td>
-                                    </>
-                                }
-                                {
-                                    dataName === "offers" &&
-                                    (
+                            getPaginatedData()?.map((item: any, index: any) => (
+                                <tr key={index} className='border hover:bg-gray-100'>
+                                    {
+                                        dataName === "user" &&
                                         <>
                                             <td className='text-start px-2 py-1'>{item?.no}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.name}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.email}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.type}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.id}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.date}</td>
+                                            <td className='text-start px-2 py-1'>
+                                                {typeof item?.status === 'object' ? (
+                                                    <select name="" id="" className='border'>
+                                                        <>
+                                                            <option value="active" className='capitalize'>{item?.status.active}</option>
+                                                            <option value="deactive" className='capitalize'>{item?.status.unactive}</option>
+                                                        </>
+                                                    </select>
+                                                ) : null}
+                                            </td>
+                                        </>
+                                    }
+                                    {
+                                        dataName === "onGoing" &&
+                                        <>
+
+                                            <td className='text-start px-2 py-1 '>{item?.year}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.order}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.service}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.name}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.email}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.word}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.date}</td>
+                                        </>
+                                    }
+                                    {
+                                        (dataName === "pending" || dataName === 'completed') &&
+                                        <>
+                                            <td className='text-start px-2 py-1 '>{item?.year}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.order}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.service}</td>
+                                            <td className='text-start px-2 py-1 underline'>
+                                                <Link href="#">
+                                                    {item?.name}
+                                                </Link>
+                                            </td>
+                                            <td className='text-start px-2 py-1 '>{item?.email}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.word}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.date}</td>
+
+                                        </>
+                                    }
+
+                                    {
+                                        dataName === "prewrittenBooks" &&
+                                        <>
+                                            <td className='text-start px-2 py-1'>{item?.no}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.category}</td>
                                             <td className='text-start px-2 py-1 '>{item?.title}</td>
-                                            <td className='text-start px-2 py-1'>{item?.words}</td>
-                                            <td className='text-start px-2 py-1'>{item?.amount}</td>
-                                            <td className='text-start px-2 py-1'>{item?.amountTotal}</td>
-                                            <td className='text-start px-2 py-1'>{item?.installments}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.subTitle}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.word}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.amount}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.purchased}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.status}</td>
                                             <td className='px-2 py-1 '>
                                                 <Button text={item?.view.edit} />  <Button text={item?.view.delete} />
                                             </td>
-
                                         </>
-                                    )
-                                }
-                                {
-                                    dataName === "payments" &&
-                                    (
+                                    }
+                                    {
+                                        dataName === "prewritten" &&
                                         <>
                                             <td className='text-start px-2 py-1'>{item?.no}</td>
                                             <td className='text-start px-2 py-1 '>{item?.title}</td>
-                                            <td className='text-start px-2 py-1'>{item?.userType}</td>
-                                            <td className='text-start px-2 py-1'>{item?.payType}</td>
-                                            <td className='text-start px-2 py-1'>{item?.amount}</td>
-                                            <td className='text-start px-2 py-1'>{item?.payStatus}</td>
-                                            <td className='text-start px-2 py-1'>{item?.date}</td>
-
+                                            <td className='px-2 py-1 '>
+                                                <Button text={item?.view.edit} />  <Button text={item?.view.delete} />
+                                            </td>
                                         </>
-                                    )
-                                }
-                                {
-                                    dataName === 'faqs' &&
-                                    <>
-                                        <td className='text-start px-2 py-1'>{item?.no}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.question}</td>
-                                        <td className='text-start px-2 py-1'>{item?.answer}</td>
-                                        <td className='text-start px-2 py-1'>{item?.status}</td>
-                                        <td className='text-start px-2 py-1'>{item?.date}</td>
-                                        <td className='px-2 py-1 '>
-                                            <Button text={item?.view.edit} />  <Button text={item?.view.delete} />
-                                        </td>                                    </>
-                                }
+                                    }
+                                    {
+                                        dataName === "affilate" &&
+                                        <>
+                                            <td className='text-start px-2 py-1'>{item?.no}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.name}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.email}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.date}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.status}</td>
+                                        </>
+                                    }
+                                    {
+                                        dataName === "offers" &&
+                                        (
+                                            <>
+                                                <td className='text-start px-2 py-1'>{item?.no}</td>
+                                                <td className='text-start px-2 py-1 '>{item?.title}</td>
+                                                <td className='text-start px-2 py-1'>{item?.words}</td>
+                                                <td className='text-start px-2 py-1'>{item?.amount}</td>
+                                                <td className='text-start px-2 py-1'>{item?.amountTotal}</td>
+                                                <td className='text-start px-2 py-1'>{item?.installments}</td>
+                                                <td className='px-2 py-1 '>
+                                                    <Button text={item?.view.edit} />  <Button text={item?.view.delete} />
+                                                </td>
 
-                                {
-                                    (dataName === 'refunded' || dataName === "ongoinProject" || dataName === 'delivered') &&
-                                    <>
-                                        <td className='text-start px-2 py-1'>{item?.no}</td>
-                                        <td className='text-start px-2 py-1 '>{item?.cancel}</td>
-                                        <td className='text-start px-2 py-1'>{item?.service}</td>
-                                        <td className='text-start px-2 py-1'>{item?.client}</td>
-                                        <td className='text-start px-2 py-1'>{item?.title}</td>
-                                        <td className='text-start px-2 py-1'>{item?.word}</td>
-                                        <td className='text-start px-2 py-1'>{item?.date}</td>
-                                        <td className='text-start px-2 py-1'>
-                                            {typeof item?.status === 'object' ? (
-                                                <select name="" id="" className='border'>
-                                                    {
-                                                        dataName === 'refunded' ?
-                                                            <>
-                                                                <option value="active" className='capitalize'>{item?.status.refuned}</option>
-                                                                <option value="deactive" className='capitalize'>{item?.status.funded}</option>
-                                                            </> :
-                                                            <>
-                                                                <option value="active" className='capitalize'>{item?.status.pending}</option>
-                                                                <option value="deactive" className='capitalize'>{item?.status.delivered}</option>
+                                            </>
+                                        )
+                                    }
+                                    {
+                                        dataName === "payments" &&
+                                        (
+                                            <>
+                                                <td className='text-start px-2 py-1'>{item?.no}</td>
+                                                <td className='text-start px-2 py-1 '>{item?.title}</td>
+                                                <td className='text-start px-2 py-1'>{item?.userType}</td>
+                                                <td className='text-start px-2 py-1'>{item?.payType}</td>
+                                                <td className='text-start px-2 py-1'>{item?.amount}</td>
+                                                <td className='text-start px-2 py-1'>{item?.payStatus}</td>
+                                                <td className='text-start px-2 py-1'>{item?.date}</td>
 
-                                                            </>
-                                                    }
-                                                </select>
-                                            ) : null}
-                                        </td>
-                                        <td className='text-start px-2 py-1'>
-                                            <Button text={item?.view} />
-                                        </td>
-                                    </>
-                                }
-                            </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
+                                            </>
+                                        )
+                                    }
+                                    {
+                                        dataName === 'faqs' &&
+                                        <>
+                                            <td className='text-start px-2 py-1'>{item?.no}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.question}</td>
+                                            <td className='text-start px-2 py-1'>{item?.answer}</td>
+                                            <td className='text-start px-2 py-1'>{item?.status}</td>
+                                            <td className='text-start px-2 py-1'>{item?.date}</td>
+                                            <td className='px-2 py-1 '>
+                                                <Button text={item?.view.edit} />  <Button text={item?.view.delete} />
+                                            </td>                                    </>
+                                    }
+
+                                    {
+                                        (dataName === 'refunded' || dataName === "ongoinProject" || dataName === 'delivered') &&
+                                        <>
+                                            <td className='text-start px-2 py-1'>{item?.no}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.cancel}</td>
+                                            <td className='text-start px-2 py-1'>{item?.service}</td>
+                                            <td className='text-start px-2 py-1'>{item?.client}</td>
+                                            <td className='text-start px-2 py-1'>{item?.title}</td>
+                                            <td className='text-start px-2 py-1'>{item?.word}</td>
+                                            <td className='text-start px-2 py-1'>{item?.date}</td>
+                                            <td className='text-start px-2 py-1'>
+                                                {typeof item?.status === 'object' ? (
+                                                    <select name="" id="" className='border'>
+                                                        {
+                                                            dataName === 'refunded' ?
+                                                                <>
+                                                                    <option value="active" className='capitalize'>{item?.status.refuned}</option>
+                                                                    <option value="deactive" className='capitalize'>{item?.status.funded}</option>
+                                                                </> :
+                                                                <>
+                                                                    <option value="active" className='capitalize'>{item?.status.pending}</option>
+                                                                    <option value="deactive" className='capitalize'>{item?.status.delivered}</option>
+
+                                                                </>
+                                                        }
+                                                    </select>
+                                                ) : null}
+                                            </td>
+                                            <td className='text-start px-2 py-1'>
+                                                <Button text={item?.view} />
+                                            </td>
+                                        </>
+                                    }
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
+            </div>
+
             <div className='w-full p-1 text-sm flex justify-between items-center'>
                 <div>
                     <span>showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, (sortedData()?.length || 0))} of {sortedData()?.length} entries</span>

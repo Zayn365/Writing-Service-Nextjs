@@ -11,7 +11,7 @@ interface TableProps {
 const OtherTable: React.FC<TableProps> = ({ headTable, body, dataName }) => {
 
     return (
-        <div className='w-full'>
+        <div className='w-full overflow-x-auto'>
             <table className='w-full my-1 border-collapse'>
                 <thead className='bg-orange-700'>
                     <tr className='bg-orange-700 w-full'>
