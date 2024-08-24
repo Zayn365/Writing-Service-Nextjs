@@ -1,0 +1,1 @@
+export const homeItem = ["Total User(s)","Total Order(s)","Total Pending Order(s)","Total Paid Order(s)","Total Delivered Order(s)","Total Article(s)",'Total Pending Article(s)',"Total Delivered Article(s)","Total Earned","Check to Enable Checkout","Select Paymet Method"]
