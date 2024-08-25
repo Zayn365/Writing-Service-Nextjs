@@ -65,7 +65,13 @@ export const UserHooks = () => {
         Cookies.set("user", stringer);
         toast.success("User Logged In SuccessFully");
         setTimeout(() => {
-          router.push("/");
+          if(res?.data?.user?.userType === "admin") {
+            router.push("/admin");
+          }
+          else {
+            router.push("/");
+          }
+          
         }, 2000);
       });
     } catch (error: any) {
