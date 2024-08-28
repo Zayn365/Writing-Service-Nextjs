@@ -118,3 +118,98 @@ model users {
   /// Multiple data types found: String: 12.8%, Int: 87.2% out of 47 sampled entries
   zip                Json?
 }
+
+model offers {
+  id                 String @id @default(auto()) @map("_id") @db.ObjectId
+  amount             Float
+  amount_total       Int
+  details            String
+  id_                Int    @map("id")
+  installments_month Int
+  no_of_books        Int
+  title              String
+  words              Int
+}
+
+model projects {
+  id                          String  @id @default(auto()) @map("_id") @db.ObjectId
+  accept_extra_amount         Int
+  accept_writer_work          Int
+  admin_attachment            String?
+  admin_attachment_editor     String?
+  article_status              Int
+  available_for_editing       Int
+  blocked_user                Int
+  bonus_paid                  Int
+  cat_id                      Int
+  coments_about_editor        String?
+  coments_about_writer        String?
+  created_date                String
+  /// Multiple data types found: Float: 19.6%, Int: 80.4% out of 979 sampled entries
+  editor_amount               Json?
+  editor_amount_extra         Int
+  editor_assigned_date        String
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  editor_attachment           Json?
+  editor_bonus_paid           Int
+  editor_completed_date       String
+  editor_due_date             String
+  editor_id                   Int?
+  editor_payment_status       Int
+  editor_rating               Int
+  editors_words_extra         Int
+  id_                         Int     @map("id")
+  /// Multiple data types found: String: 96.5%, Int: 3.5% out of 800 sampled entries
+  milestone                   Json?
+  order_id                    Int
+  priority                    Int
+  project_title               String
+  special_instructions        String?
+  special_instructions_editor String?
+  super_editor_id             Int
+  word_count                  Int
+  /// Multiple data types found: Float: 15.7%, Int: 84.3% out of 999 sampled entries
+  writer_amount               Json?
+  writer_assigned_date        String
+  writer_completed_date       String
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  writer_content              Json?
+  writer_id                   Int
+  writer_payment_status       Int
+  writer_rating               Int
+  writers_due_date            String
+}
+
+model faqs {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  answer   String?
+  date     String
+  id_      Int     @map("id")
+  question String
+  status   Int
+}
+
+model prewritten_book_categories {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  id_   Int    @map("id")
+  title String
+}
+
+model prewritten_books {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  book_type   String
+  category    String
+  category_id String
+  name        String
+}
+
+model seo_details {
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
+  id_              Int    @map("id")
+  meta_description String
+  meta_keywords    String
+  meta_title       String
+  url              String
+}
+
+

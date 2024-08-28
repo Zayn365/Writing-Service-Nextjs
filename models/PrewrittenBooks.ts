@@ -3,12 +3,10 @@ import bcrypt from "bcrypt";
 // @ts-ignore
 const prisma = new PrismaClient();
 
-export async function GetOrders () {
+export async function get() {
     try {
-        
-        const orders = prisma.orders.findMany();
-        console.log(orders);
-        return orders;
+        const data = prisma.prewritten_books.findMany();
+         return data;
     }
     catch(e:any) {
       console.log(e);
@@ -17,9 +15,9 @@ export async function GetOrders () {
 }
 
 
-export async function createOrders(data: any) {
+export async function create(data: any) {
   try {
-    const user = await prisma.orders.create({
+    const user = await prisma.prewritten_books.create({
       data: data
     });
     return user;
@@ -30,7 +28,7 @@ export async function createOrders(data: any) {
 
 export async function update(id: string, data: any) {
   try {
-    const user = await prisma.orders.update({
+    const user = await prisma.prewritten_books.update({
       where: {
         id: id,
       },
@@ -42,10 +40,10 @@ export async function update(id: string, data: any) {
   }
 }
 
-export async function deleteOrders(id: string) {
+export async function Delete(id: string) {
   try {
     // @ts-ignore
-    await prisma.orders.delete({
+    await prisma.prewritten_books.delete({
       where: {
         id: id,
       },

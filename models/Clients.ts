@@ -48,7 +48,7 @@ export async function deleteClients(id: string) {
         id: id,
       },
     });
-    return { message: "User deleted successfully" };
+    return { message: "Object deleted successfully" };
   } catch (error) {
     throw error;
   }
