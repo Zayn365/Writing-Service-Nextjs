@@ -176,7 +176,7 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete }
                                             <td className='text-start px-2 py-1 '>{item?.purchased}</td>
                                             <td className='text-start px-2 py-1 '>{item?.status}</td>
                                             <td className='px-2 py-1 '>
-                                                <Button text={item?.view.edit} />  <Button text={item?.view.delete} />
+                                                <Button text={item?.view?.edit} />  <Button text={item?.view?.delete} />
                                             </td>
                                         </>
                                     }
@@ -186,7 +186,7 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete }
                                             <td className='text-start px-2 py-1'>{item?.no}</td>
                                             <td className='text-start px-2 py-1 '>{item?.title}</td>
                                             <td className='px-2 py-1 '>
-                                                <Button text={item?.view.edit} />  <Button text={item?.view.delete} />
+                                                <Button text={item?.view?.edit} />  <Button text={item?.view?.delete} />
                                             </td>
                                         </>
                                     }
@@ -211,7 +211,7 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete }
                                                 <td className='text-start px-2 py-1'>{item?.amountTotal}</td>
                                                 <td className='text-start px-2 py-1'>{item?.installments}</td>
                                                 <td className='px-2 py-1 '>
-                                                    <Button text={item?.view.edit} />  <Button text={item?.view.delete} />
+                                                    <Button text={item?.view?.edit} />  <Button text={item?.view?.delete} />
                                                 </td>
 
                                             </>
@@ -241,7 +241,7 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete }
                                             <td className='text-start px-2 py-1'>{item?.status}</td>
                                             <td className='text-start px-2 py-1'>{item?.date}</td>
                                             <td className='px-2 py-1 '>
-                                                <Button text={item?.view.edit} />  <Button text={item?.view.delete} />
+                                                <Button text={item?.view?.edit} />  <Button text={item?.view?.delete} />
                                             </td>                                    </>
                                     }
 
