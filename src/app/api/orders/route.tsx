@@ -43,8 +43,8 @@ export async function PUT(
 ) {
   try {
     const url = new URL(req.url);
-      const searchParam = new URLSearchParams(url.searchParams);
-      const id = searchParam.get('id');
+    const searchParam = new URLSearchParams(url.searchParams);
+    const id = searchParam.get('id');
     const data = await req.json();
     const user = await Order.update(id as any, data);
     return NextResponse.json(
@@ -59,12 +59,12 @@ export async function PUT(
 export async function DELETE(
   req: any,
   res: NextApiResponse,
-  
+
 ) {
   try {
     const url = new URL(req.url);
-      const searchParam = new URLSearchParams(url.searchParams);
-      const id = searchParam.get('id');
+    const searchParam = new URLSearchParams(url.searchParams);
+    const id = searchParam.get('id');
     const data = await req.json();
     const user = await Order.deleteOrders(id as any);
     return NextResponse.json(

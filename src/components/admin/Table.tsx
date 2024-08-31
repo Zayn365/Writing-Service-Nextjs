@@ -10,16 +10,16 @@ interface TableProps {
     headTable: string[];
     body?: any[];
     dataName?: string;
+    handleDelete?: any
 }
 
-const Table: React.FC<TableProps> = ({ headTable, body, dataName }) => {
+const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete }) => {
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
     const [sortColumn, setSortColumn] = useState<string>('');
     const [sortNumber, setSortNumber] = useState('25');
     const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(Number(sortNumber));
-
     const handleAsc = (column: string) => {
         setSortDirection('asc');
         setSortColumn(column);
@@ -41,17 +41,23 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName }) => {
         });
     };
 
+
     const getPaginatedData = () => {
-        const data = sortedData()?.filter(item => {
+        const sorted = sortedData();
+        // Ensure sorted is 
+        if (!Array.isArray(sorted)) return [];
+
+        const filtered = sorted.filter(item => {
             return Object.values(item).some(value =>
                 typeof value === 'string' && value.toLowerCase().includes(search.toLowerCase())
-            )
-        }) || [];
+            );
+        });
 
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
-        return data.slice(startIndex, endIndex);
+        return filtered.slice(startIndex, endIndex);
     };
+
 
     const totalPages = Math.ceil((sortedData()?.length || 0) / itemsPerPage);
 
@@ -145,6 +151,15 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName }) => {
                                             <td className='text-start px-2 py-1 '>{item?.email}</td>
                                             <td className='text-start px-2 py-1 '>{item?.word}</td>
                                             <td className='text-start px-2 py-1 '>{item?.date}</td>
+                                            <td className='text-start px-2 py-1 '>
+                                                <Link href={{
+                                                    pathname: '/admin/completed/user-article/',
+                                                    query: { id: '13' },
+                                                }}
+                                                >
+                                                    <Button text={"view"} />
+                                                </Link>
+                                            </td>
 
                                         </>
                                     }
