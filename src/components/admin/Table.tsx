@@ -10,10 +10,11 @@ interface TableProps {
     headTable: string[];
     body?: any[];
     dataName?: string;
-    handleDelete?: any
+    handleDelete?: any;
+    handleEdit?: any
 }
 
-const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete }) => {
+const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, handleEdit }) => {
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
     const [sortColumn, setSortColumn] = useState<string>('');
     const [sortNumber, setSortNumber] = useState('25');
@@ -102,7 +103,7 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete }
                     <tbody>
                         {
                             getPaginatedData()?.map((item: any, index: any) => (
-                                <tr key={index} className='border hover:bg-gray-100'>
+                                <tr key={index} className='border hover:bg-gray-100 capitalize'>
                                     {
                                         dataName === "user" &&
                                         <>
@@ -183,10 +184,13 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete }
                                     {
                                         dataName === "prewritten" &&
                                         <>
-                                            <td className='text-start px-2 py-1'>{item?.no}</td>
+                                            <td className='text-start px-2 py-1'>{item?.id_}</td>
                                             <td className='text-start px-2 py-1 '>{item?.title}</td>
-                                            <td className='px-2 py-1 '>
-                                                <Button text={item?.view?.edit} />  <Button text={item?.view?.delete} />
+                                            <td className='px-2 py-1 text-center gap-x-2 flex capitalize '>
+                                                <Button text={"edit"} buttonHandle={() => handleEdit?.(item.id)}
+                                                />
+                                                <Button text={"delete"} buttonHandle={() => handleDelete?.(item.id)}
+                                                />
                                             </td>
                                         </>
                                     }
@@ -204,14 +208,17 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete }
                                         dataName === "offers" &&
                                         (
                                             <>
-                                                <td className='text-start px-2 py-1'>{item?.no}</td>
+                                                <td className='text-start px-2 py-1'>{item?.id_}</td>
                                                 <td className='text-start px-2 py-1 '>{item?.title}</td>
                                                 <td className='text-start px-2 py-1'>{item?.words}</td>
                                                 <td className='text-start px-2 py-1'>{item?.amount}</td>
-                                                <td className='text-start px-2 py-1'>{item?.amountTotal}</td>
-                                                <td className='text-start px-2 py-1'>{item?.installments}</td>
-                                                <td className='px-2 py-1 '>
-                                                    <Button text={item?.view?.edit} />  <Button text={item?.view?.delete} />
+                                                <td className='text-start px-2 py-1'>{item?.amount_total}</td>
+                                                <td className='text-start px-2 py-1'>{item?.installments_month}</td>
+                                                <td className='px-2 py-1 text-center gap-x-2 flex capitalize '>
+                                                    <Button text={"edit"} buttonHandle={() => handleEdit?.(item.id)}
+                                                    />
+                                                    <Button text={"delete"} buttonHandle={() => handleDelete?.(item.id)}
+                                                    />
                                                 </td>
 
                                             </>
@@ -235,14 +242,18 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete }
                                     {
                                         dataName === 'faqs' &&
                                         <>
-                                            <td className='text-start px-2 py-1'>{item?.no}</td>
+                                            <td className='text-start px-2 py-1'>{item?.id_}</td>
                                             <td className='text-start px-2 py-1 '>{item?.question}</td>
                                             <td className='text-start px-2 py-1'>{item?.answer}</td>
-                                            <td className='text-start px-2 py-1'>{item?.status}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.status === 0 ? "deactive" : "active"}</td>
                                             <td className='text-start px-2 py-1'>{item?.date}</td>
-                                            <td className='px-2 py-1 '>
-                                                <Button text={item?.view?.edit} />  <Button text={item?.view?.delete} />
-                                            </td>                                    </>
+                                            <td className='px-2 py-1  '>
+                                                <Button text={"edit"} buttonHandle={() => handleEdit?.(item.id)}
+                                                />
+                                                <Button text={"delete"} buttonHandle={() => handleDelete?.(item.id)}
+                                                />
+                                            </td>
+                                        </>
                                     }
 
                                     {

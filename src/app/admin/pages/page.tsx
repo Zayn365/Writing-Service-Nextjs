@@ -16,7 +16,7 @@ const page = () => {
             <div className="my-4 flex justify-end items-center gap-x-4">
                 <Button text={"add new page"} className='mb-4' />
             </div>
-            <OtherTable headTable={pagesHead} body={pagesBody} dataName='page' />
+            <OtherTable headTable={pagesHead} dataName='page' />
         </div>
     )
 }

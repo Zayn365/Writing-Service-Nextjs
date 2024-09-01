@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface InputFieldProps {
-    type: 'text' | 'password' | 'email' | 'number' | 'date' | 'file';
+    type: 'text' | 'password' | 'email' | 'number' | 'date' | 'file' | 'checkbox' | 'radio';
     handleChange?: React.ChangeEventHandler<HTMLInputElement>;
     placeholder?: string;
     value?: string | number;
@@ -26,6 +26,7 @@ const InputField: React.FC<InputFieldProps> = ({
             type={type}
             onChange={handleChange}
             placeholder={placeholder}
+
             value={value}
             name={name}
             id={id}

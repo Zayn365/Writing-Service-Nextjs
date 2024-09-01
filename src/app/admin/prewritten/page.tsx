@@ -3,6 +3,7 @@ import Button from '@/components/admin/Button'
 import Header from '@/components/admin/Header'
 import InputField from '@/components/admin/InputField'
 import Table from '@/components/admin/Table'
+import UseFetchData from '@/hooks/UseFetchData'
 import { Axios } from '@/utils/Axios'
 import React, { useState } from 'react'
 
@@ -24,6 +25,12 @@ const Page = () => {
         },
 
     ]
+    const { data, loading, error } = UseFetchData("/api/prewrittenBookCategories")
+
+    if (data) {
+        console.log(data)
+    }
+
     const category = ["Accounting", "Activites,Craft & Games", "Addition & Recovery", "Adimistrative Law"]
     const [preWritten, setPreWritten] = useState({
         title: "",

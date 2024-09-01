@@ -1,15 +1,19 @@
 'use client';
 import React, { useState } from 'react';
 import Button from './Button';
+import UseFetchData from '@/hooks/UseFetchData';
 
 interface TableProps {
     headTable: string[];
-    body?: any[];
+    api?: string;
     dataName?: string;
     handleDelete?: (id: string) => void;
 }
 
-const OtherTable: React.FC<TableProps> = ({ headTable, body = [], dataName, handleDelete }) => {
+const OtherTable: React.FC<TableProps> = ({ headTable, api, dataName, handleDelete }) => {
+    const { data, error, loading } = UseFetchData(api);
+
+
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 15;
     // Number of items per page
@@ -19,10 +23,13 @@ const OtherTable: React.FC<TableProps> = ({ headTable, body = [], dataName, hand
     const endIndex = startIndex + itemsPerPage;
 
     // Slice the body to only include items for the current page
-    const paginatedBody = body?.slice(startIndex, endIndex);
+    const paginatedBody = data?.slice(startIndex, endIndex);
 
     // Total number of pages
-    const totalPages = Math?.ceil(body.length / itemsPerPage);
+    const totalPages = Math?.ceil(data.length / itemsPerPage);
+
+    // if (loading) return <p>Loading...</p>;
+    // if (error) return <p>{error}</p>;
 
     return (
         <div className='w-full overflow-x-auto'>
@@ -48,14 +55,14 @@ const OtherTable: React.FC<TableProps> = ({ headTable, body = [], dataName, hand
                                 {
                                     dataName === "seo" &&
                                     <>
-                                        <td className='p-1 border'>{item?.no}</td>
-                                        <td className='p-1 border'>{item?.title}</td>
+                                        <td className='p-1 border'>{item?.id_}</td>
+                                        <td className='p-1 border'>{item?.meta_title}</td>
                                         <td className='p-1 border'>{item?.url}</td>
-                                        <td className='p-1 border'>{item?.keyword}</td>
-                                        <td className='p-1 border'>{item?.des}</td>
+                                        <td className='p-1 border'>{item?.meta_keywords}</td>
+                                        <td className='p-1 border'>{item?.meta_description}</td>
                                         <td className='px-2 py-1 border text-center'>
-                                            <Button text={item?.view?.edit} className='mb-4' />
-                                            <Button text={item?.view?.delete} />
+                                            <Button text={'Edit'} className='mb-4' />
+                                            <Button text={'delete'} />
                                         </td>
                                     </>
                                 }
@@ -88,9 +95,9 @@ const OtherTable: React.FC<TableProps> = ({ headTable, body = [], dataName, hand
                                                 <div className='p-1 bg-red-500 rounded-full h-[15px] w-[15px]'></div>
                                             )}
                                         </td>
-                                        <td className='px-2 py-1'>
-                                            <Button text={item?.view?.edit} />
-                                            <Button text={item?.view?.delete} />
+                                        <td className='px-2 py-1 border text-center'>
+                                            <Button text={'Edit'} className='mb-4' />
+                                            <Button text={'delete'} />
                                         </td>
                                     </>
                                 }

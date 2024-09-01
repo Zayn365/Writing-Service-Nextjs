@@ -1,8 +1,8 @@
 import { Axios } from '@/utils/Axios';
 
-export const DeleteData = async (Id: string) => {
+export const DeleteData = async (Id: string, endpoint: string) => {
     try {
-        const response = await Axios.delete(`/api/faqs?id=${Id}`);
+        const response = await Axios.delete(`/api/${endpoint}?id=${Id}`);
 
         if (response.status !== 200) {
             throw new Error(`Error: ${response.statusText}`);

@@ -9,6 +9,7 @@ import { DeleteData } from '@/hooks/DeleteData';
 import { postData } from '@/hooks/PostData';
 import UseFetchData from '@/hooks/UseFetchData';
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const Page = () => {
   const { data, error, loading } = UseFetchData("/api/faqs");
@@ -21,22 +22,19 @@ const Page = () => {
     status: 1,
   });
 
-  if (data) {
-    console.log(data)
-  }
-
-  // useEffect(() => {
-  //   if (data && data?.length > 0) {
-  //     const maxId = Math?.max(...data?.map((item: any) => item?.id_));
-  //     setNextId(maxId + 1);
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (data && data?.length > 0) {
+      const maxId = Math?.max(...data?.map((item: any) => item?.id_));
+      setNextId(maxId + 1);
+    }
+  }, [data]);
 
   const handlePost = async () => {
     try {
       const result = await postData({ endpoint: 'api/faqs', data: { ...faq, date: new Date().toISOString(), id_: nextId } });
       console.log('FAQ created:', result);
       if (result) {
+        toast.success("Successfully Added!")
         setFaq({
           question: "",
           answer: "",
@@ -63,8 +61,17 @@ const Page = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      const result = await DeleteData(id);
+      const result = await DeleteData(id, "faqs");
       console.log('FAQ deleted:', result);
+    } catch (error) {
+      console.error('Error deleting FAQ:', error);
+    }
+  };
+
+  const handleEdit = async (id: string) => {
+    try {
+      // const result = await DeleteData(id, "faqs");
+      // console.log('FAQ deleted:', result);
     } catch (error) {
       console.error('Error deleting FAQ:', error);
     }
@@ -107,6 +114,7 @@ const Page = () => {
       <Header text={"Faqs Listing"} />
       <Table
         handleDelete={handleDelete}
+        handleEdit={handleEdit}
         headTable={faqsHead}
         body={data.length > 0 ? data : faqsBody}
         dataName='faqs'

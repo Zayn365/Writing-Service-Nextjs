@@ -2,9 +2,10 @@ import { Axios } from "@/utils/Axios";
 import axios from "axios";
 const localurl = "https://write-articles-for-me.vercel.app/";
 console.log(process.env, "CHECKER")
-export const postData = async ({endpoint, data }: { endpoint: string, data: any }) => {
+export const postData = async ({ endpoint, data }: { endpoint: string, data: any }) => {
     try {
-        const response = await axios.post(localurl+endpoint, data);
+        console.log(localurl + endpoint)
+        const response = await axios.post(localurl + endpoint, data);
         console.log(response)
         return response.data;
     } catch (error) {

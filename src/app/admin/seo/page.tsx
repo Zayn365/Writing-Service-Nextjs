@@ -1,18 +1,43 @@
+'use client'
 import Button from '@/components/admin/Button'
 import Header from '@/components/admin/Header'
 import InputField from '@/components/admin/InputField'
 import OtherTable from '@/components/admin/OtherTable'
 import Textarea from '@/components/admin/Textarea'
-import React from 'react'
+import { seoHead } from '@/constants/seo'
+import { postData } from '@/hooks/PostData'
+import UseFetchData from '@/hooks/UseFetchData'
+import React, { useState } from 'react'
+import { toast } from 'react-toastify'
 
-const page = () => {
-    const seoHead = ["#", "Title", "URL", "keywords", "description", " "]
-    const seoBody = [
-        { no: "1", title: "Home | Write Articles For Me", url: "writearticlesforme.com", keyword: "SEO Article Writing Services, UAW Article Writing Services, Product Description Articles, Spintax Articles, Article Rewriting Services, Article Writing Services, Business Article Writing Services, Non-Fiction E-book Writing Services, Website content", des: "Get high quality articles and books written", view: { edit: "edit", delete: "delete" } },
-        { no: "2", title: "Home | Write Articles For Me", url: "writearticlesforme.com", keyword: "SEO Article Writing Services, UAW Article Writing Services, Product Description Articles, Spintax Articles, Article Rewriting Services, Article Writing Services, Business Article Writing Services, Non-Fiction E-book Writing Services, Website content", des: "Get high quality articles and books written", view: { edit: "edit", delete: "delete" } },
-        { no: "3", title: "Home | Write Articles For Me", url: "writearticlesforme.com", keyword: "SEO Article Writing Services, UAW Article Writing Services, Product Description Articles, Spintax Articles, Article Rewriting Services, Article Writing Services, Business Article Writing Services, Non-Fiction E-book Writing Services, Website content", des: "Get high quality articles and books written", view: { edit: "edit", delete: "delete" } }
+const Page = () => {
+    const [seo, setIsSeo] = useState({
+        meta_title: "",
+        url: "",
+        meta_keywords: "",
+        meta_description: "",
+    })
+    const { data, error, loading } = UseFetchData("/api/seoDetails");
 
-    ]
+    const handleTextChange = (e: any) => {
+        const { name, value, type, checked } = e.target;
+        setIsSeo(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const addSeo = async () => {
+        try {
+            const result = await postData({ endpoint: '/api/seoDetails', data: setIsSeo })
+            if (result) {
+                toast.success("Successfully Added!")
+            }
+        } catch (error) {
+            toast.error(`something went wrong ${error}`)
+        }
+    }
+
     return (
 
         <div>
@@ -23,7 +48,7 @@ const page = () => {
                         page title
                     </span>
                     <div className='w-1/2'>
-                        <InputField type='text' id='title' name='title' />
+                        <InputField type='text' name='meta_title' handleChange={handleTextChange} />
                     </div>
                 </div>
                 <div className='flex just'>
@@ -31,7 +56,7 @@ const page = () => {
                         page URL
                     </span>
                     <div className='w-1/2'>
-                        <InputField type='text' id='title' name='title' />
+                        <InputField type='text' name='url' handleChange={handleTextChange} />
                     </div>
                 </div>
                 <div className='flex just'>
@@ -39,7 +64,7 @@ const page = () => {
                         Meta Keywords
                     </span>
                     <div className='w-1/2'>
-                        <Textarea className='w-full' />
+                        <Textarea className='w-full' name='meta_keywords' handleChange={handleTextChange} />
                     </div>
                 </div>
                 <div className='flex just'>
@@ -47,7 +72,7 @@ const page = () => {
                         Meta Descriptions
                     </span>
                     <div className='w-1/2'>
-                        <Textarea className='w-full' />
+                        <Textarea className='w-full' name='meta_description' handleChange={handleTextChange} />
                     </div>
                 </div>
                 <div className='flex just'>
@@ -55,15 +80,16 @@ const page = () => {
 
                     </span>
                     <div className='w-1/2'>
-                        <Button text={"add seo Detail"} className='bg-blue-800 text-white capitalize  mb-4' />
+                        <Button buttonHandle={addSeo} text={"add seo Detail"} className='bg-blue-800 text-white capitalize  mb-4' />
                     </div>
                 </div>
             </div>
             <div className='h-[2px] w-full bg-gray-400 my-2'></div>
-            <OtherTable body={seoBody} headTable={seoHead} dataName='seo' />
+
+            <OtherTable api={'/api/seoDetails'} headTable={seoHead} dataName='seo' />
 
         </div>
     )
 }
 
-export default page
+export default Page
