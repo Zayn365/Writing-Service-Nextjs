@@ -6,6 +6,7 @@ import OtherTable from '@/components/admin/OtherTable';
 import Textarea from '@/components/admin/Textarea';
 import { testimonialBody, testimonialHead } from '@/constants/testimonial';
 import { DeleteData } from '@/hooks/DeleteData';
+import { postData } from '@/hooks/PostData';
 import UseFetchData from '@/hooks/UseFetchData';
 import { Axios } from '@/utils/Axios';
 import React, { useEffect, useState } from 'react';
@@ -16,8 +17,8 @@ const Page = () => {
     const addTestimonial = async () => {
         try {
             const testimonial = { title: clientName, detail: detail };
-            const response = await Axios.post('/api/testimonials', testimonial);
-            console.log('Testimonial added successfully:', response.data);
+            const result = await postData({ endpoint: '/api/testimonials', data: testimonial });
+            console.log('Testimonial added successfully:', result.data);
             setClientName("");
             setDetail("");
         } catch (error) {
@@ -31,14 +32,14 @@ const Page = () => {
             const result = await DeleteData(id, "testimonials");
             console.log('testimonials deleted:', result);
         } catch (error) {
-            console.error('Error deleting testimonials:', error);
+            console.error('Error deleting FAQ:', error);
         }
     };
 
     return (
         <div>
             <Header text={"Add Testimonial"} />
-            <div>
+            <div className='flex flex-col gap-y-2'>
                 <div className='flex just'>
                     <span className='w-1/3 capitalize'>
                         Title
