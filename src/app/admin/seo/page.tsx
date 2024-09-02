@@ -9,19 +9,29 @@ import { DeleteData } from '@/hooks/DeleteData'
 import { EditData } from '@/hooks/EditData'
 import { postData } from '@/hooks/PostData'
 import UseFetchData from '@/hooks/UseFetchData'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 const Page = () => {
     const [id, setId] = useState("");
     const [isEditing, setIsEditing] = useState<boolean>(false);
+    const [nextId, setNextId] = useState<number>(1);
+
     const [seo, setIsSeo] = useState({
+        id_: nextId,
         meta_title: "",
         url: "",
         meta_keywords: "",
         meta_description: "",
     })
     const { data, error, loading } = UseFetchData("/api/seoDetails");
+
+    useEffect(() => {
+        if (data && data.length > 0) {
+            const maxId = Math.max(...data.map((item: any) => item.id_));
+            setNextId(maxId + 1);
+        }
+    }, [data]);
 
     const handleTextChange = (e: any) => {
         const { name, value } = e.target;
