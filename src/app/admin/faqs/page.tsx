@@ -6,6 +6,7 @@ import Table from '@/components/admin/Table';
 import Textarea from '@/components/admin/Textarea';
 import { faqsHead, faqsBody } from '@/constants/faq';
 import { DeleteData } from '@/hooks/DeleteData';
+import { EditData } from '@/hooks/EditData';
 import { postData } from '@/hooks/PostData';
 import UseFetchData from '@/hooks/UseFetchData';
 import React, { useState, useEffect } from 'react';
@@ -21,10 +22,11 @@ const Page = () => {
     question: "",
     status: 1,
   });
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   useEffect(() => {
-    if (data && data?.length > 0) {
-      const maxId = Math?.max(...data?.map((item: any) => item?.id_));
+    if (data && data.length > 0) {
+      const maxId = Math.max(...data.map((item: any) => item.id_));
       setNextId(maxId + 1);
     }
   }, [data]);
@@ -34,7 +36,7 @@ const Page = () => {
       const result = await postData({ endpoint: 'api/faqs', data: { ...faq, date: new Date().toISOString(), id_: nextId } });
       console.log('FAQ created:', result);
       if (result) {
-        toast.success("Successfully Added!")
+        toast.success("Successfully Added!");
         setFaq({
           question: "",
           answer: "",
@@ -49,7 +51,6 @@ const Page = () => {
     }
   };
 
-
   const handleTextChange = (e: any) => {
     const { name, value, type, checked } = e.target;
     setFaq(prev => ({
@@ -57,7 +58,6 @@ const Page = () => {
       [name]: type === 'checkbox' ? (checked ? 1 : 0) : value
     }));
   };
-
 
   const handleDelete = async (id: string) => {
     try {
@@ -68,19 +68,33 @@ const Page = () => {
     }
   };
 
-  const handleEdit = async (id: string) => {
+  const handleEdit = (id: number) => {
+    const selectedFaq = data.find((item: any) => item.id === id);
+    if (selectedFaq) {
+      setFaq(selectedFaq);
+      setIsEditing(true);
+    }
+    console.log(selectedFaq)
+  };
+
+  const handleUpdate = async () => {
+    if (faq.id_ === 0) return;
+
     try {
-      // const result = await DeleteData(id, "faqs");
-      // console.log('FAQ deleted:', result);
+      const result = await EditData(faq.id_.toString(), 'faqs', faq);
+      if (result) {
+        toast.success("Successfully Updated!");
+        setIsEditing(false);
+      }
     } catch (error) {
-      console.error('Error deleting FAQ:', error);
+      console.error('Error updating FAQ:', error);
+      toast.error("Error updating FAQ");
     }
   };
 
-
   return (
     <div>
-      <Header text={"Add new Faqs"} />
+      <Header text={isEditing ? "Edit FAQ" : "Add new Faqs"} />
       <div className='w-full flex justify-start gap-3 my-4'>
         <Textarea
           placeholder='Question'
@@ -107,9 +121,9 @@ const Page = () => {
         />
       </div>
       <Button
-        text={"Add"}
+        text={isEditing ? "Update" : "Add"}
         className='mb-4'
-        buttonHandle={handlePost}
+        buttonHandle={isEditing ? handleUpdate : handlePost}
       />
       <Header text={"Faqs Listing"} />
       <Table
