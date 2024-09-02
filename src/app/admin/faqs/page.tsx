@@ -15,6 +15,8 @@ import { toast } from 'react-toastify';
 const Page = () => {
   const { data, error, loading } = UseFetchData("/api/faqs");
   const [nextId, setNextId] = useState<number>(1);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [id, setId] = useState("");
   const [faq, setFaq] = useState({
     answer: "",
     date: "",
@@ -22,8 +24,6 @@ const Page = () => {
     question: "",
     status: 1,
   });
-  const [id, setId] = useState("");
-  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   useEffect(() => {
     if (data && data.length > 0) {
