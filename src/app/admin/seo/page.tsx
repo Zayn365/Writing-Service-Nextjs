@@ -134,7 +134,7 @@ const Page = () => {
                     <span className='w-1/3 capitalize'>
                     </span>
                     <div className='w-1/2'>
-                        <Button buttonHandle={isEditing ? addSeo : handleUpdate} text={isEditing ? "Update seo Detail" : "Add seo Detail"}
+                        <Button buttonHandle={isEditing ? handleUpdate : addSeo} text={isEditing ? "Update seo Detail" : "Add seo Detail"}
                             className='bg-blue-800 text-white capitalize  mb-4' />
                     </div>
                 </div>
