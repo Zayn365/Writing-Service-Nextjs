@@ -22,6 +22,7 @@ const Page = () => {
     question: "",
     status: 1,
   });
+  const [id, setId] = useState("");
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
   useEffect(() => {
@@ -73,15 +74,18 @@ const Page = () => {
     if (selectedFaq) {
       setFaq(selectedFaq);
       setIsEditing(true);
+      setId(selectedFaq.id)
     }
     console.log(selectedFaq)
   };
 
+
   const handleUpdate = async () => {
-    if (faq.id_ === 0) return;
+    if (Number(id) === 0) return;
 
     try {
-      const result = await EditData(faq.id_.toString(), 'faqs', faq);
+      console.log(faq)
+      const result = await EditData(id.toString(), 'faqs', faq);
       if (result) {
         toast.success("Successfully Updated!");
         setIsEditing(false);
