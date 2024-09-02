@@ -30,8 +30,7 @@ const Page = () => {
     const addPreWrittenBook = async () => {
         try {
             const prewrittenBookCategories = { title: titleName, id_: nextId };
-            console.log(prewrittenBookCategories)
-            const response = await postData({ endpoint: '/api/prewrittenBookCategories', data: prewrittenBookCategories });
+            const response = await postData({ endpoint: 'api/prewrittenBookCategories', data: prewrittenBookCategories });
             console.log('prewrittenBookCategories added successfully:', response.data);
             if (response) {
                 toast.success("successfully!")
@@ -46,9 +45,9 @@ const Page = () => {
     const handleDelete = async (id: string) => {
         try {
             const result = await DeleteData(id, "prewrittenBookCategories");
-            console.log('FAQ deleted:', result);
+            console.log('prewrittenBookCategories deleted:', result);
         } catch (error) {
-            console.error('Error deleting FAQ:', error);
+            console.error('Error deleting prewrittenBookCategories:', error);
         }
     };
 
