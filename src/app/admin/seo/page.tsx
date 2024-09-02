@@ -43,6 +43,7 @@ const Page = () => {
 
     const addSeo = async () => {
         try {
+
             const result = await postData({ endpoint: 'api/seoDetails', data: seo })
             if (result) {
                 toast.success("Successfully Added!")

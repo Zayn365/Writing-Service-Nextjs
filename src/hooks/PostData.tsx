@@ -2,6 +2,7 @@ import axios from "axios";
 const localurl = "https://write-articles-for-me.vercel.app/";
 export const postData = async ({ endpoint, data }: { endpoint: string, data: any }) => {
     try {
+        console.log(data)
         const response = await axios.post(localurl + endpoint, data);
         console.log(response)
         return response.data;
