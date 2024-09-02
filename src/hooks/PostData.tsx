@@ -1,4 +1,3 @@
-import { Axios } from "@/utils/Axios";
 import axios from "axios";
 const localurl = "https://write-articles-for-me.vercel.app/";
 export const postData = async ({ endpoint, data }: { endpoint: string, data: any }) => {
