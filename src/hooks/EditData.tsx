@@ -4,7 +4,8 @@ const BASE_URL = "https://write-articles-for-me.vercel.app/";
 
 export const EditData = async (Id: string, endpoint: string, data: any) => {
     try {
-        const response = await axios.put(`${BASE_URL}/api/${endpoint}?id=${Id}`, data);
+        const { id, ...dataWithoutId } = data;
+        const response = await axios.put(`${BASE_URL}/api/${endpoint}?id=${Id}`, dataWithoutId);
         toast.success("upated!!")
         if (response.status !== 200) {
             throw new Error(`Error: ${response.statusText}`);
