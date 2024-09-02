@@ -16,7 +16,7 @@ const Page = () => {
     const [detail, setDetail] = useState("");
     const addTestimonial = async () => {
         try {
-            const testimonial = { title: clientName, detail: detail };
+            const testimonial = { title: clientName, text: detail };
             const result = await postData({ endpoint: '/api/testimonials', data: testimonial });
             console.log('Testimonial added successfully:', result.data);
             setClientName("");
