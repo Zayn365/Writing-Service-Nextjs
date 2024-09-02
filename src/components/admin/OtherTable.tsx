@@ -8,9 +8,10 @@ interface TableProps {
     api?: string;
     dataName?: string;
     handleDelete?: (id: string) => void;
+    handleEdit?: (id: string) => void;
 }
 
-const OtherTable: React.FC<TableProps> = ({ headTable, api, dataName, handleDelete }) => {
+const OtherTable: React.FC<TableProps> = ({ headTable, api, dataName, handleDelete, handleEdit }) => {
     const { data, error, loading } = UseFetchData(api);
 
 
@@ -61,8 +62,8 @@ const OtherTable: React.FC<TableProps> = ({ headTable, api, dataName, handleDele
                                         <td className='p-1 border'>{item?.meta_keywords}</td>
                                         <td className='p-1 border'>{item?.meta_description}</td>
                                         <td className='px-2 py-1 border text-center'>
-                                            <Button text={'Edit'} className='mb-4' />
-                                            <Button text={'delete'} />
+                                            <Button text={'Edit'} className='mb-4' buttonHandle={() => handleEdit(item.id)} />
+                                            <Button text={'delete'} buttonHandle={() => handleDelete(item.id)} />
                                         </td>
                                     </>
                                 }

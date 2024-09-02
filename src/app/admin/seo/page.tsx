@@ -5,12 +5,16 @@ import InputField from '@/components/admin/InputField'
 import OtherTable from '@/components/admin/OtherTable'
 import Textarea from '@/components/admin/Textarea'
 import { seoHead } from '@/constants/seo'
+import { DeleteData } from '@/hooks/DeleteData'
+import { EditData } from '@/hooks/EditData'
 import { postData } from '@/hooks/PostData'
 import UseFetchData from '@/hooks/UseFetchData'
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 
 const Page = () => {
+    const [id, setId] = useState("");
+    const [isEditing, setIsEditing] = useState<boolean>(false);
     const [seo, setIsSeo] = useState({
         meta_title: "",
         url: "",
@@ -20,7 +24,7 @@ const Page = () => {
     const { data, error, loading } = UseFetchData("/api/seoDetails");
 
     const handleTextChange = (e: any) => {
-        const { name, value, type, checked } = e.target;
+        const { name, value } = e.target;
         setIsSeo(prev => ({
             ...prev,
             [name]: value
@@ -29,7 +33,7 @@ const Page = () => {
 
     const addSeo = async () => {
         try {
-            const result = await postData({ endpoint: '/api/seoDetails', data: setIsSeo })
+            const result = await postData({ endpoint: 'api/seoDetails', data: seo })
             if (result) {
                 toast.success("Successfully Added!")
             }
@@ -38,11 +42,44 @@ const Page = () => {
         }
     }
 
+    const handleDelete = async (id: string) => {
+        try {
+            const result = await DeleteData(id, "seoDetails");
+            console.log('seoDetails deleted:', result);
+        } catch (error) {
+            console.error('Error deleting FAQ:', error);
+        }
+    };
+
+    const handleEdit = (id: string) => {
+        const selectedFaq = data.find((item: any) => item.id === id);
+        if (selectedFaq) {
+            setIsSeo(selectedFaq);
+            setIsEditing(true);
+            setId(selectedFaq.id)
+        }
+        console.log(selectedFaq)
+    };
+
+
+    const handleUpdate = async () => {
+        if (Number(id) === 0) return;
+
+        try {
+            console.log(seo)
+            await EditData(id.toString(), 'seoDetails', seo);
+            setIsEditing(false);
+        } catch (error) {
+            console.error('Error updating FAQ:', error);
+            toast.error("Error updating FAQ");
+        }
+    };
+
     return (
 
         <div>
             <Header text={"Add SEO Details"} />
-            <div>
+            <div className='flex flex-col gap-y-2'>
                 <div className='flex just'>
                     <span className='w-1/3 capitalize'>
                         page title
@@ -77,16 +114,16 @@ const Page = () => {
                 </div>
                 <div className='flex just'>
                     <span className='w-1/3 capitalize'>
-
                     </span>
                     <div className='w-1/2'>
-                        <Button buttonHandle={addSeo} text={"add seo Detail"} className='bg-blue-800 text-white capitalize  mb-4' />
+                        <Button buttonHandle={isEditing ? addSeo : handleUpdate} text={isEditing ? "Update seo Detail" : "Add seo Detail"}
+                            className='bg-blue-800 text-white capitalize  mb-4' />
                     </div>
                 </div>
             </div>
             <div className='h-[2px] w-full bg-gray-400 my-2'></div>
 
-            <OtherTable api={'/api/seoDetails'} headTable={seoHead} dataName='seo' />
+            <OtherTable api={'/api/seoDetails'} headTable={seoHead} handleEdit={handleEdit} dataName='seo' handleDelete={handleDelete} />
 
         </div>
     )
