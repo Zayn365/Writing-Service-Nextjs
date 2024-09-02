@@ -47,6 +47,13 @@ const Page = () => {
             if (result) {
                 toast.success("Successfully Added!")
             }
+            setIsSeo({
+                id_: nextId,
+                meta_title: "",
+                url: "",
+                meta_keywords: "",
+                meta_description: "",
+            })
         } catch (error) {
             toast.error(`something went wrong ${error}`)
         }
