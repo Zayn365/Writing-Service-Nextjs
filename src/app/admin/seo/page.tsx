@@ -103,7 +103,7 @@ const Page = () => {
                         page title
                     </span>
                     <div className='w-1/2'>
-                        <InputField type='text' name='meta_title' handleChange={handleTextChange} />
+                        <InputField type='text' name='meta_title' value={seo.meta_title} handleChange={handleTextChange} />
                     </div>
                 </div>
                 <div className='flex just'>
@@ -111,7 +111,7 @@ const Page = () => {
                         page URL
                     </span>
                     <div className='w-1/2'>
-                        <InputField type='text' name='url' handleChange={handleTextChange} />
+                        <InputField type='text' name='url' value={seo.url} handleChange={handleTextChange} />
                     </div>
                 </div>
                 <div className='flex just'>
@@ -119,7 +119,7 @@ const Page = () => {
                         Meta Keywords
                     </span>
                     <div className='w-1/2'>
-                        <Textarea className='w-full' name='meta_keywords' handleChange={handleTextChange} />
+                        <Textarea className='w-full' value={seo.meta_keywords} name='meta_keywords' handleChange={handleTextChange} />
                     </div>
                 </div>
                 <div className='flex just'>
@@ -127,7 +127,7 @@ const Page = () => {
                         Meta Descriptions
                     </span>
                     <div className='w-1/2'>
-                        <Textarea className='w-full' name='meta_description' handleChange={handleTextChange} />
+                        <Textarea className='w-full' name='meta_description' value={seo.meta_description} handleChange={handleTextChange} />
                     </div>
                 </div>
                 <div className='flex just'>
