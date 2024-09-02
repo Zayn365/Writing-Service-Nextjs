@@ -85,11 +85,8 @@ const Page = () => {
 
     try {
       console.log(faq)
-      const result = await EditData(id.toString(), 'faqs', faq);
-      if (result) {
-        toast.success("Successfully Updated!");
-        setIsEditing(false);
-      }
+      await EditData(id.toString(), 'faqs', faq);
+      setIsEditing(false);
     } catch (error) {
       console.error('Error updating FAQ:', error);
       toast.error("Error updating FAQ");
