@@ -5,7 +5,7 @@ const localurl = "https://write-articles-for-me.vercel.app/";
 
 export const EditData = async (Id: string, endpoint: string, data: any) => {
     try {
-        const response = await axios.post(localurl + `/api/${endpoint}?id=${Id}`, data);
+        const response = await axios.put(localurl + `/api/${endpoint}?id=${Id}`, data);
         toast.success("upated!!")
         if (response.status !== 200) {
             throw new Error(`Error: ${response.statusText}`);
