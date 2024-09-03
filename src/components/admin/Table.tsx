@@ -1,10 +1,11 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/24/solid';
 import Sort from './Sort';
 import SearchBar from './SearchBar';
 import Link from 'next/link';
 import Button from './Button';
+import ViewModal from './ViewModal';
 
 interface TableProps {
     headTable: string[];
@@ -15,13 +16,21 @@ interface TableProps {
 }
 
 const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, handleEdit }) => {
-    console.log(Array.isArray(body))
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
     const [sortColumn, setSortColumn] = useState<string>('');
     const [sortNumber, setSortNumber] = useState('25');
     const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(Number(sortNumber));
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    useEffect(() => {
+        setItemsPerPage(Number(sortNumber));
+    }, [sortNumber]);
+
+    const handleOpenModal = () => setIsModalOpen(true);
+    const handleCloseModal = () => setIsModalOpen(false);
+
     const handleAsc = (column: string) => {
         setSortDirection('asc');
         setSortColumn(column);
@@ -43,23 +52,18 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
         });
     };
 
-
     const getPaginatedData = () => {
         const sorted = sortedData();
-        // Ensure sorted is 
         if (!Array.isArray(sorted)) return [];
-
-        const filtered = sorted?.filter(item => {
-            return Object?.values(item).some(value =>
+        const filtered = sorted?.filter(item =>
+            Object.values(item).some(value =>
                 typeof value === 'string' && value.toLowerCase().includes(search.toLowerCase())
-            );
-        });
-
+            )
+        );
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
         return filtered.slice(startIndex, endIndex);
     };
-
 
     const totalPages = Math.ceil((sortedData()?.length || 0) / itemsPerPage);
 
@@ -67,7 +71,6 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
         if (newPage < 1 || newPage > totalPages) return;
         setCurrentPage(newPage);
     };
-
     return (
         <div className='w-full'>
             <div className='w-full flex my-2'>
@@ -137,6 +140,29 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
                                             <td className='text-start px-2 py-1 '>{item?.email}</td>
                                             <td className='text-start px-2 py-1 '>{item?.word}</td>
                                             <td className='text-start px-2 py-1 '>{item?.date}</td>
+                                            <td className='text-start px-2 py-1 space-x-2 '>
+                                                <select
+                                                    name="status"
+                                                    id="status"
+                                                    className='border'
+                                                    defaultValue={item.status}
+                                                >
+                                                    <option value="0" className='capitalize'>Pending</option>
+                                                    <option value="1" className='capitalize'>Paid</option>
+                                                    <option value="2" className='capitalize'>Deliverd</option>
+                                                    <option value="3" className='capitalize'>Refunded</option>
+                                                </select>
+                                                <Link
+                                                    className="font-normal rounded-md text-sm p-1 bg-blue-800 text-white capitalize hover:bg-orange-700"
+                                                    href={{
+                                                        pathname: '/admin/completed/user-article',
+                                                        query: { id: 'test' },
+                                                    }}>
+                                                    View
+                                                </Link>
+
+                                            </td>
+
                                         </>
                                     }
                                     {
@@ -154,7 +180,14 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
                                             <td className='text-start px-2 py-1 '>{item?.word}</td>
                                             <td className='text-start px-2 py-1 '>{item?.date}</td>
                                             <td className='text-start px-2 py-1'>
-                                                <Button text={"view"} />
+                                                <Link
+                                                    className="font-normal rounded-md text-sm p-1 bg-blue-800 text-white capitalize hover:bg-orange-700"
+                                                    href={{
+                                                        pathname: '/admin/completed/user-article',
+                                                        query: { id: 'test' },
+                                                    }}>
+                                                    View
+                                                </Link>
                                             </td>
                                         </>
                                     }
@@ -299,7 +332,8 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
                                                 ) : null}
                                             </td>
                                             <td className='text-start px-2 py-1'>
-                                                <Button text={'view'} />
+                                                <Button text={"View"} buttonHandle={handleOpenModal} />
+                                                <ViewModal isOpen={isModalOpen} onClose={handleCloseModal} />
                                             </td>
                                         </>
                                     }

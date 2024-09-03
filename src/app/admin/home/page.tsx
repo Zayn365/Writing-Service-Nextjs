@@ -8,15 +8,21 @@ const Page = () => {
   // const value = ["5339", "3403", "234", "8392", "3847", "3289", "7384", "8203"]
   const { data, error, loading } = UseFetchData('/api/orders');
   const { data: userData, } = UseFetchData('/api/user');
-  const [user, setUser] = useState(0);
+  const { data: clientsData } = UseFetchData('/api/clients');
 
+  const [user, setUser] = useState(0);
   const [order, setOrder] = useState(0);
   const [pending, setPending] = useState(0);
   const [paid, setPaid] = useState(0);
   const [delivered, setDelivered] = useState(0);
+  const [article, setArticle] = useState(0);
+  const [pendingArticle, setPendingArticle] = useState(0);
+  const [deliverdArticle, setDeliverdArticle] = useState(0);
+
   const [TotalCost, setTotalCost] = useState(0);
 
   useEffect(() => {
+    console.log(clientsData)
     const filteredData = data.filter((item) => item.total_amount > 0 && item.original_amount > 0 && item.status === 2 && (item.affiliate_amount !== null || undefined) && item.affiliate_amount_paid === 1);
     setOrder(filteredData.length)
     const filteredDelivered = data.filter((item) => item.total_amount > 0 && item.original_amount > 0 && item.status === 2 && (item.affiliate_amount !== null || undefined) && item.affiliate_amount_paid === 1);
@@ -25,8 +31,24 @@ const Page = () => {
     setPaid(filteredComplated.length)
     const filteredPending = data.filter((item) => item.total_amount > 0 && item.original_amount > 0);
     setPending(filteredPending.length)
-    // const filterUser = data.((item) => item.total_amount > 0 && item.original_amount > 0);
-    setUser(userData.length)
+    const clientArticle = clientsData.reduce((pre, next) => {
+      // Convert completed_articles to number, default to 0 if undefined or not a number
+      const completedArticlesPre = Number(pre.completed_articles) || 0;
+      const completedArticlesNext = Number(next.completed_articles) || 0;
+
+      return completedArticlesPre + completedArticlesNext;
+    }, 0); // Initial value should be a number, here starting with 0
+
+    const filteredArticle = clientsData.filter((item) => item.role_id === 1);
+    setArticle(filteredArticle.length)
+    const filteredPendingArticle = clientsData.filter((item) => item.role_id === 2);
+    setPendingArticle(filteredPendingArticle.length)
+    const filteredDeliverdArticle = clientsData.filter((item) => item.role_id === 3);
+    setDeliverdArticle(filteredDeliverdArticle.length)
+
+
+
+    setUser(clientsData.length)
     const totalAmount = data.reduce((sum, item) => {
       const amount = parseFloat(item.total_amount) || 0;
       return amount > 0 ? sum + amount : sum;
@@ -48,7 +70,7 @@ const Page = () => {
   //   console.log(userData)
   // }
 
-  const value = [user, order, pending, paid, delivered, "3289", "7384", "8203"]
+  const value = [user, order, pending, paid, delivered, article, pendingArticle, deliverdArticle]
 
   if (data) {
     // console.log(data)

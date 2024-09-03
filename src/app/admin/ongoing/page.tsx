@@ -7,13 +7,13 @@ import UseFetchData from '@/hooks/UseFetchData';
 const Page = () => {
     const [onGodingData, setOnGoingData] = useState([])
     const { data, error, loading } = UseFetchData('/api/orders');
-    const onGoingHead = ["#", "Order No.", "Service", "Name", "Email", "Words", "Order date"];
-    const onGoingBody = [
-        { year: "2007", order: '3248710L8C119W1H', service: " ", name: "henry", email: "successyousee@gmail.com", word: "190", date: "04-9-2015" },
-        { year: "2009", order: '3248710L8C119W1H', service: " ", name: "henry", email: "successyousee@gmail.com", word: "023", date: "04-9-2015" },
-        { year: "2019", order: '3248710L8C119W1H', service: " ", name: "henry", email: "successyousee@gmail.com", word: "501", date: "04-9-2015" },
-        { year: "2020", order: '3248710L8C119W1H', service: " ", name: "henry", email: "successyousee@gmail.com", word: "150", date: "04-9-2015" },
-    ];
+    const onGoingHead = ["#", "Order No.", "Service", "Name", "Email", "Words", "Order date", "Payment Status"];
+    // const onGoingBody = [
+    //     { year: "2007", order: '3248710L8C119W1H', service: " ", name: "henry", email: "successyousee@gmail.com", word: "190", date: "04-9-2015" },
+    //     { year: "2009", order: '3248710L8C119W1H', service: " ", name: "henry", email: "successyousee@gmail.com", word: "023", date: "04-9-2015" },
+    //     { year: "2019", order: '3248710L8C119W1H', service: " ", name: "henry", email: "successyousee@gmail.com", word: "501", date: "04-9-2015" },
+    //     { year: "2020", order: '3248710L8C119W1H', service: " ", name: "henry", email: "successyousee@gmail.com", word: "150", date: "04-9-2015" },
+    // ];
 
     useEffect(() => {
         if (data) {
