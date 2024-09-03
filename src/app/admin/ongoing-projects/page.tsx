@@ -1,12 +1,26 @@
+'use client'
 import Header from '@/components/admin/Header';
 import InputField from '@/components/admin/InputField';
 import Table from '@/components/admin/Table';
-import React from 'react'
+import UseFetchData from '@/hooks/UseFetchData';
+import React, { useEffect, useState } from 'react'
 
-const page = () => {
+const Page = () => {
     const headOngoingProject = [
         "#", "order No", "service", "client Name", "article Title", "word", "order Date", "status", ""
     ]
+
+    const { data, error, loading } = UseFetchData("/api/orders");
+    const [onProjectData, setOnProjectData] = useState([])
+
+
+    useEffect(() => {
+        if (data) {
+            const filteredData = data.filter((item) => item.total_amount > 0 && item.original_amount > 0 && item.status === 2 && (item.affiliate_amount !== null || undefined) && item.affiliate_amount_paid === 1);
+            setOnProjectData(filteredData);
+        }
+    }, [data]);
+
     const bodyOngoingProject = [
         { no: "1", cancel: "order cancelled", service: "", client: "Deniel", title: "skajf02ixv ji uisd ufisahifhsaoifjdsoifjdsakfjds", word: "4000", date: "01-01-1790", status: { delivered: "Delivered", pending: 'pending' }, view: "view" },
         { no: "2", cancel: "order cancelled", service: "", client: "michael", title: "skajf02ixv ji uisd ufisahifhsaoifjdsoifjdsakfjds", word: "2000", date: "01-01-1790", status: { delivered: "Delivered", pending: 'pending' }, view: "view" },
@@ -27,9 +41,9 @@ const page = () => {
                 </div>
 
             </div>
-            <Table headTable={headOngoingProject} body={bodyOngoingProject} dataName='ongoinProject' />
+            <Table headTable={headOngoingProject} body={onProjectData} dataName='ongoinProject' />
         </div>
     );
 };
 
-export default page
+export default Page

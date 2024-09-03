@@ -1,11 +1,22 @@
+'use client'
 import Header from '@/components/admin/Header'
 import InputField from '@/components/admin/InputField'
 import Table from '@/components/admin/Table'
 import { bodyRefunded, headRefunded } from '@/constants/refunded'
-import React from 'react'
+import UseFetchData from '@/hooks/UseFetchData'
+import React, { useEffect, useState } from 'react'
 
-const page = () => {
+const Page = () => {
+    const { data, error, loading } = UseFetchData("/api/orders");
+    const [onRefundedData, setOnRefundedData] = useState([])
 
+
+    useEffect(() => {
+        if (data) {
+            const filteredData = data.filter((item) => item.total_amount < 0 && item.original_amount < 0 && item.status === 2 && (item.affiliate_amount !== null || undefined && item.affiliate_amount < 0) && item.affiliate_amount_paid === 1);
+            setOnRefundedData(filteredData);
+        }
+    }, [data]);
 
     return (
         <div className='w-full'>
@@ -21,9 +32,9 @@ const page = () => {
                 </div>
 
             </div>
-            <Table headTable={headRefunded} body={bodyRefunded} dataName='refunded' />
+            <Table headTable={headRefunded} body={onRefundedData} dataName='refunded' />
         </div>
     )
 }
 
-export default page
+export default Page

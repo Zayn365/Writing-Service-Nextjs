@@ -17,18 +17,15 @@ const Page = () => {
     const [nextId, setNextId] = useState<number>(1);
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [id, setId] = useState("");
-    if (data) {
-        console.log(data)
-    }
     const [OffersData, setOffersData] = useState({
         id_: nextId,
         title: "",
-        words: 0,
-        amount: 0,
-        amount_total: 0,
-        installments_month: 0,
+        words: null,
+        amount: null,
+        amount_total: null,
+        installments_month: null,
         details: "",
-        no_of_books: 0,
+        no_of_books: null,
     })
 
     const handleDelete = async (id: string) => {

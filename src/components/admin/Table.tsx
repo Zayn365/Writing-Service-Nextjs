@@ -129,8 +129,8 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
                                         dataName === "onGoing" &&
                                         <>
 
-                                            <td className='text-start px-2 py-1 '>{item?.year}</td>
-                                            <td className='text-start px-2 py-1 '>{item?.order}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.id_}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.order_no}</td>
                                             <td className='text-start px-2 py-1 '>{item?.service}</td>
                                             <td className='text-start px-2 py-1 '>{item?.name}</td>
                                             <td className='text-start px-2 py-1 '>{item?.email}</td>
@@ -139,10 +139,10 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
                                         </>
                                     }
                                     {
-                                        (dataName === "pending" || dataName === 'completed') &&
+                                        dataName === 'completed' &&
                                         <>
-                                            <td className='text-start px-2 py-1 '>{item?.year}</td>
-                                            <td className='text-start px-2 py-1 '>{item?.order}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.id_}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.order_no}</td>
                                             <td className='text-start px-2 py-1 '>{item?.service}</td>
                                             <td className='text-start px-2 py-1 underline'>
                                                 <Link href="#">
@@ -152,16 +152,25 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
                                             <td className='text-start px-2 py-1 '>{item?.email}</td>
                                             <td className='text-start px-2 py-1 '>{item?.word}</td>
                                             <td className='text-start px-2 py-1 '>{item?.date}</td>
-                                            <td className='text-start px-2 py-1 '>
-                                                <Link href={{
-                                                    pathname: '/admin/completed/user-article/',
-                                                    query: { id: '13' },
-                                                }}
-                                                >
-                                                    <Button text={"view"} />
+                                            <td className='text-start px-2 py-1'>
+                                                <Button text={"view"} />
+                                            </td>
+                                        </>
+                                    }
+                                    {
+                                        dataName === "pending" &&
+                                        <>
+                                            <td className='text-start px-2 py-1 '>{item?.id_}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.order_no}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.service}</td>
+                                            <td className='text-start px-2 py-1 underline'>
+                                                <Link href="#">
+                                                    {item?.name}
                                                 </Link>
                                             </td>
-
+                                            <td className='text-start px-2 py-1 '>{item?.email}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.word}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.date}</td>
                                         </>
                                     }
 
@@ -262,25 +271,24 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
                                     {
                                         (dataName === 'refunded' || dataName === "ongoinProject" || dataName === 'delivered') &&
                                         <>
-                                            <td className='text-start px-2 py-1'>{item?.no}</td>
-                                            <td className='text-start px-2 py-1 '>{item?.cancel}</td>
+                                            <td className='text-start px-2 py-1'>{item?.id_}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.order_no}</td>
                                             <td className='text-start px-2 py-1'>{item?.service}</td>
                                             <td className='text-start px-2 py-1'>{item?.client}</td>
                                             <td className='text-start px-2 py-1'>{item?.title}</td>
                                             <td className='text-start px-2 py-1'>{item?.word}</td>
                                             <td className='text-start px-2 py-1'>{item?.date}</td>
                                             <td className='text-start px-2 py-1'>
-                                                {typeof item?.status === 'object' ? (
+                                                {item?.status === 2 ? (
                                                     <select name="" id="" className='border'>
                                                         {
                                                             dataName === 'refunded' ?
                                                                 <>
-                                                                    <option value="active" className='capitalize'>{item?.status.refuned}</option>
-                                                                    <option value="deactive" className='capitalize'>{item?.status.funded}</option>
+                                                                    <option value="active" className='capitalize'>Refunded</option>
                                                                 </> :
                                                                 <>
-                                                                    <option value="active" className='capitalize'>{item?.status.pending}</option>
-                                                                    <option value="deactive" className='capitalize'>{item?.status.delivered}</option>
+                                                                    <option value="active" className='capitalize' >Pending</option>
+                                                                    <option value="deactive" className='capitalize'>Delivered</option>
 
                                                                 </>
                                                         }
@@ -288,7 +296,7 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
                                                 ) : null}
                                             </td>
                                             <td className='text-start px-2 py-1'>
-                                                <Button text={item?.view} />
+                                                <Button text={'view'} />
                                             </td>
                                         </>
                                     }
