@@ -177,7 +177,7 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
                                             <td className='text-start px-2 py-1 '>{item?.purchased}</td>
                                             <td className='text-start px-2 py-1 '>{item?.status}</td>
                                             <td className='px-2 py-1 text-center gap-x-2 flex capitalize '>
-                                                <Button text={"edit"} buttonHandle={() => handleEdit?.(item.id)}
+                                                <Button text={"edit"} className='mb-4' buttonHandle={() => handleEdit?.(item.id)}
                                                 />
                                                 <Button text={"delete"} buttonHandle={() => handleDelete?.(item.id)}
                                                 />

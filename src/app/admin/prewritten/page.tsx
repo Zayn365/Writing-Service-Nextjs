@@ -3,6 +3,7 @@ import Button from '@/components/admin/Button'
 import Header from '@/components/admin/Header'
 import InputField from '@/components/admin/InputField'
 import Table from '@/components/admin/Table'
+import { postData } from '@/hooks/PostData'
 import UseFetchData from '@/hooks/UseFetchData'
 import { Axios } from '@/utils/Axios'
 import React, { useState } from 'react'
@@ -58,6 +59,7 @@ const Page = () => {
     };
 
     const addPreWritten = async () => {
+        return;
         try {
             const formData = new FormData();
 
@@ -68,11 +70,7 @@ const Page = () => {
                     formData.append(key, files[key]);
                 }
             });
-            const response = await Axios.post('/api/prewrittenBooks', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+            const response = await postData({ endpoint: 'api/prewrittenBooks', data: formData });
             console.log('prewrittenBookCategories added successfully:', response.data);
             setPreWritten({
                 title: "",
