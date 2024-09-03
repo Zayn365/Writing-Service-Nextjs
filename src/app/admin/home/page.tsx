@@ -7,6 +7,9 @@ import React, { useEffect, useState } from 'react'
 const Page = () => {
   // const value = ["5339", "3403", "234", "8392", "3847", "3289", "7384", "8203"]
   const { data, error, loading } = UseFetchData('/api/orders');
+  const { data: userData, } = UseFetchData('/api/user');
+  const [user, setUser] = useState(0);
+
   const [order, setOrder] = useState(0);
   const [pending, setPending] = useState(0);
   const [paid, setPaid] = useState(0);
@@ -22,7 +25,8 @@ const Page = () => {
     setPaid(filteredComplated.length)
     const filteredPending = data.filter((item) => item.total_amount > 0 && item.original_amount > 0);
     setPending(filteredPending.length)
-
+    // const filterUser = data.((item) => item.total_amount > 0 && item.original_amount > 0);
+    setUser(userData.length)
     const totalAmount = data.reduce((sum, item) => {
       const amount = parseFloat(item.total_amount) || 0;
       return amount > 0 ? sum + amount : sum;
@@ -39,7 +43,12 @@ const Page = () => {
     setTotalCost(Number(totalAmount) - Number(totalSubtractedAmount))
 
   }, [data])
-  const value = ["5339", order, pending, paid, delivered, "3289", "7384", "8203"]
+
+  // if (userData) {
+  //   console.log(userData)
+  // }
+
+  const value = [user, order, pending, paid, delivered, "3289", "7384", "8203"]
 
   if (data) {
     // console.log(data)

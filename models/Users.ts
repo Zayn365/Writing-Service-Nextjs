@@ -29,7 +29,16 @@ export async function signup(data: any) {
     throw error;
   }
 }
-
+export async function GetAll () {
+  try {
+      const testimonials = prisma.users.findMany();
+       return testimonials;
+  }
+  catch(e:any) {
+    console.log(e);
+    return e.message
+  }
+}
 export async function login(data:any) {
   try {
     // @ts-ignore
