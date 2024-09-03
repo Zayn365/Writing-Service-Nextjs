@@ -15,6 +15,7 @@ interface TableProps {
 }
 
 const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, handleEdit }) => {
+    console.log(Array.isArray(body))
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
     const [sortColumn, setSortColumn] = useState<string>('');
     const [sortNumber, setSortNumber] = useState('25');
@@ -48,8 +49,8 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
         // Ensure sorted is 
         if (!Array.isArray(sorted)) return [];
 
-        const filtered = sorted.filter(item => {
-            return Object.values(item).some(value =>
+        const filtered = sorted?.filter(item => {
+            return Object?.values(item).some(value =>
                 typeof value === 'string' && value.toLowerCase().includes(search.toLowerCase())
             );
         });
@@ -107,21 +108,21 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
                                     {
                                         dataName === "user" &&
                                         <>
-                                            <td className='text-start px-2 py-1'>{item?.no}</td>
-                                            <td className='text-start px-2 py-1 '>{item?.name}</td>
-                                            <td className='text-start px-2 py-1 '>{item?.email}</td>
-                                            <td className='text-start px-2 py-1 '>{item?.type}</td>
-                                            <td className='text-start px-2 py-1 '>{item?.id}</td>
-                                            <td className='text-start px-2 py-1 '>{item?.date}</td>
+                                            <td className='text-start px-2 py-1'>{item?.id_ || 'N/A'}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.name || 'N/A'}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.email || 'N/A'}</td>
+                                            <td className='text-start px-2 py-1 '>{item?.user_type || 'N/A'}</td>
+                                            <td className='text-start px-2 py-1 '>
+                                                <Button text={"Mark as paid"} className='hover:bg-orange-700' />
+                                            </td>
+                                            <td className='text-start px-2 py-1 '>{item?.date?.toString() || 'N/A'}</td>
                                             <td className='text-start px-2 py-1'>
-                                                {typeof item?.status === 'object' ? (
-                                                    <select name="" id="" className='border'>
-                                                        <>
-                                                            <option value="active" className='capitalize'>{item?.status.active}</option>
-                                                            <option value="deactive" className='capitalize'>{item?.status.unactive}</option>
-                                                        </>
-                                                    </select>
-                                                ) : null}
+                                                <select name="" id="" className='border'>
+                                                    <>
+                                                        <option value="active" className='capitalize'>active</option>
+                                                        <option value="deactive" className='capitalize'>deactive</option>
+                                                    </>
+                                                </select>
                                             </td>
                                         </>
                                     }

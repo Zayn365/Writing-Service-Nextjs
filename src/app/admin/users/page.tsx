@@ -1,9 +1,20 @@
+'use client'
 import Header from '@/components/admin/Header'
 import Table from '@/components/admin/Table'
-import React from 'react'
+import UseFetchData from '@/hooks/UseFetchData'
+import React, { useEffect, useState } from 'react'
 
-const page = () => {
+const Page = () => {
     const userHeadTable = ["#", "Name", "Email", "user's type", "affiliation", "Date Reg", "Status"]
+    const { data, error, loading } = UseFetchData('/api/user');
+    const [userData, setUserData] = useState([])
+    useEffect(() => {
+        if (data) {
+            const filterUser = data.filter((item) => item.user_type === "User")
+            setUserData(filterUser)
+            console.log(data)
+        }
+    }, [data]);
 
     const userBodyTable = [
         { no: "1", name: "WK client", email: "abc@gmail.com", type: "admin", id: "Mark as Paid", date: "04-9-2015 06:35:45", status: { active: 'active', unactive: "de-active" } },
@@ -53,12 +64,15 @@ const page = () => {
         { no: "15", name: "koolient", email: "uergabc@gmail.com", type: "admin", id: "Mark as Paid", date: "04-9-2015 06:35:45", status: { active: 'active', unactive: "de-active" } },
 
     ]
+    if (loading) {
+        return <p>loading...</p>
+    }
     return (
         <div className='w-full'>
             <Header text={"Users Listing"} />
-            <Table headTable={userHeadTable} body={userBodyTable} dataName={"user"} />
+            <Table headTable={userHeadTable} body={userData} dataName={"user"} />
         </div>
     )
 }
 
-export default page
+export default Page
