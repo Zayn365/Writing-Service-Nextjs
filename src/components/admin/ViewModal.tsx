@@ -1,16 +1,50 @@
-import React, { useState } from 'react';
+'use client'
+import React, { useEffect, useState } from 'react';
 import Button from './Button';
 import Header from './Header';
 import InputField from './InputField';
-import { articleDetails } from '@/constants/articleDetails';
+import UseFetchData from '@/hooks/UseFetchData';
+import Comments from './Comments';
 
-const ViewModal = ({ isOpen, onClose }) => {
+const ViewModal = ({ isOpen, onClose, id, id_, order_no, item_word, date, item_title, item_Description, item_status, item_amount }) => {
+    const { data, loading, error } = UseFetchData("/api/projects")
+    const [articleDetailsData, setArticleDetailsData] = useState([]);
+    const [selectedRole, setSelectedRole] = useState('client');
+
+    useEffect(() => {
+        const filterData = data.filter((item: any) => item.id === id || item.id_ === id_)
+        setArticleDetailsData(filterData)
+        console.log(filterData);
+    }, [data])
+
+    const handleDownload = () => {
+        console.log('Download clicked');
+    };
+
+    const articleDetails = [
+        { key: "Order No", value: order_no },
+        { key: "Client Name", value: "unkown" },
+        { key: "Service Type", value: "Full Package Publishing Service" },
+        { key: "Article Title", value: item_title },
+        { key: "Article Description", value: item_Description },
+        { key: "Price", value: item_amount },
+        { key: "Words", value: item_word },
+        { key: "With This Package", value: "The Book formatted for Kindle, The Book formatted for paperback, EBook Cover, Paperback Cover, Book Description, 7 Keywords" },
+        { key: "Status", value: item_status === 1 ? "Pending" : "Delivered" },
+        { key: "Date Requested", value: date },
+    ];
+
+    // Function to handle button clicks
+    const handleRoleChange = (role) => {
+        setSelectedRole(role);
+    };
+
     return (
         <>
             {isOpen && (
                 <div
                     id="default-modal"
-                    aria-hidden={!isOpen}
+                    aria-hidden={isOpen}
                     className="fixed inset-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-50"
                     onClick={onClose}
                 >
@@ -35,7 +69,6 @@ const ViewModal = ({ isOpen, onClose }) => {
                         </div>
                         <div className="p-4 space-y-4 flex flex-col gap-y-4 overflow-y-auto h-[500px]">
                             <div className='w-full'>
-                                {/* <Header text={"Article Details"} /> */}
                                 <div className="w-full flex flex-col gap-y-4 my-4">
                                     {articleDetails?.map((item, index) => (
                                         <div key={index} className="flex gap-x-2">
@@ -52,18 +85,42 @@ const ViewModal = ({ isOpen, onClose }) => {
                                     </div>
                                 </div>
                                 <Header text={"Article Conversation"} />
-                                <div className="flex  p-2 justify-between items-start gap-x-2">
-                                    <div className='w-10/12  flex flex-col'>
-                                        <div className="flex w-full pb-3  gap-x-2 border-b-2 border-gray-500 ">
-                                            <Button text="client comments" />
-                                            <Button text="admin comments" />
-                                            <Button text="Writer comments" />
+                                <div className="flex p-2 justify-between items-start gap-x-2">
+                                    <div className='w-10/12 flex flex-col'>
+                                        <div className="flex w-full pb-3 gap-x-2 border-b-2 border-gray-500">
+                                            <Button text="Client Comments" buttonHandle={() => handleRoleChange('client')} />
+                                            <Button text="Admin Comments" buttonHandle={() => handleRoleChange('admin')} />
+                                            <Button text="Writer Comments" buttonHandle={() => handleRoleChange('editor')} />
                                         </div>
+                                        <div className="w-full flex flex-col gap-y-2 my-2">
+                                            {
+                                                articleDetailsData?.map((item) => {
+                                                    // Filter comments based on the selected role
+                                                    let comment = '';
+                                                    if (selectedRole === 'client') {
+                                                        comment = item.coments_about_writer || '';
+                                                    } else if (selectedRole === 'admin') {
+                                                        comment = item.admin_attachment_editor || '';
+                                                    } else if (selectedRole === 'editor') {
+                                                        comment = item.coments_about_editor || '';
+                                                    }
 
+                                                    return (
+                                                        <Comments
+                                                            key={item.id}
+                                                            author={selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1)}
+                                                            date={item.created_date}
+                                                            attachmentName={comment}
+                                                            onDownload={handleDownload}
+                                                        />
+                                                    );
+                                                })
+                                            }
+                                        </div>
                                     </div>
                                     <div className='w-1/3 flex flex-col gap-y-4 '>
                                         <InputField type='file' />
-                                        <Button text="Writer comments" className='w-full' />
+                                        <Button text="Submit Comment" className='w-full' />
                                     </div>
                                 </div>
                             </div>
