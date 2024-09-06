@@ -2,6 +2,7 @@ import Button from '@/components/admin/Button';
 import Header from '@/components/admin/Header';
 import InputField from '@/components/admin/InputField';
 import { articleDetails } from '@/constants/articleDetails';
+import ToastProvider from '@/utils/Toast';
 import React from 'react';
 
 const ArticleDetailsPage = () => {
@@ -9,6 +10,7 @@ const ArticleDetailsPage = () => {
 
   return (
     <div className='w-full'>
+      <ToastProvider />
       <Header text={"Article Details"} />
       <div className="w-full flex flex-col gap-y-4 my-4">
         {articleDetails.map((item, index) => (

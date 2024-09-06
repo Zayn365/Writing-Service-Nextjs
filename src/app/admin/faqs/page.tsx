@@ -9,6 +9,7 @@ import { DeleteData } from '@/hooks/DeleteData';
 import { EditData } from '@/hooks/EditData';
 import { postData } from '@/hooks/PostData';
 import UseFetchData from '@/hooks/UseFetchData';
+import ToastProvider from '@/utils/Toast';
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
@@ -95,6 +96,7 @@ const Page = () => {
 
   return (
     <div>
+      <ToastProvider />
       <Header text={isEditing ? "Edit FAQ" : "Add new Faqs"} />
       <div className='w-full flex justify-start gap-3 my-4'>
         <Textarea

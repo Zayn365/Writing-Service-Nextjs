@@ -5,6 +5,7 @@ import InputField from '@/components/admin/InputField';
 import Table from '@/components/admin/Table';
 import { headDelivered } from '@/constants/deliverd';
 import UseFetchData from '@/hooks/UseFetchData';
+import ToastProvider from '@/utils/Toast';
 
 const Page = () => {
   const { data: ordersData, error: ordersError, loading: ordersLoading } = UseFetchData("/api/orders");
@@ -58,6 +59,8 @@ const Page = () => {
 
   return (
     <div className='w-full'>
+      <ToastProvider />
+
       <Header text={"Delivered Articles Listing"} />
       <div className="w-full flex justify-start items-start gap-x-2 my-4">
         <div>

@@ -6,6 +6,7 @@ import Table from '@/components/admin/Table'
 import { postData } from '@/hooks/PostData'
 import UseFetchData from '@/hooks/UseFetchData'
 import { Axios } from '@/utils/Axios'
+import ToastProvider from '@/utils/Toast'
 import React, { useState } from 'react'
 
 const Page = () => {
@@ -93,6 +94,7 @@ const Page = () => {
 
     return (
         <div className='w-full'>
+            <ToastProvider />
             <Header text={"Prewritten Books"} />
             <div className="my-4 w-full flex flex-wrap justify-start items-center gap-2">
                 <InputField type="text" name="title" placeholder='Title' value={preWritten.title} handleChange={handleTextChange} />

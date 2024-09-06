@@ -8,6 +8,7 @@ import { EditData } from '@/hooks/EditData'
 import { postData } from '@/hooks/PostData'
 import UseFetchData from '@/hooks/UseFetchData'
 import { Axios } from '@/utils/Axios'
+import ToastProvider from '@/utils/Toast'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
@@ -75,6 +76,8 @@ const Page = () => {
     };
     return (
         <div className='w-full'>
+            <ToastProvider />
+
             <Header text={"Prewritten Books Categories"} />
             <div className="my-4 w-full flex justify-start items-center gap-x-2">
                 <InputField type="text" placeholder='category Title' value={titleName} handleChange={(e) => setTitleName(e.target.value)}

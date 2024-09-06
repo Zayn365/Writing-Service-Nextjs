@@ -1,12 +1,15 @@
 import Button from '@/components/admin/Button'
 import Header from '@/components/admin/Header'
 import InputField from '@/components/admin/InputField'
+import ToastProvider from '@/utils/Toast'
 import React from 'react'
 
 const page = () => {
     const section1 = ["Orders", "Words", "Amount"]
     return (
         <div className='w-full'>
+            <ToastProvider />
+
             <div className='w-full flex justify-center items-center gap-x-4 my-4'>
                 <InputField type='text' placeholder='Start Date' />
                 <InputField type='text' placeholder='End Date' />

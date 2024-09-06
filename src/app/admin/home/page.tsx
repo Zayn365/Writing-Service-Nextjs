@@ -2,6 +2,7 @@
 import InputField from '@/components/admin/InputField'
 import { homeItem } from '@/constants/adminItem'
 import UseFetchData from '@/hooks/UseFetchData'
+import ToastProvider from '@/utils/Toast'
 import React, { useEffect, useState } from 'react'
 
 const Page = () => {
@@ -93,6 +94,8 @@ const Page = () => {
 
   return (
     <div className='w-full'>
+      <ToastProvider />
+
       <div className="w-full p-2 mb-2 capitalize border-black border bg-orange-700 font-semibold text-center text-white text-lg">Welcome to Admin</div>
       <div className="flex  justify-center items-center border">
         <div className='w-1/2  text-lg p-[1px]'>

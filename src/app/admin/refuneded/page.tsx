@@ -4,6 +4,7 @@ import InputField from '@/components/admin/InputField'
 import Table from '@/components/admin/Table'
 import { bodyRefunded, headRefunded } from '@/constants/refunded'
 import UseFetchData from '@/hooks/UseFetchData'
+import ToastProvider from '@/utils/Toast'
 import React, { useEffect, useState } from 'react'
 
 const Page = () => {
@@ -20,6 +21,8 @@ const Page = () => {
 
     return (
         <div className='w-full'>
+            <ToastProvider />
+
             <Header text={"Refunded Ariticles Listing"} />
             <div className="w-full flex justify-start items-start gap-x-2 my-4">
                 <div >

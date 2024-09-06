@@ -4,6 +4,7 @@ import Header from '@/components/admin/Header';
 import Table from '@/components/admin/Table';
 import { onGoingBody, onGoingHead } from '@/constants/pending';
 import UseFetchData from '@/hooks/UseFetchData';
+import ToastProvider from '@/utils/Toast';
 
 const Page = () => {
     const [onPendingData, setOnPendingData] = useState([])
@@ -18,6 +19,8 @@ const Page = () => {
 
     return (
         <div className='w-full'>
+            <ToastProvider />
+
             <Header text={"pending order listing"} />
             <Table headTable={onGoingHead} body={onPendingData} dataName='pending' />
         </div>

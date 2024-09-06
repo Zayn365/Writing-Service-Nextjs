@@ -9,6 +9,7 @@ import { DeleteData } from '@/hooks/DeleteData'
 import { EditData } from '@/hooks/EditData'
 import { postData } from '@/hooks/PostData'
 import UseFetchData from '@/hooks/UseFetchData'
+import ToastProvider from '@/utils/Toast'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
@@ -97,6 +98,7 @@ const Page = () => {
     };
     return (
         <div className='w-full'>
+            <ToastProvider />
             <Header text={"Add new offers"} />
             <div className='flex justify-start items-center flex-wrap py-4 gap-8'>
                 <InputField placeholder='Title' type='text' name='title' id='title' handleChange={handleTextChange} value={OffersData.title} />

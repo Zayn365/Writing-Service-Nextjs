@@ -1,6 +1,7 @@
 import Button from '@/components/admin/Button'
 import Header from '@/components/admin/Header'
 import OtherTable from '@/components/admin/OtherTable'
+import ToastProvider from '@/utils/Toast'
 import React from 'react'
 
 const page = () => {
@@ -12,6 +13,8 @@ const page = () => {
 
     return (
         <div className='w-full'>
+            <ToastProvider />
+
             <Header text={"Pages Listing"} />
             <div className="my-4 flex justify-end items-center gap-x-4">
                 <Button text={"add new page"} className='mb-4' />

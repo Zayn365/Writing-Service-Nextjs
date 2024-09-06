@@ -9,6 +9,7 @@ import { DeleteData } from '@/hooks/DeleteData'
 import { EditData } from '@/hooks/EditData'
 import { postData } from '@/hooks/PostData'
 import UseFetchData from '@/hooks/UseFetchData'
+import ToastProvider from '@/utils/Toast'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
@@ -96,6 +97,7 @@ const Page = () => {
     return (
 
         <div>
+            <ToastProvider />
             <Header text={"Add SEO Details"} />
             <div className='flex flex-col gap-y-2'>
                 <div className='flex just'>

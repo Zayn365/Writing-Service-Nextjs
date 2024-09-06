@@ -9,6 +9,7 @@ import { DeleteData } from '@/hooks/DeleteData';
 import { postData } from '@/hooks/PostData';
 import UseFetchData from '@/hooks/UseFetchData';
 import { Axios } from '@/utils/Axios';
+import ToastProvider from '@/utils/Toast';
 import React, { useEffect, useState } from 'react';
 
 const Page = () => {
@@ -38,6 +39,8 @@ const Page = () => {
 
     return (
         <div>
+            <ToastProvider />
+
             <Header text={"Add Testimonial"} />
             <div className='flex flex-col gap-y-2'>
                 <div className='flex just'>

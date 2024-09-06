@@ -5,6 +5,7 @@ import { completedBody, completedHead } from '@/constants/complated'
 import UseFetchData from '@/hooks/UseFetchData'
 import { Axios } from '@/utils/Axios'
 import React, { useEffect, useState } from 'react'
+import ToastProvider from '@/utils/Toast';
 
 const Page = () => {
   const { data, error, loading } = UseFetchData("/api/orders");
@@ -20,6 +21,8 @@ const Page = () => {
 
   return (
     <div className='w-full'>
+      <ToastProvider />
+
       <Header text={"Orders Listing"} />
 
       <Table headTable={completedHead} body={onCompletedData} dataName='completed' />

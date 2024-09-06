@@ -7,6 +7,7 @@ import { blogBody, blogHead } from '@/constants/blog'
 import NotifyUser from './NotifyUser'
 import NewPost from './NewPost'
 import Category from './Category'
+import ToastProvider from '@/utils/Toast'
 
 
 const Page = () => {
@@ -16,6 +17,7 @@ const Page = () => {
 
   return (
     <div className='w-full'>
+      <ToastProvider />
       <Header text={"Blog Posts"} />
       <div className="my-4 flex justify-end items-center gap-x-4">
         <Button

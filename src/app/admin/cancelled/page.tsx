@@ -4,6 +4,7 @@ import Header from '@/components/admin/Header';
 import Table from '@/components/admin/Table';
 import { onGoingBody, onGoingHead } from '@/constants/cancelled';
 import UseFetchData from '@/hooks/UseFetchData';
+import ToastProvider from '@/utils/Toast';
 
 const Page = () => {
   const [onCancelledData, setOnCancelledData] = useState([])
@@ -18,6 +19,7 @@ const Page = () => {
 
   return (
     <div className='w-full'>
+      <ToastProvider />
       <Header text={"Refunded order listing"} />
       <Table headTable={onGoingHead} body={onCancelledData} dataName='completed' />
     </div>

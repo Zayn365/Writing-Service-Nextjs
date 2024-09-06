@@ -2,6 +2,7 @@
 import Header from '@/components/admin/Header'
 import Table from '@/components/admin/Table'
 import UseFetchData from '@/hooks/UseFetchData'
+import ToastProvider from '@/utils/Toast'
 import React, { useEffect, useState } from 'react'
 
 const Page = () => {
@@ -69,6 +70,8 @@ const Page = () => {
     }
     return (
         <div className='w-full'>
+            <ToastProvider />
+
             <Header text={"Users Listing"} />
             <Table headTable={userHeadTable} body={userData} dataName={"user"} />
         </div>
