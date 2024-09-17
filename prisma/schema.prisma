@@ -212,4 +212,38 @@ model seo_details {
   url              String
 }
 
-
+model affilate_users {
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  address            String
+  affiliate_id       String?
+  /// Multiple data types found: String: 99.8%, Int: 0.2% out of 976 sampled entries
+  city               Json?
+  completed_articles Int
+  /// Multiple data types found: String: 99.9%, Int: 0.1% out of 983 sampled entries
+  country            Json?
+  created            String
+  email              String
+  id_                Int     @map("id")
+  is_deleted         Int
+  modified           String?
+  name               String?
+  /// Multiple data types found: String: 98.5%, Binary: 1.5% out of 1000 sampled entries
+  password           Json
+  paypal_id          String?
+  /// Multiple data types found: String: 50%, Int: 6.3%, BigInt: 43.8% out of 16 sampled entries
+  phone              Json?
+  profile_image      String
+  referer_id         Int
+  referring_points   Int?
+  role_id            Int
+  status             Int
+  /// Multiple data types found: String: 99.7%, Int: 0.3% out of 970 sampled entries
+  streetname         Json?
+  /// Could not determine type: the field only had null or empty values in the sample set.
+  token              Json?
+  user_type          String
+  /// Multiple data types found: String: 99.9%, Int: 0.1% out of 1000 sampled entries
+  username           Json?
+  /// Multiple data types found: String: 24.3%, Int: 75.5%, BigInt: 0.2% out of 963 sampled entries
+  zip                Json?
+}
