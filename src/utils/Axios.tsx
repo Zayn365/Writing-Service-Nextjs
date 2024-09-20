@@ -1,5 +1,5 @@
 import axios from "axios";
-const server ="https://write-articles-for-me.vercel.app/api";
+const server = "https://write-articles-for-me.vercel.app/api";
 // const local ="http://127.0.0.1:3000/api";
 // console.log(local);
 const local = process.env.LOCAL;

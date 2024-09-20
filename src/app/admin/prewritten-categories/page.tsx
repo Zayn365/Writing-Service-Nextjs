@@ -19,6 +19,7 @@ const Page = () => {
     const [nextId, setNextId] = useState<number>(1);
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [id, setId] = useState("");
+    const [id_, setId_] = useState("");
 
     const [titleName, setTitleName] = useState("");
 
@@ -46,6 +47,8 @@ const Page = () => {
     const handleDelete = async (id: string) => {
         try {
             const result = await DeleteData(id, "prewrittenBookCategories");
+            const { data, error, loading } = UseFetchData('/api/prewrittenBookCategories');
+
             console.log('prewrittenBookCategories deleted:', result);
         } catch (error) {
             console.error('Error deleting prewrittenBookCategories:', error);
@@ -59,6 +62,7 @@ const Page = () => {
             setTitleName(selected.title);
             setIsEditing(true);
             setId(selected.id)
+            setId_(selected.id_)
         }
         console.log(selected)
     };
@@ -67,13 +71,17 @@ const Page = () => {
     const handleUpdate = async () => {
         if (Number(id) === 0) return;
         try {
-            await EditData(id.toString(), 'prewrittenBookCategories', titleName);
+            console.log(id.toString(), 'prewrittenBookCategories', { id_: id_, title: titleName, });
+            await EditData(id.toString(), 'prewrittenBookCategories', { id_: id_, title: titleName, });
             setIsEditing(false);
         } catch (error) {
             console.error('Error updating prewrittenBookCategories:', error);
             toast.error("Error updating prewrittenBookCategories");
         }
     };
+    if (data) {
+        console.log(data);
+    }
     return (
         <div className='w-full'>
             <ToastProvider />
@@ -89,7 +97,7 @@ const Page = () => {
                 />
             </div>
             <hr className="w-full h-[1px] bg-gray-400" />
-            <Table headTable={prewrittenHead} body={data} dataName='prewritten' handleEdit={handleEdit} handleDelete={handleDelete} />
+            <Table headTable={prewrittenHead} body={data} dataName='prewritten' handleEdit={handleEdit} handleDelete={handleDelete} loading={loading} />
         </div>
     )
 }

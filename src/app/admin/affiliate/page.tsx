@@ -16,18 +16,19 @@ const Page = () => {
         item.role_id === 3 &&
         item.token === null &&
         item.completed_articles === 0 &&
-        item.referring_points === 0 && item.paypal_id !== null
-      );
+        item.referring_points === 0 &&
+        item.paypal_id !== null);
       console.log("Filtered data:", filteredData);
       setAffiliateData(filteredData);
     }
   }, [data]);
 
+
   return (
     <div className='w-full'>
       <ToastProvider />
       <Header text={"Affiliate Users Listing"} />
-      <Table headTable={affiliateHead} body={affiliateData} dataName='affilate' />
+      <Table headTable={affiliateHead} body={affiliateData} dataName='affilate' loading={loading} />
     </div>
   );
 };

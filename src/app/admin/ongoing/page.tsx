@@ -18,7 +18,7 @@ const Page = () => {
 
     useEffect(() => {
         if (data) {
-            const filteredData = data.filter((item) => item.total_amount < 0 && item.original_amount < 0);
+            const filteredData = data.filter((item) => item.status == 0 && item.total_amount === item.original_amount);
             setOnGoingData(filteredData);
         }
     }, [data]);

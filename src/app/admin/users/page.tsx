@@ -7,12 +7,11 @@ import React, { useEffect, useState } from 'react'
 
 const Page = () => {
     const userHeadTable = ["#", "Name", "Email", "user's type", "affiliation", "Date Reg", "Status"]
-    const { data, error, loading } = UseFetchData('/api/user');
+    const { data, error, loading } = UseFetchData('/api/affilateUsers');
     const [userData, setUserData] = useState([])
     useEffect(() => {
         if (data) {
-            const filterUser = data.filter((item) => item.user_type === "User")
-            setUserData(filterUser)
+            setUserData(data)
             console.log(data)
         }
     }, [data]);
@@ -65,15 +64,13 @@ const Page = () => {
         { no: "15", name: "koolient", email: "uergabc@gmail.com", type: "admin", id: "Mark as Paid", date: "04-9-2015 06:35:45", status: { active: 'active', unactive: "de-active" } },
 
     ]
-    if (loading) {
-        return <p>loading...</p>
-    }
+
     return (
         <div className='w-full'>
             <ToastProvider />
 
             <Header text={"Users Listing"} />
-            <Table headTable={userHeadTable} body={userData} dataName={"user"} />
+            <Table headTable={userHeadTable} body={userData} dataName={"user"} loading={loading} />
         </div>
     )
 }

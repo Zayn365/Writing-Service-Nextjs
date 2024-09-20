@@ -123,7 +123,7 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
                                                 <td className='text-start px-2 py-1 '>
                                                     <Button text={"Mark as paid"} className='hover:bg-orange-700' />
                                                 </td>
-                                                <td className='text-start px-2 py-1 '>{item?.date?.toString() || 'N/A'}</td>
+                                                <td className='text-start px-2 py-1 '>{item?.created || 'N/A'}</td>
                                                 <td className='text-start px-2 py-1'>
                                                     <select name="" id="" className='border'>
                                                         <>
@@ -256,7 +256,7 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
                                                 <td className='text-start px-2 py-1'>{item?.id_}</td>
                                                 <td className='text-start px-2 py-1 '>{item?.name}</td>
                                                 <td className='text-start px-2 py-1 '>{item?.email}</td>
-                                                <td className='text-start px-2 py-1 '>{item?.date}</td>
+                                                <td className='text-start px-2 py-1 '>{item?.created}</td>
                                                 <td className='text-start px-2 py-1 '>
                                                     <Button text={"payments"} />
                                                 </td>

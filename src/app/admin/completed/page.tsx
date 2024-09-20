@@ -3,22 +3,38 @@ import Header from '@/components/admin/Header'
 import Table from '@/components/admin/Table'
 import { completedBody, completedHead } from '@/constants/complated'
 import UseFetchData from '@/hooks/UseFetchData'
-import { Axios } from '@/utils/Axios'
 import React, { useEffect, useState } from 'react'
 import ToastProvider from '@/utils/Toast';
 
 const Page = () => {
-  const { data, error, loading } = UseFetchData("/api/orders");
+  const { data: orders, error: ordersError, loading: ordersLoading } = UseFetchData("/api/orders");
+  const { data: clients, error: clientsError, loading: clientsLoading } = UseFetchData("/api/clients");
   const [onCompletedData, setOnCompletedData] = useState([])
 
-
   useEffect(() => {
-    if (data) {
-      const filteredData = data.filter((item) => item.total_amount > 0 && item.original_amount > 0 && item.status === 2);
-      setOnCompletedData(filteredData);
-    }
-  }, [data]);
+    if (orders && clients) {
+      const filteredOrders = orders.filter(order => order.total_amount > 0 && order.original_amount > 0 && order.status === 2);
 
+      const filteredClients = filteredOrders.map(order => {
+        const client = clients.find(client => client.id_ === order.user_id);
+        return client ? { ...order, ...client } : null;
+      }).filter(Boolean);
+
+      setOnCompletedData(filteredClients);
+    }
+  }, [orders, clients]);
+
+  if (ordersLoading || clientsLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (ordersError || clientsError) {
+    return <div>Error loading data</div>;
+  }
+
+  if (onCompletedData) {
+    console.log(onCompletedData)
+  }
   return (
     <div className='w-full'>
       <ToastProvider />
