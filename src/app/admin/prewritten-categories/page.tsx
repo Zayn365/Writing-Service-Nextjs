@@ -48,6 +48,9 @@ const Page = () => {
         try {
             const result = await DeleteData(id, "prewrittenBookCategories");
             const { data, error, loading } = UseFetchData('/api/prewrittenBookCategories');
+            if (result) {
+                toast.success("Deleted successfully!")
+            }
 
             console.log('prewrittenBookCategories deleted:', result);
         } catch (error) {
