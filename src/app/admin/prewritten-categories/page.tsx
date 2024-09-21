@@ -95,14 +95,16 @@ const Page = () => {
                 />
             </div>
             <hr className="w-full h-[1px] bg-gray-400" />
-            <Table
-                headTable={prewrittenHead}
-                body={data}
-                dataName='prewritten'
-                handleEdit={handleEdit}
-                handleDelete={handleDelete}
-                loading={loading}
-            />
+            {
+                loading ? <div>Loading......</div> :
+                    <Table
+                        headTable={prewrittenHead}
+                        body={data}
+                        dataName='prewritten'
+                        handleEdit={handleEdit}
+                        handleDelete={handleDelete}
+                    />
+            }
         </div>
     )
 }
