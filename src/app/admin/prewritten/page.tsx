@@ -7,7 +7,7 @@ import { postData } from '@/hooks/PostData'
 import UseFetchData from '@/hooks/UseFetchData'
 import { Axios } from '@/utils/Axios'
 import ToastProvider from '@/utils/Toast'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Page = () => {
     const prewrittenHead = ["#", "category", "Title", "subtitle", "word", "Amount", "purchased", "status", ""]
@@ -27,7 +27,7 @@ const Page = () => {
         },
 
     ]
-    const { data, loading, error } = UseFetchData("/api/prewrittenBookCategories")
+    const { data, loading, error } = UseFetchData("/api/prewrittenBooks")
 
     if (data) {
         console.log(data)
@@ -91,6 +91,9 @@ const Page = () => {
             console.log('Something went wrong:', error);
         }
     };
+    useEffect(() => {
+        addPreWritten();
+    }, [])
 
     return (
         <div className='w-full'>

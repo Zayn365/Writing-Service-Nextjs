@@ -194,7 +194,7 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
                                                         className="font-normal rounded-md text-sm p-1 bg-blue-800 text-white capitalize hover:bg-orange-700"
                                                         href={{
                                                             pathname: '/admin/completed/user-article',
-                                                            query: { id: 'test' },
+                                                            query: { id: `${item?.id_}` },
                                                         }}>
                                                         View
                                                     </Link>
@@ -229,8 +229,8 @@ const Table: React.FC<TableProps> = ({ headTable, body, dataName, handleDelete, 
                                                 <td className='text-start px-2 py-1 '>{item?.amount}</td>
                                                 <td className='text-start px-2 py-1 '>{item?.purchased}</td>
                                                 <td className='text-start px-2 py-1 '>{item?.status}</td>
-                                                <td className='px-2 py-1 text-center gap-x-2 flex capitalize '>
-                                                    <Button text={"edit"} className='mb-4' buttonHandle={() => handleEdit?.(item.id)}
+                                                <td className='px-2 py-1 text-center gap-x-2  flex justify-center items-center item capitalize '>
+                                                    <Button text={"edit"} buttonHandle={() => handleEdit?.(item.id)}
                                                     />
                                                     <Button text={"delete"} buttonHandle={() => handleDelete?.(item.id)}
                                                     />

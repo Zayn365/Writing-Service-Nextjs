@@ -16,10 +16,10 @@ const Page = () => {
       const filteredOrders = orders.filter(order => order.total_amount > 0 && order.original_amount > 0 && order.status === 2);
 
       const filteredClients = filteredOrders.map(order => {
-        const client = clients.find(client => client.id_ === order.user_id);
+        const client = clients.find(client => client.id_ === order.id_);
         return client ? { ...order, ...client } : null;
       }).filter(Boolean);
-
+      console.log(filteredClients)
       setOnCompletedData(filteredClients);
     }
   }, [orders, clients]);
