@@ -1,18 +1,17 @@
 // useFetchData.js
 'use client'
-import { Axios } from '@/utils/Axios';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
-const UseFetchData = (endpoint) => {
+const UseFetchData = (endpoint, fetchCount = 0) => {
     const [data, setData] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true); // Start loading state before fetching
             try {
-                console.log(endpoint)
                 const response = await axios.get(endpoint);
                 setData(response.data.data);
             } catch (error) {
@@ -24,7 +23,7 @@ const UseFetchData = (endpoint) => {
         };
 
         fetchData();
-    }, [endpoint]);
+    }, [endpoint, fetchCount]); // Add fetchCount to dependencies
 
     return { data, error, loading };
 };

@@ -35,7 +35,9 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "api",
-    "src/app/admin/layout.tsx"
+    "src/app/admin/layout.tsx",
+    "src/hooks/UseFetchData.js",
+    "src/hooks/PostData.tsx"
   ],
   "exclude": [
     "node_modules"
