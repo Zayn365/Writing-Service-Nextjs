@@ -34,10 +34,10 @@ const Page = () => {
     const addPreWrittenBook = async () => {
         try {
             const prewrittenBookCategories = { title: titleName, id_: nextId };
-            const response = await postData({ endpoint: 'api/prewrittenBookCategories', data: prewrittenBookCategories });
-            console.log('prewrittenBookCategories added successfully:', response.data);
             toast.success("Added successfully!");
             setFetchCount(prev => prev + 1); // Trigger re-fetch
+            const response = await postData({ endpoint: 'api/prewrittenBookCategories', data: prewrittenBookCategories });
+            console.log('prewrittenBookCategories added successfully:', response.data);
             setTitleName("")
         } catch (error) {
             console.log('Something went wrong:', error);
@@ -46,9 +46,9 @@ const Page = () => {
 
     const handleDelete = async (id: string) => {
         try {
-            await DeleteData(id, "prewrittenBookCategories");
             toast.success("Deleted successfully!");
             setFetchCount(prev => prev + 1); // Trigger re-fetch
+            await DeleteData(id, "prewrittenBookCategories");
         } catch (error) {
             console.error('Error deleting prewrittenBookCategories:', error);
         }
