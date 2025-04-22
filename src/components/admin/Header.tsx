@@ -1,15 +1,27 @@
 "use client";
 import Cookies from "js-cookie";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
 const Header = ({ text }: any) => {
-  const data: any = JSON.parse(Cookies.get("user"));
+  const [data, setData] = useState<any>(null);
+
   useEffect(() => {
-    if (data && data?.userType === "user") {
-      window.location.href = "/";
+    const cookie = Cookies.get("user");
+    if (cookie && cookie !== "undefined") {
+      try {
+        const parsed = JSON.parse(cookie);
+        setData(parsed);
+        if (parsed?.userType === "user") {
+          window.location.href = "/";
+        }
+      } catch (e) {
+        console.error("Invalid user cookie JSON:", e);
+      }
     }
-  }, [data]);
+  }, []);
+
   return (
-    <div className="w-full p-2 mb-2 capitalize border-black border bg-orange-700  text-center text-white text-lg">
+    <div className="w-full p-2 mb-2 capitalize border-black border bg-orange-700 text-center text-white text-lg">
       {text}
     </div>
   );
