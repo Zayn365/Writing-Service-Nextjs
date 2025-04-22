@@ -7,12 +7,11 @@ import { toast } from "react-toastify";
 export const UserHooks = () => {
   const router = useRouter();
   const x = useAppContext();
-  console.log(x);
   const date = new Date();
 
   async function handleSignup(data: any) {
     try {
-      Axios.post("/api/signup", {
+      const res = await Axios.post("/api/signup", {
         address: {
           address: "",
           city: "",
@@ -37,46 +36,40 @@ export const UserHooks = () => {
         status: "active",
         userType: "user",
         writerSampleFile: "https://example.com/johndoe-sample.docx",
-      })
-        .then((res: any) => {
-          toast.success("User Created Successfully!");
-          setTimeout(() => {
-            router.push("/signin");
-          }, 6000);
-        })
-        .catch((e: any) => {
-          toast.error(`User Faild To Created Cause ${e.message}`);
-        });
+      });
+
+      toast.success("User Created Successfully!");
+      setTimeout(() => {
+        router.push("/signin");
+      }, 6000);
     } catch (e: any) {
-      toast.error("User Faild To Created");
-      console.log(e.message);
+      console.log("TCL ~ handleSignup ~ e:", e);
+      toast.error(e?.response?.data?.error || e.message);
     }
   }
 
   async function handleSignIn(data: any) {
     try {
-      Axios.post("/api/login", {
+      const res = await Axios.post("/api/login", {
         email: data.email,
         password: data.password,
-      }).then((res: any) => {
-        console.log(res.data.user);
-        x.setUser(res.data.user);
-        const stringer = JSON.stringify(res.data.user);
-        Cookies.set("user", stringer);
-        toast.success("User Logged In SuccessFully");
-        setTimeout(() => {
-          if(res?.data?.user?.userType === "admin") {
-            router.push("/admin");
-          }
-          else {
-            router.push("/");
-          }
-          
-        }, 2000);
       });
+
+      console.log(res.data.user);
+      x.setUser(res.data.user);
+      Cookies.set("user", JSON.stringify(res.data.user));
+
+      toast.success("User Logged In Successfully");
+      setTimeout(() => {
+        if (res?.data?.user?.userType === "admin") {
+          router.push("/admin");
+        } else {
+          router.push("/");
+        }
+      }, 2000);
     } catch (error: any) {
-      toast.success("Login Failed");
-      console.log(error.message);
+      console.log("TCL ~ handleSignIn ~ error:", error);
+      toast.error(error?.response?.data?.error || error.message);
     }
   }
   return { handleSignup, handleSignIn };

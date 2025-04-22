@@ -27,7 +27,7 @@ const Contact = () => {
             </Typography>
             {/* @ts-ignore */}
             <Typography className="mt-2 text-gray-500">
-              — Write article for me
+              — Ghost Writers
             </Typography>
           </div>
         </div>
@@ -65,13 +65,15 @@ const Contact = () => {
             <div className="mt-4">
               <textarea
                 placeholder="Leave us a message..."
-                className="border border-gray-300 p-3 rounded-lg w-full focus:border-blue-500 h-32"></textarea>
+                className="border border-gray-300 p-3 rounded-lg w-full focus:border-blue-500 h-32"
+              ></textarea>
             </div>
 
             <div className="mt-6">
               <button
                 type="submit"
-                className="bg-[#F97E1A] text-white py-3 px-6 rounded-lg hover:bg-opacity-75 focus:outline-none focus:bg-blue-700">
+                className="bg-[#F97E1A] text-white py-3 px-6 rounded-lg hover:bg-opacity-75 focus:outline-none focus:bg-blue-700"
+              >
                 send message
               </button>
             </div>

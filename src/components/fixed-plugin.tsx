@@ -18,7 +18,7 @@ export function FixedPlugin() {
           alt="Material Tailwind"
           src="image/logo.png"
         />{" "}
-        Made For Write Articles For Me
+        Made For Ghost Writers For Me
       </Button>
     </a>
   );

@@ -29,6 +29,8 @@ const NAV_MENU = [
   {
     name: "Home",
     icon: RectangleStackIcon,
+    type: "user",
+
     href: "/",
   },
   // {
@@ -38,21 +40,28 @@ const NAV_MENU = [
   {
     name: "About",
     icon: CommandLineIcon,
+    type: "user",
+
     href: "/about",
   },
   {
     name: "Contact",
     icon: ChatBubbleLeftIcon,
+    type: "user",
+
     href: "/contact",
   },
   {
     name: "Service",
     icon: UserGroupIcon,
+    type: "user",
+
     href: "/service",
   },
   {
     name: "Menu",
     icon: CubeIcon,
+    type: "admin",
     subItems: [
       { name: "Clients", href: "/menu/clients", type: "admin" },
       // { name: "Profile", href: "/menu/profile" },
@@ -84,7 +93,8 @@ function NavItem({ children, href }: NavItemProps) {
         target={href ? "_self" : "_self"}
         variant="paragraph"
         color="gray"
-        className="flex items-center gap-2 font-medium my-1 text-gray-900">
+        className="flex items-center gap-2 font-medium my-1 text-gray-900"
+      >
         {children}
       </Typography>
     </li>
@@ -97,7 +107,8 @@ function Dropdown({ name, icon: Icon, subItems }: any) {
     <li className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 font-medium text-gray-900">
+        className="flex items-center gap-2 font-medium text-gray-900"
+      >
         {Icon && <Icon className="h-5 w-5" />}
         {name}
       </button>
@@ -156,11 +167,16 @@ export function Navbar() {
           href="/"
           target="_blank"
           color="blue-gray"
-          className="text-lg font-bold">
+          className="text-lg font-bold"
+        >
           <img src="image/logo.png" alt="logo" />
         </Typography>
         <ul className="ml-10 hidden items-center gap-8 lg:flex">
-          {NAV_MENU.map(({ name, icon: Icon, href, subItems }: any) =>
+          {NAV_MENU.filter((val) => {
+            return user && user.userType === "user"
+              ? val.type === "user"
+              : true;
+          }).map(({ name, icon: Icon, href, subItems }: any) =>
             subItems ? (
               <div key={name} className={`${user ? "" : "hidden"}`}>
                 <Dropdown
@@ -186,7 +202,8 @@ export function Navbar() {
                 /* @ts-ignore */
                 href="/"
                 color="white"
-                className="flex justify-center items-center py-2 gap-x-5 rounded-lg px-2">
+                className="flex justify-center items-center py-2 gap-x-5 rounded-lg px-2"
+              >
                 {/* @ts-ignore */}
                 <UserCircleIcon color="grey" width={25} />
                 {/* @ts-ignore */}
@@ -225,7 +242,8 @@ export function Navbar() {
           variant="text"
           color="gray"
           onClick={handleOpen}
-          className="ml-auto inline-block lg:hidden">
+          className="ml-auto inline-block lg:hidden"
+        >
           {open ? (
             <XMarkIcon strokeWidth={2} className="h-6 w-6" />
           ) : (
@@ -262,7 +280,8 @@ export function Navbar() {
                     /* @ts-ignore */
                     href="/"
                     color="white"
-                    className="flex justify-center items-center py-2 gap-x-5 rounded-lg px-2">
+                    className="flex justify-center items-center py-2 gap-x-5 rounded-lg px-2"
+                  >
                     {/* @ts-ignore */}
                     <UserCircleIcon color="grey" width={25} />
                     {/* @ts-ignore */}

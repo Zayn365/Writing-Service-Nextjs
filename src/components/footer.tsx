@@ -16,13 +16,15 @@ export function Footer() {
           {/* @ts-ignore */}
           <Typography
             className="text-2xl md:text-3xl text-center font-bold "
-            color="white">
+            color="white"
+          >
             Join our community!
           </Typography>
           {/* @ts-ignore */}
           <Typography
             color="white"
-            className=" md:w-7/12 text-center my-3 !text-base">
+            className=" md:w-7/12 text-center my-3 !text-base"
+          >
             Get news in your inbox every week! We hate spam too, so no worries
             about this.
           </Typography>
@@ -44,7 +46,8 @@ export function Footer() {
             href="https://www.material-tailwind.com"
             target="_blank"
             variant="h6"
-            className="text-gray-900">
+            className="text-gray-900"
+          >
             <img src="image/logo.png" alt="logo" className="w-1/2" />
           </Typography>
           <ul className="flex justify-center my-4 md:my-0 w-max mx-auto items-center gap-4">
@@ -56,7 +59,8 @@ export function Footer() {
                   href="#"
                   variant="small"
                   color="white"
-                  className="font-normal !text-gray-700 hover:!text-gray-900 transition-colors">
+                  className="font-normal !text-gray-700 hover:!text-gray-900 transition-colors"
+                >
                   {link}
                 </Typography>
               </li>
@@ -84,9 +88,9 @@ export function Footer() {
         {/* @ts-ignore */}
         <Typography
           color="blue-gray"
-          className="text-center mt-12 font-normal !text-gray-700">
-          &copy; {CURRENT_YEAR} Made for <a href="/">Write Articles For Me🖤</a>{" "}
-          by{" "}
+          className="text-center mt-12 font-normal !text-gray-700"
+        >
+          &copy; {CURRENT_YEAR} Made for <a href="/">Ghost Writers🖤</a> by{" "}
           <a href="https://github.com/Zayn365" target="_blank">
             Muhammad Zain Saeed
           </a>

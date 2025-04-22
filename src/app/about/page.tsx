@@ -82,7 +82,7 @@ const About = () => {
             <p className="text-sm text-gray-800">
               Whether you{" ' "}re an avid reader seeking insightful content, a
               writer looking to share your work, or someone passionate about the
-              power of words, Write Articles is the place for you. Join our
+              power of words, Ghost Writers is the place for you. Join our
               community, explore our articles, and be part of a platform that
               values the art of writing.
             </p>
